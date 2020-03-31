@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 257.71 242.97" style="enable-background:new 0 0 257.71 242.97;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;stroke:#010101;stroke-width:3;stroke-miterlimit:10;}
+	.st1{fill:#010101;}
+	.st2{fill:#010101;stroke:#FFFFFF;stroke-miterlimit:10;}
+	.st3{fill:#FFDC80;stroke:#010101;stroke-width:2;stroke-miterlimit:10;}
+	.st4{fill:#FFFFFF;}
+</style>
+<g>
+	<g>
+		<path class="st0" d="M131.25,177.55L131.25,177.55c-22.68,0-41.24-18.92-41.24-42.04V114h82.49v21.52
+			C172.49,158.64,153.93,177.55,131.25,177.55z"/>
+		<g>
+			<ellipse class="st1" cx="90.64" cy="114.4" rx="6.07" ry="6.18"/>
+			<ellipse class="st1" cx="172.49" cy="114.4" rx="6.07" ry="6.18"/>
+		</g>
+	</g>
+	<path class="st2" d="M132.33,155.43h-2.17c-13.4,0-24.37-10.97-24.37-24.37V86.28c0-13.4,10.97-24.37,24.37-24.37h2.17
+		c13.4,0,24.37,10.97,24.37,24.37v44.78C156.7,144.46,145.74,155.43,132.33,155.43z"/>
+	<g>
+		<line class="st3" x1="130.56" y1="178.51" x2="130.56" y2="193.59"/>
+		<line class="st3" x1="111.22" y1="192.99" x2="149.5" y2="192.99"/>
+	</g>
+	<g>
+		<rect x="106.18" y="85.41" class="st4" width="21.02" height="3.72"/>
+	</g>
+	<g>
+		<rect x="106.18" y="96.06" class="st4" width="16.58" height="2.93"/>
+	</g>
+	<g>
+		<rect x="140.23" y="89.73" class="st4" width="16.58" height="2.93"/>
+	</g>
+</g>
+</svg>
