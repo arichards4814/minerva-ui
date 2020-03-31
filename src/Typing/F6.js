@@ -5,7 +5,8 @@ import * as Fonts from '../Schemes/Fonts'
 const useStyles = makeStyles({
     root: {
         fontSize: "15px",
-        fontFamily: props => Fonts.handleFonts(props)
+        fontFamily: props => Fonts.handleFonts(props),
+        color: props => props.color
     }
 
 });

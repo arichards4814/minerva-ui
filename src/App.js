@@ -20,7 +20,11 @@ import TinyNote from './Icons/Tiny/TinyNote'
 import TinyQuestion from './Icons/Tiny/TinyQuestion'
 import TinyMinus from './Icons/Tiny/TinyMinus'
 
-export default function App() {
+// redux
+import { connect } from 'react-redux';
+import { likeActionCreator } from './actionCreators'
+
+const App = props => {
 
   const [open, setOpen] = useState(true)
 
@@ -29,6 +33,9 @@ export default function App() {
   }
   return (
     <div >
+      <button onClick={props.like}>
+        Like<span role="img" aria-label="thumbs up">👍</span>
+      </button>
       <Navling />
       <TinyPlus size={1.5} theme="minerva"/>
       <TinyNote size={1.5} theme="secondary" />
@@ -65,3 +72,17 @@ export default function App() {
   );
 }
 
+
+const mapStateToProps = (state) => {
+  return {
+    likes: state.likes
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    like: () => dispatch(likeActionCreator())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

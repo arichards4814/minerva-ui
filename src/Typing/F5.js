@@ -1,10 +1,12 @@
 import React from 'react'
 import { makeStyles} from '@material-ui/core'
+import * as Fonts from '../Schemes/Fonts'
 
 const useStyles = makeStyles({
     root: {
         fontSize: "20px",
-        fontFamily: "font-family: 'Roboto', sans-serif"
+        fontFamily: props => Fonts.handleFonts(props),
+        color: props => props.color
     }
 
 });
