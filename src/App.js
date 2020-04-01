@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import './App.css';
 import Dock from './Container/Dock'
 import LoadingAnimation from './Components/LoadingAnimation';
@@ -19,10 +19,15 @@ import TinyPlus from './Icons/Tiny/TinyPlus'
 import TinyNote from './Icons/Tiny/TinyNote'
 import TinyQuestion from './Icons/Tiny/TinyQuestion'
 import TinyMinus from './Icons/Tiny/TinyMinus'
+import SearchFunctions from './Youtube/SearchFunctions'
 
 // redux
 import { connect } from 'react-redux';
 import { likeActionCreator } from './actionCreators'
+
+
+console.log("api key", process.env.REACT_APP_API_KEY)
+console.log("api key", process.env.REACT_APP_CLIENT_ID)
 
 const App = props => {
 
@@ -31,8 +36,11 @@ const App = props => {
   const close = () => {
     setOpen(false)
   }
+
+
   return (
     <div >
+      <SearchFunctions />
       <button onClick={props.like}>
         Like<span role="img" aria-label="thumbs up">👍</span>
       </button>
