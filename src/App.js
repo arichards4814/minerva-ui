@@ -26,8 +26,6 @@ import { connect } from 'react-redux';
 import { likeActionCreator } from './actionCreators'
 
 
-console.log("api key", process.env.REACT_APP_API_KEY)
-console.log("api key", process.env.REACT_APP_CLIENT_ID)
 
 const App = props => {
 
@@ -40,21 +38,21 @@ const App = props => {
 
   return (
     <div >
-      <SearchFunctions />
-      <button onClick={props.like}>
-        Like<span role="img" aria-label="thumbs up">👍</span>
+    <SearchFunctions />
+      {/* <button onClick={props.like}> */}
+        {/* Like<span role="img" aria-label="thumbs up">👍</span>
       </button>
       <Navling />
       <TinyPlus size={1.5} theme="minerva"/>
       <TinyNote size={1.5} theme="secondary" />
       <TinyQuestion size={1.5} theme="third" />
-      <TinyMinus size={1.5} theme="fourth" />
+      <TinyMinus size={1.5} theme="fourth" /> */} */}
       {/* <Youtube id="IBouhf4seWQ" /> */}
       {/* <QuillEditor /> */}
       {/* <LoadingAnimation />  */}
-      <Card />
+      {/* <Card /> */}
       <div >
-        <F1>F1: Explore Curriculums</F1>
+        {/* <F1>F1: Explore Curriculums</F1>
         <F2>F2: Explore Curriculums</F2>
         <F3>F3: Explore Curriculums</F3>
         <F4>F4: Explore Curriculums</F4>
@@ -65,7 +63,7 @@ const App = props => {
         <F3 font="secondary">F3: Explore Curriculums</F3>
         <F4 font="secondary">F4: Explore Curriculums</F4>
         <F5 font="secondary">F5: Explore Curriculums</F5>
-        <F6 font="secondary">F6: Explore Curriculums</F6>
+        <F6 font="secondary">F6: Explore Curriculums</F6> */}
       </div>
       <Row>
         <Layout width={3}>

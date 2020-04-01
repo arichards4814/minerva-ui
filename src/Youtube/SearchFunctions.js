@@ -8,17 +8,28 @@
 
    //import api from gitignore file
 import React from 'react'
-
 import { gapi } from 'gapi-script';
 
+
+//currently this thing requires authorization and load. 
+
 class YoutubeSearch extends React.Component{
+
+    state = {
+        body: {}
+    }
 
     componentDidMount() {
 
         gapi.load("client:auth2", function () {
             gapi.auth2.init({ client_id: process.env.REACT_APP_CLIENT_ID });
         });
-    
+        if (gapi.client){
+        gapi.client.setApiKey(process.env.REACT_APP_API_KEY);
+        return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+            .then(function () { console.log("GAPI client loaded for API"); },
+                function (err) { console.error("Error loading GAPI client for API", err); });
+        }
        
     }
 
@@ -38,24 +49,48 @@ class YoutubeSearch extends React.Component{
     }
 
     // Make sure the client is loaded and sign-in is complete before calling this method.
-    execute = () => {
+    execute = (videoid) => {
         console.log("worked")
         return gapi.client.youtube.search.list({
             "part": "snippet",
-            "q": "NgWdv081oqQ"
-        })
-            .then(function (response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
-            },
-                function (err) { console.error("Execute error", err); });
+            "q": videoid
+        }).then(response => { response.body.json() 
+            
+            console.log(response.body)
+            console.log("[]",response.body["items"])
+            console.log("keys", response.body.keys)})
+
+
+            // .then(function (response) {
+            //     // Handle the results here (response.result has the parsed body).
+            //     console.log("Response", response);
+            //     return response.json()
+            // },
+            //     function (err) { console.error("Execute error", err); })
+            //     .then(body => console.log(body));
+    }
+
+    getYoutubeIDFromURL = (url) => {
+        let video_id = url.split('v=')[1]
+        
+        if (!video_id){
+            console.log("There is a problem with this URL")
+        } else {
+            let ampersandPosition = video_id.indexOf('&');
+            if (ampersandPosition != -1) {
+                video_id = video_id.substring(0, ampersandPosition);
+            }
+            console.log(`The video ID is ${video_id}`)
+            this.execute(video_id)
+        }
     }
 
     render(){
         return (
             <div>
-                <button onClick={() => this.authenticate().then(this.loadClient)}>authorize and load</button>
-                <button onClick={this.execute}>execute</button>
+                <button onClick={() => this.getYoutubeIDFromURL("https://www.youtube.com/watch?v=_Hj9v6pwTf8")}></button>
+                <button onClick={this.loadClient}>authorize and load</button>
+                {/* <button onClick={() => this.execute("_Hj9v6pwTf8")}>execute</button> */}
             </div>)
     }
    
