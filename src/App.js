@@ -20,6 +20,9 @@ import TinyNote from './Icons/Tiny/TinyNote'
 import TinyQuestion from './Icons/Tiny/TinyQuestion'
 import TinyMinus from './Icons/Tiny/TinyMinus'
 import SearchFunctions from './Youtube/SearchFunctions'
+import * as requests from './requests'
+
+import ContentCard from './Components/ContentCard'
 
 // redux
 import { connect } from 'react-redux';
@@ -35,9 +38,16 @@ const App = props => {
     setOpen(false)
   }
 
+  useEffect(() => {
+    requests.fetchNotebooks(1)
+    .then(body => console.log(body))
+
+  }, [])
+
 
   return (
     <div >
+      <ContentCard videoid={"_Hj9v6pwTf8"}/>
     <SearchFunctions />
       {/* <button onClick={props.like}> */}
         {/* Like<span role="img" aria-label="thumbs up">👍</span>
@@ -46,9 +56,9 @@ const App = props => {
       <TinyPlus size={1.5} theme="minerva"/>
       <TinyNote size={1.5} theme="secondary" />
       <TinyQuestion size={1.5} theme="third" />
-      <TinyMinus size={1.5} theme="fourth" /> */} */}
-      {/* <Youtube id="IBouhf4seWQ" /> */}
-      {/* <QuillEditor /> */}
+      <TinyMinus size={1.5} theme="fourth" /> */} 
+      <Youtube id="IBouhf4seWQ" />
+      <QuillEditor />
       {/* <LoadingAnimation />  */}
       {/* <Card /> */}
       <div >
@@ -65,14 +75,14 @@ const App = props => {
         <F5 font="secondary">F5: Explore Curriculums</F5>
         <F6 font="secondary">F6: Explore Curriculums</F6> */}
       </div>
-      <Row>
+      {/* <Row>
         <Layout width={3}>
           Testing 123
         </Layout>
         <Layout width={3}>
           Testing 123
         </Layout>
-      </Row>
+      </Row> */}
       {open && <Snackling theme="minerva" icon="plus" close={close} ></Snackling>} 
     </div>
   );

@@ -4,8 +4,9 @@ import { makeStyles} from '@material-ui/core'
 const useStyles = makeStyles({
     root:{
         width: props => { return `${props.width * 8.3}%`},
-        backgroundColor: "blue" ,
-        display: "inline-block"
+        // backgroundColor: "blue" ,
+        display: "inline-block",
+        wordWrap: "break-word"
     }
 });
 

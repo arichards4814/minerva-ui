@@ -9,6 +9,7 @@
    //import api from gitignore file
 import React from 'react'
 import { gapi } from 'gapi-script';
+import AxiosSearch from './AxiosSearch'
 
 
 //currently this thing requires authorization and load. 
@@ -54,11 +55,11 @@ class YoutubeSearch extends React.Component{
         return gapi.client.youtube.search.list({
             "part": "snippet",
             "q": videoid
-        }).then(response => { response.body.json() 
+        }).then(response => { 
             
-            console.log(response.body)
+            console.log(response.body.data)
             console.log("[]",response.body["items"])
-            console.log("keys", response.body.keys)})
+            console.log("keys", response.data.items)})
 
 
             // .then(function (response) {
@@ -85,9 +86,23 @@ class YoutubeSearch extends React.Component{
         }
     }
 
+    ////////
+    //AXIOS TEST
+    handleSearch = async (youtubeid) => {
+        const response = await AxiosSearch.get('/search', {
+            params:{
+                q: youtubeid,
+                part: "snippet",
+                key: process.env.REACT_APP_API_KEY}
+        })
+        console.log(response.data.items[0].snippet)
+        //handle the search response here :)
+    }
+
     render(){
         return (
             <div>
+                <button onClick={() => this.handleSearch("_Hj9v6pwTf8")}>Test Search</button>
                 <button onClick={() => this.getYoutubeIDFromURL("https://www.youtube.com/watch?v=_Hj9v6pwTf8")}></button>
                 <button onClick={this.loadClient}>authorize and load</button>
                 {/* <button onClick={() => this.execute("_Hj9v6pwTf8")}>execute</button> */}

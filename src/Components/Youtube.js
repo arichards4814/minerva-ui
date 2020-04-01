@@ -76,7 +76,7 @@ class YouTube extends React.PureComponent {
 
                 <button onClick={this.checkCurrentTime}>Check time</button>
                 <button onClick={this.goToSpecifiedTime}>Go to 45</button>
-                <Timeline totalTime={this.state.totalTime} goToSpecifiedTime={this.goToSpecifiedTime}/>
+                {/* <Timeline totalTime={this.state.totalTime} goToSpecifiedTime={this.goToSpecifiedTime}/> */}
             </div>
         );
     };
