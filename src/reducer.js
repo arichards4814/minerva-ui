@@ -10,7 +10,10 @@ export const reducer = (prevState = initialState, action) => {
         case 'LIKE':
             console.log(prevState.likes)
             return { ...prevState, likes: prevState.likes + 1 }
+        case 'FETCH_CURRICULUMS':
+            return {...prevState, curriculums: action.payload.curriculums}
         default:
+        
             return prevState
     }
 }

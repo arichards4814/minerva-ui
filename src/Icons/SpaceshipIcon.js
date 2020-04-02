@@ -47,7 +47,7 @@ export default function SpaceshipIcon(props) {
 
 
 return(
-    <div className={selected ? "icon-hover selected" : "icon-hover"} onClick={() => props.clickHandler(props.index)} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
+    <div className={selected ? "icon-hover selected" : "icon-hover"} onClick={() => props.clickAction(props.index)} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
 
         <svg
             width="100%"

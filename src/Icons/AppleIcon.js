@@ -38,7 +38,7 @@ export default function SpaceshipIcon(props) {
     });
 
     return (
-        <div className={selected ? "icon-hover selected" : "icon-hover"} onClick={() => props.clickHandler(props.index)} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
+        <div className={selected ? "icon-hover selected" : "icon-hover"} onClick={() => props.clickAction(props.index)} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
 
             <svg
                 width="100%"
@@ -48,9 +48,9 @@ export default function SpaceshipIcon(props) {
                 xmlnsXlink="http://www.w3.org/1999/xlink"
             >
                 <g>
-                    <circle class={classes.st0} cx="210.16" cy="186.9" r="136.94" />
-                    <path class={classes.st1} d="M231.05,26.18c0,0-45.29,147.43-178.15,180.09C52.9,206.28,89.69,23.89,231.05,26.18z" />
-                    <path class={classes.st2} d="M267.31,132.93c0,0,43.25,25.23,31.55,102.69C291.78,200.78,280.88,166.62,267.31,132.93z" />
+                    <circle className={classes.st0} cx="210.16" cy="186.9" r="136.94" />
+                    <path className={classes.st1} d="M231.05,26.18c0,0-45.29,147.43-178.15,180.09C52.9,206.28,89.69,23.89,231.05,26.18z" />
+                    <path className={classes.st2} d="M267.31,132.93c0,0,43.25,25.23,31.55,102.69C291.78,200.78,280.88,166.62,267.31,132.93z" />
                 </g>
             </svg>
             <Tooltip content="Lessons" showing={hovered ? "visible" : "hidden"} />

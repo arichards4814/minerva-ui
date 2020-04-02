@@ -110,7 +110,7 @@
 
 .majestic-button{
     --ripple-background: black;
-    --ripple-opacity: 0.9;  
+    --ripple-opacity: 1;  
     --ripple-duration: 600ms;      
     
   background-color: #FFFFFF;
@@ -155,7 +155,7 @@
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .25);
+  background: #FFD000;
   .c-ripple.is-active & {
     animation: a-ripple .4s ease-in;
   }

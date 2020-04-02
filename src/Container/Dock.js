@@ -6,6 +6,7 @@ import SpaceshipIcon from '../Icons/SpaceshipIcon'
 import NotebookIcon from '../Icons/NotebookIcon'
 import AppleIcon from '../Icons/AppleIcon'
 import HomeIcon from '../Icons/HomeIcon'
+import { useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles({
@@ -20,18 +21,36 @@ const useStyles = makeStyles({
 
 export default function Dock(props){
     const classes = useStyles(props)  
+    let history = useHistory()
     const [selected, setSelected] = useState(0)
 
-    const clickHandler = (index) => {
+    const clickAction = (index) => {
         setSelected(index)
+        //routing with the dock
+        switch (index) {
+            case 0:
+                history.push("/")
+                break;
+            case 1:
+                history.push("/notebooks")
+                break;
+            case 2:
+                history.push("/explore")
+                break;
+            case 3:
+                history.push("/creator")
+                break;
+            default:
+            // code block
+        }
     }
 
 return(
-    <div className={classes.root + " dock-second-position"} clickHandler={clickHandler}>
-        <AppleIcon clickHandler={clickHandler} index={3} selected={selected}/>
-        <SpaceshipIcon clickHandler={clickHandler} index={2} selected={selected}/>
-        <NotebookIcon clickHandler={clickHandler} index={1} selected={selected}/>
-        <HomeIcon clickHandler={clickHandler} index={0} selected={selected}/>
+    <div className={classes.root + " dock-second-position"}>
+        <AppleIcon clickAction={clickAction} index={3} selected={selected}/>
+        <SpaceshipIcon clickAction={clickAction} index={2} selected={selected}/>
+        <NotebookIcon clickAction={clickAction} index={1} selected={selected}/>
+        <HomeIcon clickAction={clickAction} index={0} selected={selected}/>
         <Underline position={selected} />
     </div>
 )
