@@ -15,8 +15,13 @@ const useStyles = makeStyles({
         // borderWidth: 2,
         boxShadow: "2px 4px 6px #888888",
         display: "inline-block",
-        margin: 10,
-
+        margin: props => {
+            if(props.margin){
+                return props.margin
+            } else {
+                return 10
+            }
+        },
         backgroundColor: "gray",
     },
     hovered: {
@@ -27,7 +32,13 @@ const useStyles = makeStyles({
         // borderWidth: 2,
         boxShadow: "10px 10px 6px #888888",
         display: "inline-block",
-        margin: 10,
+        margin: props => {
+            if (props.margin) {
+                return props.margin
+            } else {
+                return 10
+            }
+        },
         position: "relative",
         transform: 'translateX(10px)',
         transform: 'translateY(-10px)',

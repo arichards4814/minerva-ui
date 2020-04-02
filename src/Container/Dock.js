@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core'
 import Underline from '../Components/Underline'
 
@@ -6,7 +6,7 @@ import SpaceshipIcon from '../Icons/SpaceshipIcon'
 import NotebookIcon from '../Icons/NotebookIcon'
 import AppleIcon from '../Icons/AppleIcon'
 import HomeIcon from '../Icons/HomeIcon'
-import { useHistory } from "react-router-dom";
+import { useLocation, useHistory } from 'react-router-dom'
 
 
 const useStyles = makeStyles({
@@ -23,6 +23,29 @@ export default function Dock(props){
     const classes = useStyles(props)  
     let history = useHistory()
     const [selected, setSelected] = useState(0)
+    
+    const currentLocation = useLocation().pathname
+
+
+    useEffect(() => {
+            switch (currentLocation) {
+                case "/":
+                    setSelected(0)
+                    break;
+                case "/notebooks":
+                    setSelected(1)
+                    break;
+                case "/explore":
+                    setSelected(2)
+                    break;
+                case "/creator":
+                    setSelected(3)
+                    break;
+                default:
+                    setSelected(0)
+            }
+        }
+    )
 
     const clickAction = (index) => {
         setSelected(index)

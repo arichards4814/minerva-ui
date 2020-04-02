@@ -53,7 +53,7 @@ export default function SpaceshipIcon(props) {
                     <path className={classes.st2} d="M267.31,132.93c0,0,43.25,25.23,31.55,102.69C291.78,200.78,280.88,166.62,267.31,132.93z" />
                 </g>
             </svg>
-            <Tooltip content="Lessons" showing={hovered ? "visible" : "hidden"} />
+            <Tooltip content="Create" showing={hovered ? "visible" : "hidden"} />
         </div>
     )
 }

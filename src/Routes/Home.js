@@ -6,6 +6,7 @@ import Row from '../Container/Row'
 import Layout from '../Container/Layout'
 import TitleBox from '../Components/TitleBox'
 import Card from '../Components/Card'
+import LoadingAnimation from '../Components/LoadingAnimation'
 
 // redux
 import { connect } from 'react-redux';
@@ -33,6 +34,7 @@ const Home = props =>{
            return props.curriculums.map(curriculum => <Card key={curriculum.id} {...curriculum}/>)
         }
     }
+
     return(
         <div className="fade-in">
             <Row marginTop={40} marginBottom={40}>
@@ -50,7 +52,7 @@ const Home = props =>{
                 <TitleBox theme="secondary"><F4 font="secondary">Popular Right Now:</F4></TitleBox>
             </Row>
             <div className={classes.leftToRightScroll}>
-                    {renderCurriculums()}
+                    {props.curriculums ? renderCurriculums() : <LoadingAnimation />}
             </div>
 
             <Row marginLeft="10%">
