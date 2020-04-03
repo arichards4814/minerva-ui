@@ -11,22 +11,18 @@ import LongCardScroller from '../Container/LongCardScroller'
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson } from '../actionCreators'
 
 
 const CurriculumShow = props => {
     const location = useLocation().pathname.split("/")[2]
-    const [selectedLesson, setSelectedLesson] = useState({
-        title: "Testing123",
-        imgSrc: "",
-        description: "Lorem ipsum dodo bunchy."
-    })
     
     useEffect(() => {
-        if(parseInt(location)){
+        if(parseInt(location) && props.fetchCurriculum){
             props.fetchCurriculum(parseInt(location))
         }
     }, [])
+
 
     return (
         <div className="fade-in">
@@ -43,10 +39,10 @@ const CurriculumShow = props => {
             </Row>
             <Row marginTop={30} marginLeft={3} >
                 <Layout width={6}>
-                        <Display {...selectedLesson} imgHeight={400} imgWidth={"95%"} />
+                        <Display {...props.currentLesson} imgHeight={400} imgWidth={"95%"} />
                 </Layout>
                 <Layout width={6}>
-                    <LongCardScroller info={props.currentCurriculum.lessons} debug="yes" />
+                    <LongCardScroller info={props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" />
                 </Layout>
 
             </Row>
@@ -61,13 +57,15 @@ const CurriculumShow = props => {
 
 const mapStateToProps = (state) => {
     return {
-        currentCurriculum: state.currentCurriculum
+        currentCurriculum: state.currentCurriculum,
+        currentLesson: state.currentLesson
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchCurriculum: (id) => dispatch(fetchCurriculum(id))
+        fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
+        setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson))
     }
 }
 

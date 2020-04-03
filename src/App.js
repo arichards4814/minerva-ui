@@ -9,7 +9,7 @@ import CurriculumShow from './Routes/CurriculumShow';
 
 // redux
 import { connect } from 'react-redux';
-import { likeActionCreator, fetchCurriculums } from './actionCreators'
+import { fetchCurriculums } from './actionCreators'
 
 import {
   BrowserRouter as Router,
@@ -54,14 +54,12 @@ const App = props => {
 
 const mapStateToProps = (state) => {
   return {
-    likes: state.likes,
     curriculums: state.curriculums
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    like: () => dispatch(likeActionCreator()),
     fetchCurriculums: () => dispatch(fetchCurriculums())
   }
 }

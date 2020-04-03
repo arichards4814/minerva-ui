@@ -5,6 +5,7 @@ import Layout from '../Container/Layout'
 import F2 from '../Typing/F2'
 import MinervaInput from '../Components/Forms/MinervaInput'
 import Card from '../Components/Card'
+import { useHistory } from 'react-router-dom'
 
 // redux
 import { connect } from 'react-redux';
@@ -13,11 +14,12 @@ import { fetchCurriculums } from '../actionCreators'
 
 const Explore = props => {
     const [search, setSearch] = useState("")
+    let history = useHistory()
 
 
     const renderCurriculums = (filteredCurriculums) => {
         if (props.curriculums) {
-            return filteredCurriculums.map(curriculum => <div style={{marginLeft: 20, marginRight: 20, display: "inline-block"}}><Card key={curriculum.id} {...curriculum} /></div>)
+            return filteredCurriculums.map(curriculum => <div style={{marginLeft: 20, marginRight: 20, display: "inline-block"}}><Card key={curriculum.id} {...curriculum} onClick={() => goToCurriculum(curriculum.id)} /></div>)
         }
     }
 
@@ -36,6 +38,10 @@ const Explore = props => {
 
     const handleClick = () => {
         curriculumsFiltered(search)
+    }
+
+    const goToCurriculum = (id) => {
+        history.push(`curriculums/${id}`)
     }
 
     return (

@@ -6,7 +6,8 @@ import LongCard from '../Components/LongCard'
 const useStyles = makeStyles({
     root: {
         height: 800,
-        alignContent: "top"
+        alignContent: "top",
+        overflowX: "auto"
     },
     debug: {
         height: 800,
@@ -19,12 +20,13 @@ const LongCardScroller = props => {
     const classes = useStyles(props)
 
     const renderCards = () => {
-        return props.info.map(lesson => <LongCard key={lesson.id}{...lesson} />)
+        return props.info.map(lesson => <LongCard key={lesson.id} lesson={lesson} />)
     }
 
     return (
         <div className={props.debug ? classes.debug : classes.root}>
-            {props.info ? renderCards() : <F3> There are no lessons for this Curriculum </F3>}
+            <F3 font="secondary"> {props.headerTitle} </F3>
+            {props.info ? renderCards() : <F3> {props.placeholder} </F3>}
         </div>
     )
 }

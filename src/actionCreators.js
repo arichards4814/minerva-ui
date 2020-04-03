@@ -1,7 +1,5 @@
 import * as requests from './requests'
 
-export const likeActionCreator = () => ({ type: 'LIKE' })
-
 export const fetchCurriculums = () => dispatch => {
     requests.fetchCurriculums()
     .then(data => {
@@ -17,3 +15,5 @@ export const fetchCurriculum = (id) => dispatch => {
             dispatch({ type: 'FETCH_CURRICULUM', payload: { currentCurriculum: data } })
         })
 }
+
+export const setCurrentLesson = (lesson) => ({ type: 'SET_CURRENT_LESSON', payload: { currentLesson: lesson }})

@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Button from './Button'
 import F4 from '../Typing/F4'
 import F5 from '../Typing/F5'
 import F6 from '../Typing/F6'
 
 
+import { connect } from 'react-redux';
+import { setCurrentLesson } from '../actionCreators'
+
+
 const useStyles = makeStyles({
     root: {
         // borderStyle: "solid",
-        width: 400,
+        width: 500,
         height: 120,
         borderRadius: 10,
         // borderWidth: 2,
@@ -21,12 +24,11 @@ const useStyles = makeStyles({
             } else {
                 return 10
             }
-        },
-        backgroundColor: "gray",
+        }
     },
     hovered: {
         // borderStyle: "solid",
-        width: 400,
+        width: 500,
         height: 120,
         borderRadius: 10,
         // borderWidth: 2,
@@ -43,23 +45,25 @@ const useStyles = makeStyles({
         transform: 'translateX(10px)',
         transform: 'translateY(-10px)',
 
-        backgroundColor: "gray",
         cursor: 'pointer'
     },
     cardHeader: {
         height: "2%"
     },
     cardImage: {
-        height: "25%",
+        height: "90%",
+        width: "25%",
         backgroundColor: "gray",
-        display: "inline-block"
+        display: "inline-block",
+        margin: 2,
+        verticalAlign: "top"
+    },
+    rightSide: {
+        display: "inline-block",
+        verticalAlign: "top"
     },
     cardTitle: {
-        paddingTop: 8,
-        paddingLeft: 10,
-        height: "12%",
-        backgroundColor: "gray",
-        color: "white"
+        height: "12%"
     },
     cardBody: {
         height: "30%",
@@ -72,7 +76,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function LongCard(props) {
+const LongCard = props => {
     const classes = useStyles()
     //hmm, how big should a card be? Should I have sm, md, lg? 
     const [hovered, setHovered] = useState(false)
@@ -83,25 +87,43 @@ export default function LongCard(props) {
     const unHover = () => {
         setHovered(false)
     }
-
-    console.log("card props", props)
+    console.log(props)
 
     return (
-        <div className={hovered ? classes.hovered : classes.root} onMouseOver={handleHover} onMouseOut={unHover}>
+        <div className={hovered ? classes.hovered : classes.root} onMouseOver={handleHover} onMouseOut={unHover} onClick={() => props.setCurrentLesson(props.lesson)}>
             <div className={classes.cardHeader}>
 
             </div>
             <div className={classes.cardImage}>
-                {/* {props.material_url ? <img src={props.material_url} style={{ height: "100%", width: "100%" }}></img> : <div style={{backgroundColor: "gray"}}></div>} */}
+                {props.lesson.image_url && <img src={props.lesson.image_url} style={{ height: "100%", width: "100%" }}></img>}
             </div>
-            <div className={classes.cardTitle}>
-                <F5>{props.title}</F5>
+            <div className={classes.rightSide}>
+                <div className={classes.cardTitle}>
+                    <F5>{props.lesson.title}</F5>
+                </div>
+                <div className={classes.cardBody}>
+                    <F6>{props.lesson.description}</F6>
+                </div>
             </div>
-            <div className={classes.cardBody}>
-                <F6>{props.description}</F6>
-            </div>
+            
             <div className={classes.cardFooter}>
             </div>
         </div>
     )
 }
+
+
+
+const mapStateToProps = (state) => {
+    return {
+        currentLesson: state.currentLesson
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LongCard);

@@ -10,19 +10,37 @@ const useStyles = makeStyles({
         borderColor: props => HandleScheme(props),
         borderStyle: "solid",
         borderRadius: "40px",
-        width: 120,
-        height: 50,
+        width: props => {
+            if (props.width) {
+                return props.width
+            } else {
+                return 120
+            }
+        },
+        height: props => {
+            if (props.height) {
+                return props.height
+            } else {
+                return 50
+            }
+        },
         outline: 0,
-        fontSize: 16,
+        fontSize: props => {
+            if (props.fontSize) {
+                return props.fontSize
+            } else {
+                return 16
+            }
+        },
         margin: 1,
         cursor: "pointer"
     }
 })
 
-export default function MinervaInput(props) {
+export default function SearchButton(props) {
     const classes = useStyles(props)
 
     return (
-        <button className={classes.root} onClick={props.onClick}><F4 font="secondary">Search</F4></button>
+    <button className={classes.root} onClick={props.onClick}><F4 font="secondary">{props.value ? props.value : "Search"}</F4></button>
     )
 }

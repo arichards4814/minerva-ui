@@ -5,6 +5,8 @@ import F4 from '../Typing/F4'
 import F5 from '../Typing/F5'
 import F6 from '../Typing/F6'
 
+import '../App.css';
+
 
 const useStyles = makeStyles({
     root: {
@@ -22,7 +24,7 @@ const useStyles = makeStyles({
                 return 10
             }
         },
-        backgroundColor: "gray",
+        backgroundColor: "gray"
     },
     hovered: {
         // borderStyle: "solid",
@@ -62,6 +64,7 @@ const useStyles = makeStyles({
     },
     cardBody: {
         height: "21%",
+        width: "300px",
         backgroundColor: "white"
     },
     cardFooter: {
@@ -96,10 +99,10 @@ export default function Card(props){
                 <F5>{props.title}</F5>
             </div>
             <div className={classes.cardBody}>
-                <F6>{props.description}</F6>
+                {props.description}
             </div>
             <div className={classes.cardFooter}>
-                <Button value="View"><F4 color="black" >View</F4></Button>
+                <Button value="View" onClick={props.onClick}><F4 color="black" >View</F4></Button>
             </div>
         </div>
     )

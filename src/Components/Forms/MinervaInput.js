@@ -9,10 +9,28 @@ const useStyles = makeStyles({
         borderStyle: "solid",
         borderRadius: "40px",
         paddingLeft: 20,
-        width: 300,
-        height: 50,
+        width: props => {
+            if(props.width){
+                return props.width
+            } else {
+                return 300
+            }
+        },
+        height: props => {
+            if (props.height) {
+                return props.height
+            } else {
+                return 50
+            }
+        },
         outline: 0,
-        fontSize: 16
+        fontSize: props => {
+            if (props.fontSize) {
+                return props.fontSize
+            } else {
+                return 16
+            }
+        },
     }
 })
 

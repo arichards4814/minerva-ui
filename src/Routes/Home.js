@@ -31,10 +31,11 @@ const useStyles = makeStyles({
 const Home = props =>{
     const classes = useStyles(props)
     let history = useHistory()
+
     
     const renderCurriculums = () => {
         if(props.curriculums){
-           return props.curriculums.map(curriculum => <Card key={curriculum.id} {...curriculum}/>)
+           return props.curriculums.map(curriculum => <Card key={curriculum.id} {...curriculum} onClick={() => history.push(`/curriculums/${curriculum.id}`)}/>)
         }
     }
 
