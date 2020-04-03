@@ -25,7 +25,7 @@ export const postCurriculums = (data) => fetch(`${baseURL}/curriculums`, {
         'accept': 'application/json'
     },
     body: JSON.stringify(data)
-})
+}).then(parseData)
 
 // PATCH Curriculums/:id
 export const patchCurriculum = (data, id) => fetch(`${baseURL}/curriculums/${id}`, {

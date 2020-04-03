@@ -12,7 +12,9 @@ import LongCardScroller from '../Container/LongCardScroller'
 import MinervaInput from '../Components/Forms/MinervaInput'
 import SearchButton from '../Components/Forms/SeachButton'
 import EditExisting from '../Icons/EditExisting'
+import BackIcon from '../Icons/BackIcon'
 import { makeStyles } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
 
 import * as requests from '../requests'
 
@@ -24,10 +26,14 @@ const useStyles = makeStyles({
     footer: {
         position: "absolute",
         bottom: 60,
-        left: "45%"
+        left: "45%",
+        textAlign: "center"
     }
 })
 const Creator = props => {
+
+    let history = useHistory()
+
     const classes = useStyles(props)
     const location = useLocation().pathname.split("/")[2]
     const [formTitle, setFormTitle] = useState("")
@@ -82,9 +88,15 @@ const Creator = props => {
             }
         }
         requests.postCurriculums(data)
-
-        // this should probably be through the reducer so I can 
+        .then(newData => history.push(`editcurriculums/${newData.id}`))
+        
+        // this should probably be through the 
+        // reducer so I can 
         // add to state
+    }
+
+    const goBack = () => {
+        setStage(stage - 1)
     }
 
 
@@ -123,7 +135,7 @@ const Creator = props => {
                         <F2 font="secondary">Image</F2>
                         <MinervaInput width={500} height={75} fontSize={14} type="text" theme="secondary" onChange={handleChange} value={formTitle} placeholder="Set a main image for this curriculum..." />
                         <SearchButton theme="secondary" onClick={handleClick2} value="Next"></SearchButton>
-                        <img src={formTitle} style={{width: 500, height: 300}}></img>
+                        <img src={formTitle} style={{width: 500, height: 300, position: "relative", right: 120}}></img>
                     </div>}
 
                     {stage === 3 && <div style={{textAlign: "center", marginTop: 30}}>
@@ -139,9 +151,11 @@ const Creator = props => {
             </Row>
 
             <div className={classes.footer}>
-                
-                        <EditExisting width={100}/>
-                    
+                {stage === 0 && <EditExisting />}
+                {stage === 1 && <BackIcon onClick={goBack}/>}
+                {stage === 2 && <BackIcon onClick={goBack} />}
+                {stage === 3 && <BackIcon onClick={goBack} />}
+                {/* <EditExistingShadow /> */}
             </div>
 
         </div>
