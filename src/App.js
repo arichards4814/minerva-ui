@@ -6,6 +6,7 @@ import Notebooks from './Routes/Notebooks'
 import Creator from './Routes/Creator'
 import Explore from './Routes/Explore'
 import CurriculumShow from './Routes/CurriculumShow';
+import CurriculumEdit from './Routes/CurriculumEdit';
 
 // redux
 import { connect } from 'react-redux';
@@ -38,6 +39,9 @@ const App = props => {
           </Route>
           <Route path="/creator">
             <Creator />
+          </Route>
+          <Route path="/editcurriculums/:id">
+            <CurriculumEdit />
           </Route>
           <Route path="/curriculums/:id">
             <CurriculumShow />

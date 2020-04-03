@@ -16,4 +16,5 @@ export const fetchCurriculum = (id) => dispatch => {
         })
 }
 
+
 export const setCurrentLesson = (lesson) => ({ type: 'SET_CURRENT_LESSON', payload: { currentLesson: lesson }})

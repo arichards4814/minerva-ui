@@ -4,6 +4,7 @@ import AxiosSearch from '../Youtube/AxiosSearch'
 import LoadingAnimation from './LoadingAnimation'
 import F5 from '../Typing/F5'
 import F6 from '../Typing/F6'
+import { getYoutubeIDFromURL } from '../requests'
 
 //////This is only for previews. When it's actually in there it will
 ///the purpose of this content card is to load up information
@@ -11,7 +12,7 @@ import F6 from '../Typing/F6'
 /// or if there is no youtube url poplulate it with something else
 const useStyles = makeStyles({
     root: {
-        width: 700,
+        width: 550,
         height: 150,
         borderRadius: 20,
         borderStyle: "solid"
@@ -21,14 +22,18 @@ const useStyles = makeStyles({
         width: "100%"
     },
     image:{
-        display: "table-cell"
+        display: "table-cell",
+        paddingLeft: 10
     },
     leftMargin:{
         display: "table-cell",
-        verticalAlign: "top"
+        verticalAlign: "top",
+        paddingLeft: 10
+        
     },
     body:{
-        height: 100
+        height: 100,
+        paddingLeft: 10
     }
 })
 
@@ -38,11 +43,14 @@ export default function ContentCard(props){
     const [loading, setLoading] = useState(true)
 
     useEffect(() =>{
-        if(props.videoid){
-            handleSearch(props.videoid)
+        // if(props.videoid){
+        //     handleSearch(props.videoid)
+        // }
+        if(props.videoURL){
+            handleSearch(getYoutubeIDFromURL(props.videoURL))
         }
         
-    },[])
+    },[props.videoURL])
 
     const handleSearch = async (youtubeid) => {
         const response = await AxiosSearch.get('/search', {
@@ -62,7 +70,7 @@ export default function ContentCard(props){
 
         console.log("medium", videoInfo.thumbnails.medium.url)
     }
-    console.log(videoInfo.title)
+
 
 return(
     <div className={classes.root}> 
@@ -76,7 +84,7 @@ return(
                     <div className={classes.body}>
                         {videoInfo.description && <F6>{videoInfo.description}</F6>}
                             {loading && <LoadingAnimation />}
-                    </div> */}
+                    </div>
             </div>
         </div>
             

@@ -67,3 +67,22 @@ export const patchNotebooks = (data, id) => fetch(`${baseURL}/notebooks/${id}`, 
     },
     body: JSON.stringify(data)
 }).then(parseData)
+
+
+
+
+//Parsing out the youtube ID (I could even build this to find out what site that specific article is on...)
+export const getYoutubeIDFromURL = (url) => {
+    let video_id = url.split('v=')[1]
+
+    if (!video_id) {
+        console.log("There is a problem with this URL")
+    } else {
+        let ampersandPosition = video_id.indexOf('&');
+        if (ampersandPosition != -1) {
+            video_id = video_id.substring(0, ampersandPosition);
+        }
+        console.log(`The video ID is ${video_id}`)
+        return video_id
+    }
+}
