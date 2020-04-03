@@ -16,7 +16,8 @@ const useStyles = makeStyles({
         borderStyle: "solid",
         borderWidth: 6,
         borderRadius: "40px",
-        height: 50
+        height: 50,
+        paddingLeft:10
     }
 })
 

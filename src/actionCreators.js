@@ -9,3 +9,11 @@ export const fetchCurriculums = () => dispatch => {
     })
 
 }
+
+export const fetchCurriculum = (id) => dispatch => {
+    requests.fetchCurriculum(id)
+        .then(data => {
+            console.log(data)
+            dispatch({ type: 'FETCH_CURRICULUM', payload: { currentCurriculum: data } })
+        })
+}

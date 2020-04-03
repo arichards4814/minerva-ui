@@ -7,7 +7,6 @@ export default function Button(props){
     const [rippling, setRippling] = useState(false)
 
 
-
     const clickHandler = () => {
         if (props.onClick){
             props.onClick()

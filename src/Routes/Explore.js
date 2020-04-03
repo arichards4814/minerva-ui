@@ -17,7 +17,7 @@ const Explore = props => {
 
     const renderCurriculums = (filteredCurriculums) => {
         if (props.curriculums) {
-            return filteredCurriculums.map(curriculum => <Card key={curriculum.id} {...curriculum} />)
+            return filteredCurriculums.map(curriculum => <div style={{marginLeft: 20, marginRight: 20, display: "inline-block"}}><Card key={curriculum.id} {...curriculum} /></div>)
         }
     }
 
@@ -50,7 +50,7 @@ const Explore = props => {
                     <ExploreHeader />
                 </Layout>
             </Row>
-            <Row marginTop={30}>
+            <Row marginTop={30} marginLeft={30}>
                 <Layout width={1}>
 
                 </Layout>

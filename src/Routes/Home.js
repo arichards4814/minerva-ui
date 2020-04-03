@@ -7,6 +7,8 @@ import Layout from '../Container/Layout'
 import TitleBox from '../Components/TitleBox'
 import Card from '../Components/Card'
 import LoadingAnimation from '../Components/LoadingAnimation'
+import { useHistory } from 'react-router-dom'
+
 
 // redux
 import { connect } from 'react-redux';
@@ -28,6 +30,7 @@ const useStyles = makeStyles({
 
 const Home = props =>{
     const classes = useStyles(props)
+    let history = useHistory()
     
     const renderCurriculums = () => {
         if(props.curriculums){
@@ -39,13 +42,13 @@ const Home = props =>{
         <div className="fade-in">
             <Row marginTop={40} marginBottom={40}>
                 <Layout width={4} align="center">
-                    <MajesticButton><F3 font="secondary">Explore Curriculums</F3></MajesticButton>
+                    <MajesticButton onClick={() => history.push("/explore")}><F3 font="secondary">Explore Curriculums</F3></MajesticButton>
                 </Layout >
                 <Layout width={4} align="center">
-                    <MajesticButton><F3 font="secondary">My Notebooks</F3></MajesticButton>
+                    <MajesticButton onClick={() => history.push("/notebooks")}><F3 font="secondary">My Notebooks</F3></MajesticButton>
                 </Layout>
                 <Layout width={4} align="center">
-                    <MajesticButton><F3 font="secondary">Create Curriculums</F3></MajesticButton>
+                    <MajesticButton onClick={() => history.push("/creator")}><F3 font="secondary">Create Curriculums</F3></MajesticButton>
                 </Layout>
             </Row>
             <Row marginLeft="10%">

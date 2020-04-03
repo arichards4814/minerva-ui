@@ -26,7 +26,8 @@ const useStyles = makeStyles({
         },
         // backgroundColor: "blue" ,
         display: "inline-block",
-        wordWrap: "break-word"
+        wordWrap: "break-word",
+        verticalAlign: "top"
     }
 });
 
