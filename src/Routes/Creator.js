@@ -10,9 +10,11 @@ import TitleBox from '../Components/TitleBox'
 import Display from '../Container/Display'
 import LongCardScroller from '../Container/LongCardScroller'
 import MinervaInput from '../Components/Forms/MinervaInput'
+import Dropdown from '../Components/Forms/Dropdown'
 import SearchButton from '../Components/Forms/SeachButton'
 import EditExisting from '../Icons/EditExisting'
 import BackIcon from '../Icons/BackIcon'
+import AddNew from '../Icons/AddNew'
 import { makeStyles } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 
@@ -20,7 +22,7 @@ import * as requests from '../requests'
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum, setCurrentLesson } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson, fetchUsersCurriculums } from '../actionCreators'
 
 const useStyles = makeStyles({
     footer: {
@@ -45,10 +47,13 @@ const Creator = props => {
     const [newCurriculumDescription, setNewCurriculumDescription] = useState("")
     const [newCurriculumImage, setNewCurriculumImage] = useState("")
 
+    const [selectedToEdit, setSelectedToEdit] = useState("")
+
     useEffect(() => {
         if (parseInt(location) && props.fetchCurriculum) {
             props.fetchCurriculum(parseInt(location))
         }
+        props.fetchUsersCurriculums(40)
     }, [])
 
     const handleChange = (e) => {
@@ -99,6 +104,25 @@ const Creator = props => {
         setStage(stage - 1)
     }
 
+    const showEditDropdown = () => {
+        setStage(-1)
+    }
+
+    const setToBeginning = () => {
+        setStage(0)
+    }
+
+    const handleSelectChange = (e) => {
+        setSelectedToEdit(e.target.value)
+    }
+    const handleSelectSubmit = () => {
+        if (selectedToEdit === ""){
+            setErrors("You must select a curriculum to edit.")
+        } else {
+            history.push(`/editcurriculums/${selectedToEdit}`)
+        }
+    }
+
 
     return (
         <div className="fade-in">
@@ -119,6 +143,8 @@ const Creator = props => {
                 <Layout width={3}>
                 </Layout>
                 <Layout width={6}>
+
+
                     {stage === 0 && <div>
                         <F2 font="secondary">Title</F2>
                     <MinervaInput width={500} height={75} fontSize={25} type="text" theme="secondary" onChange={handleChange} value={formTitle} placeholder="Name Your Curriculum..." />
@@ -141,6 +167,12 @@ const Creator = props => {
                     {stage === 3 && <div style={{textAlign: "center", marginTop: 30}}>
                         <SearchButton width={300} height={100} fontSize={80} onClick={submitFinalForm} theme="secondary" value="Create and add lessons!"></SearchButton>
                         </div>}
+
+                    {stage === -1 && <div style={{ textAlign: "center", marginTop: 30 }}>
+                        <F2 font="secondary">Choose Curriculum to Edit</F2>
+                        <Dropdown theme="secondary" onChange={handleSelectChange}/>
+                        <SearchButton theme="secondary" value="Edit" onClick={handleSelectSubmit}></SearchButton>
+                    </div>}
                     
                     <div style={{marginTop: 20, marginLeft: 20}}>
                         {errors}
@@ -151,10 +183,11 @@ const Creator = props => {
             </Row>
 
             <div className={classes.footer}>
-                {stage === 0 && <EditExisting />}
-                {stage === 1 && <BackIcon onClick={goBack}/>}
-                {stage === 2 && <BackIcon onClick={goBack} />}
-                {stage === 3 && <BackIcon onClick={goBack} />}
+                {stage === -1 && <AddNew onClick={setToBeginning} tooltip="top" content="Create New"/>}
+                {stage === 0 && <EditExisting onClick={showEditDropdown} tooltip="top" content="Edit Existing"/>}
+                {stage === 1 && <BackIcon onClick={goBack} tooltip="top" content="Go Back"/>}
+                {stage === 2 && <BackIcon onClick={goBack} tooltip="top" content="Go Back"/>}
+                {stage === 3 && <BackIcon onClick={goBack} tooltip="top" content="Go Back"/>}
                 {/* <EditExistingShadow /> */}
             </div>
 
@@ -177,7 +210,8 @@ const mapDispatchToProps = (dispatch) => {
         // then maybe this should just turn into an edit
         // here going to have a post method
         fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
-        setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson))
+        setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
+        fetchUsersCurriculums: (user_id) => dispatch(fetchUsersCurriculums(user_id))
     }
 }
 

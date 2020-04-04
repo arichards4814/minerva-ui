@@ -6,7 +6,7 @@ import Tooltip from '../Components/Tooltip'
 const useStyles = makeStyles({
     root: {
         height: props => {
-            if (props.height) {
+            if(props.height){
                 return props.height
             } else {
                 return 50
@@ -19,16 +19,23 @@ const useStyles = makeStyles({
                 return 50
             }
         },
+        display: "inline-block"
     },
     st0: {
-        fill: "#00B79D"
+        fill: "#FFCF00",
     },
     st1: {
         fill: "#FFFFFF"
+    },
+    st2: {
+        fill: "none",
+        stroke: "#FFFFFF",
+        strokeWidth: 6,
+        strokeMiterLimit: 10
     }
 });
 
-export default function BackIcon(props) {
+export default function EditImage(props) {
     const classes = useStyles()
 
     const [hovered, setHovered] = useState(false)
@@ -41,7 +48,7 @@ export default function BackIcon(props) {
 
     }
 
-    return (
+    return ( 
         <div className={classes.root + " selected icon-hover"} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick}>
             {props.tooltip === "top" && <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />}
             <svg
@@ -52,12 +59,17 @@ export default function BackIcon(props) {
                 xmlnsXlink="http://www.w3.org/1999/xlink"
             >
                 <g>
-                    <circle className={classes.st0} cx="121.15" cy="121.02" r="116" />
-                    <polygon className={classes.st1} points="154.09,181.57 137.48,197.62 61.17,121.32 61.41,121.08 61.32,120.99 137.9,44.41 153.95,61.02 
-		            93.75,121.23 	"/>
+                    <g>
+                        <circle className={classes.st0} cx="121.15" cy="121.02" r="116" />
+                    </g>
+                    <g>
+                        <polygon className={classes.st1} points="47.93,175.16 79.99,118.44 115.27,157.9 160.16,87.44 194.37,175.16 		" />
+                        <circle className={classes.st1} cx="91.63" cy="94.46" r="14.09" />
+                        <rect x="47.93" y="66.88" className={classes.st2} width="146.44" height="105.29" />
+                    </g>
                 </g>
             </svg>
-            {props.tooltip === "bottom" && <Tooltip width={100} content="Go Back" showing={hovered ? "visible" : "hidden"} />}
+            {props.tooltip === "bottom" && <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />}
         </div>
     )
 }

@@ -4,6 +4,24 @@ import Tooltip from '../Components/Tooltip'
 
 
 const useStyles = makeStyles({
+    root: {
+        height: props => {
+            if (props.height) {
+                return props.height
+            } else {
+                return 50
+            }
+        },
+        width: props => {
+            if (props.width) {
+                return props.width
+            } else {
+                return 50
+            }
+        },
+
+        display: "inline-block"
+    },
     st0: {
         fill: "#ED2F65",
         stroke: "#FFFFFF",
@@ -28,10 +46,8 @@ export default function EditExisting(props) {
     }
 
     return (
-        <div className={"selected icon-hover"} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
-            <div style={{marginLeft: "32%"}}>
-                <Tooltip width={100} content="Edit Existing" showing={hovered ? "visible" : "hidden"} />
-            </div>
+        <div className={classes.root +" selected icon-hover"} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick}>
+                {props.tooltip === "top" && <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />}
             <svg
                 width="100%"
                 height="100%"
@@ -47,6 +63,7 @@ export default function EditExisting(props) {
                     <polygon class={classes.st1} points="67.69,158.71 62.48,180.25 83.74,175.33 	" />
                 </g>
             </svg>
+            {props.tooltip === "bottom" && <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />}
         </div>
     )
 }

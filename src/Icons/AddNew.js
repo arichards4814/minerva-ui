@@ -19,16 +19,17 @@ const useStyles = makeStyles({
                 return 50
             }
         },
+        display: "inline-block"
     },
     st0: {
-        fill: "#00B79D"
+        fill: "#00AA62",
     },
     st1: {
         fill: "#FFFFFF"
     }
 });
 
-export default function BackIcon(props) {
+export default function AddNew(props) {
     const classes = useStyles()
 
     const [hovered, setHovered] = useState(false)
@@ -43,7 +44,9 @@ export default function BackIcon(props) {
 
     return (
         <div className={classes.root + " selected icon-hover"} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick}>
-            {props.tooltip === "top" && <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />}
+            <div style={{ marginLeft: "32%" }}>
+                {props.tooltip === "top" && <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />}
+            </div>
             <svg
                 width="100%"
                 height="100%"
@@ -51,13 +54,13 @@ export default function BackIcon(props) {
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
             >
+                <circle className={classes.st0} cx="121.15" cy="121.02" r="116" />
                 <g>
-                    <circle className={classes.st0} cx="121.15" cy="121.02" r="116" />
-                    <polygon className={classes.st1} points="154.09,181.57 137.48,197.62 61.17,121.32 61.41,121.08 61.32,120.99 137.9,44.41 153.95,61.02 
-		            93.75,121.23 	"/>
+                    <polygon className={classes.st1} points="109.6,66.87 109.6,175.17 132.69,175.17 132.69,67.26 	" />
+                    <polygon className={classes.st1} points="175.3,109.47 66.99,109.47 66.99,132.57 174.9,132.57 	" />
                 </g>
             </svg>
-            {props.tooltip === "bottom" && <Tooltip width={100} content="Go Back" showing={hovered ? "visible" : "hidden"} />}
+            {props.tooltip === "bottom" && <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />}
         </div>
     )
 }

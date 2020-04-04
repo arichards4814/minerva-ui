@@ -17,6 +17,11 @@ export const fetchCurriculum = (id) => fetch(`${baseURL}/curriculums/${id}`)
     .then(parseData)
     .catch(catchError)
 
+// Get /userscurriculums/:id
+export const fetchUsersCurriculums = (id) => fetch(`${baseURL}/userscurriculums/${id}`)
+    .then(parseData)
+    .catch(catchError)
+
 // POST Curriculums
 export const postCurriculums = (data) => fetch(`${baseURL}/curriculums`, {
     method: 'POST',

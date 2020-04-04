@@ -16,5 +16,14 @@ export const fetchCurriculum = (id) => dispatch => {
         })
 }
 
+export const fetchUsersCurriculums = (user_id) => dispatch => {
+    //
+    requests.fetchUsersCurriculums(user_id)
+        .then(data => {
+            console.log(data)
+            dispatch({ type: 'FETCH_USERS_CURRICULUMS', payload: { thisUsersCurriculums: data } })
+        })
+}
+
 
 export const setCurrentLesson = (lesson) => ({ type: 'SET_CURRENT_LESSON', payload: { currentLesson: lesson }})

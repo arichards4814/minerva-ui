@@ -1,8 +1,9 @@
 const initialState = {
     curriculums: [],
+    thisUsersCurriculums: [],
     currentCurriculum: {},
     currentLesson: {},
-    notebooks: []
+    thisUsersNotebooks: []
 }
 
 export const reducer = (prevState = initialState, action) => {
@@ -12,6 +13,8 @@ export const reducer = (prevState = initialState, action) => {
             return { ...prevState, currentLesson: action.payload.currentLesson }
         case 'FETCH_CURRICULUMS':
             return {...prevState, curriculums: action.payload.curriculums}
+        case 'FETCH_USERS_CURRICULUMS':
+            return { ...prevState, thisUsersCurriculums: action.payload.thisUsersCurriculums }
         case 'FETCH_CURRICULUM':
             return { ...prevState, currentCurriculum: action.payload.currentCurriculum }
         default:

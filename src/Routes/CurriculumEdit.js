@@ -9,6 +9,11 @@ import TitleBox from '../Components/TitleBox'
 import Display from '../Container/Display'
 import LongCardScroller from '../Container/LongCardScroller'
 import AddLessonForm from '../Components/Forms/AddLessonForm'
+import MinervaInput from '../Components/Forms/MinervaInput'
+
+import EditImage from '../Icons/EditImage'
+import AddNew from '../Icons/AddNew'
+import EditExisting from '../Icons/EditExisting'
 
 // redux
 import { connect } from 'react-redux';
@@ -18,11 +23,35 @@ import { fetchCurriculum, setCurrentLesson } from '../actionCreators'
 const CurriculumEdit = props => {
     const location = useLocation().pathname.split("/")[2]
 
+    const [formState, setFormState] = useState(2)
+    //form states
+    //0 - Edit Details
+    //1 - Edit Image
+    //2 - Add Lessons
+
     useEffect(() => {
         if (parseInt(location) && props.fetchCurriculum) {
             props.fetchCurriculum(parseInt(location))
         }
     }, [])
+
+    const alterFormState = (index) => {
+        setFormState(index)
+        document.getElementById("minerva-input").focus()
+    }
+
+    const handlePageTitle = () => {
+        switch(formState){
+            case 0:
+                return "Edit Details"
+            case 1:
+                return "Edit Image"
+            case 2:
+                return "Add Lessons"
+            default:
+                return "Add Lessons"
+        }
+    }
 
 
     return (
@@ -30,10 +59,18 @@ const CurriculumEdit = props => {
             <Row marginLeft={80}>
                 <Layout width={4} >
                     <F2 font="secondary"> Curriculum Creator: <br>
-                    </br>Add Lessons</F2>
+                    </br>{handlePageTitle()}</F2>
+                    {formState === 0 ? <MinervaInput type="text" theme="secondary" width={500} value={props.currentCurriculum.title} placeholder="Change title..." /> :
                     <TitleBox style="rounded" theme="secondary" paddingLeft={3}><F3 font="secondary">{props.currentCurriculum.title}</F3></TitleBox>
-                    {/* <MinervaInput type="text" theme="secondary" onChange={handleChange} value={search} placeholder="Expand your mind..." /> */}
+                    }
+                    {/*  */}
+                    
                     {/* <SearchButton theme="secondary" onClick={handleClick}></SearchButton> */}
+                    <Row>
+                        <EditImage tooltip="bottom" content="Change Image" onClick={() => alterFormState(1)}/>
+                        <EditExisting tooltip="bottom" content="Edit Details" onClick={() => alterFormState(0)}/>
+                        <AddNew tooltip="bottom" content="Add Lessons" onClick={() => alterFormState(2)}/>
+                    </Row>
                 </Layout>
                 <Layout width={7}>
                     <CreatorHeader />
