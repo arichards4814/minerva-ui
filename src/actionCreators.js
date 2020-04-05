@@ -35,4 +35,14 @@ export const updateCurrentCurriculum = (data, curriculum_id) => dispatch => {
 }
 
 
+export const postLessons = (data) => dispatch => {
+    requests.postLessons(data)
+        .then(data => {
+            console.log(data)
+        })
+    
+    dispatch({ type: 'POST_LESSONS', payload: { lesson: data } })
+}
+
+
 export const setCurrentLesson = (lesson) => ({ type: 'SET_CURRENT_LESSON', payload: { currentLesson: lesson }})

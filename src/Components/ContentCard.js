@@ -13,7 +13,7 @@ import { getYoutubeIDFromURL } from '../requests'
 const useStyles = makeStyles({
     root: {
         width: 550,
-        height: 150,
+        height: 200,
         borderRadius: 20,
         borderStyle: "solid"
     },
@@ -26,6 +26,7 @@ const useStyles = makeStyles({
         paddingLeft: 10
     },
     leftMargin:{
+        paddingTop: 10,
         display: "table-cell",
         verticalAlign: "top",
         paddingLeft: 10
@@ -48,10 +49,21 @@ export default function ContentCard(props){
         //     handleSearch(props.videoid)
         // }
         if(props.videoURL){
-            handleSearch(getYoutubeIDFromURL(props.videoURL))
+            if(checkIfYoutube(props.videoURL)){
+                handleSearch(getYoutubeIDFromURL(props.videoURL))
+            } else {
+                handleAllOtherURLs(props.videoURL)
+            }
         }
-        
     },[props.videoURL])
+
+    const checkIfYoutube = (videoURL) => {
+        if(videoURL.includes("youtube")){
+            return true
+        } else {
+            return false
+        }
+    }
 
     const handleSearch = async (youtubeid) => {
         const response = await AxiosSearch.get('/search', {
@@ -84,17 +96,44 @@ export default function ContentCard(props){
         //handle the search response here :)
     }
 
-    if (videoInfo.thumbnails){
-        console.log("medium", videoInfo.thumbnails.medium.url)
-        // props.getNewLessonImage(videoInfo.thumbnails.medium.url)
-    }
+    const handleAllOtherURLs = (videoURL) => {
+        // if not youtube check if theres any others
+        // otherwise just add a placeholder... 
+        if (videoURL.includes("medium")){
+            props.getNewLessonImage("https://miro.medium.com/max/390/1*emiGsBgJu2KHWyjluhKXQw.png")
+            setVideoInfo({
+                alternative: "https://miro.medium.com/max/390/1*emiGsBgJu2KHWyjluhKXQw.png"
+            })
+            setLoading(false)
+        } else if (videoURL.includes("udemy")){
+            props.getNewLessonImage("https://www.pipelinersales.com/wp-content/uploads/2019/06/large-udemy.jpg")
+            setVideoInfo({
+                alternative: "https://www.pipelinersales.com/wp-content/uploads/2019/06/large-udemy.jpg"
+            })
+
+            setLoading(false)
+        } else if (videoURL.includes("khan")){
+            props.getNewLessonImage("https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/f7/53/cd/f753cd8a-4139-f1b4-ef71-a2661690fa22/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.png")
+            setVideoInfo({
+                alternative: "https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/f7/53/cd/f753cd8a-4139-f1b4-ef71-a2661690fa22/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.png"
+            })
+            setLoading(false)
+        } else {
+            props.getNewLessonImage("/blogPlaceholder.png")
+            setVideoInfo({
+                alternative: "/blogPlaceholder.png"
+            })
+            setLoading(false)
+        }
+    } 
 
 
 return(
     <div className={classes.root}> 
         <div className={classes.row}>
             <div className={classes.image}>
-                {videoInfo.thumbnails && <img style={{ width: 190 }} src={videoInfo.thumbnails.high.url}></img>}
+                {videoInfo.thumbnails && <img style={{ width: 190, paddingTop: 20 }} src={videoInfo.thumbnails.high.url}></img>}
+                {videoInfo.alternative && <img style={{ width: 190, paddingTop: 2 }} src={videoInfo.alternative}></img>}
             </div>
             <div className={classes.leftMargin}>
                         {videoInfo.title && <F5>{videoInfo.title}</F5>}

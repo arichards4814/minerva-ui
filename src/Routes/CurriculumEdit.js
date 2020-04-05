@@ -18,7 +18,8 @@ import EditExisting from '../Icons/EditExisting'
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum, setCurrentLesson, updateCurrentCurriculum } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson, updateCurrentCurriculum, postLessons } from '../actionCreators'
+
 import SearchButton from '../Components/Forms/SeachButton'
 
 
@@ -44,14 +45,16 @@ const CurriculumEdit = props => {
 
     // Edit Image
     const [formImageUrl, setFormImageUrl] = useState({
-        image_url: props.currentCurriculum.image_url})
+        image_url: ""})
 
     // EditLessons
     const [formLesson, setFormLesson] = useState({
         title: "",
         media_url: "",
         image_url: "",
-        description: ""
+        description: "",
+        lesson_type: "Video",
+        cost: "free"
     })
 
 
@@ -68,6 +71,9 @@ const CurriculumEdit = props => {
                 title: props.currentCurriculum.title,
                 description: props.currentCurriculum.description
             })
+        } else if (index === 1){
+            setFormImageUrl({
+            image_url: props.currentCurriculum.image_url})
         }
         setFormState(index)
         // document.getElementById("minerva-input").focus()
@@ -103,11 +109,23 @@ const CurriculumEdit = props => {
         setFormLesson({ ...formLesson, [e.target.name]: e.target.value })
     }
 
+    const handleToggles1 = (e) => {
+        setFormLesson({ ...formLesson, lesson_type: e})
+    }
+
+    const handleToggles2 = (e) => {
+        setFormLesson({ ...formLesson, cost: e })
+    }
+
     const handleSubmitLessonForm = () => {
         console.log(formLesson)
         
-        //create lesson in database
+        // also validate here
+        // create lesson in database
         // clear form, add lesson to list of lessons in current curriculum, 
+        let updatedWithCurrId = {...formLesson, curriculum_id: props.currentCurriculum.id}
+        console.log("dataCheck", updatedWithCurrId)
+        props.postLessons(updatedWithCurrId)
     }
 
     const getNewLessonImage = (newLessonImageUrl) => {
@@ -144,7 +162,7 @@ const CurriculumEdit = props => {
                     <F2 font="secondary"> Curriculum Creator: <br>
                  </br>{handlePageIcon()}{handlePageTitle()}</F2>
                     {formState === 0 ? <MinervaInput type="text" name="title" theme="minerva" value={formCurriculumDetails.title} onChange={handleChangeCurriculumDetails} width={500} placeholder="Change title..." /> :
-                    <TitleBox style="rounded" theme="secondary" paddingLeft={3}><F3 font="secondary">{props.currentCurriculum.title}</F3></TitleBox>
+                    <TitleBox style="rounded" theme="secondary" paddingLeft={3}><F3 font="secondary">{props.currentCurriculum && props.currentCurriculum.title}</F3></TitleBox>
                     }
                     {/*  */}
                     
@@ -162,10 +180,10 @@ const CurriculumEdit = props => {
             {formState === 2 &&
             <Row marginTop={30} marginLeft={80} >
                 <Layout width={6}>
-                    <LongCardScroller info={props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" />
+                    <LongCardScroller info={props.currentCurriculum && props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" />
                 </Layout>
                 <Layout width={6}>
-                    <AddLessonForm onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage}/>
+                    <AddLessonForm onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage} handleToggles1={handleToggles1} handleToggles2={handleToggles2}/>
                     {/* <Display {...props.currentLesson} imgHeight={400} imgWidth={"95%"} /> */}
                 </Layout>
             </Row>}
@@ -202,7 +220,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
         setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
-        updateCurrentCurriculum: (data, curriculum_id) => dispatch(updateCurrentCurriculum(data, curriculum_id))
+        updateCurrentCurriculum: (data, curriculum_id) => dispatch(updateCurrentCurriculum(data, curriculum_id)),
+        postLessons: (data) => dispatch(postLessons(data))
     }
 }
 

@@ -1,3 +1,5 @@
+import { act } from "react-dom/test-utils"
+
 const initialState = {
     curriculums: [],
     thisUsersCurriculums: [],
@@ -19,6 +21,15 @@ export const reducer = (prevState = initialState, action) => {
             return { ...prevState, currentCurriculum: action.payload.currentCurriculum }
         case 'UPDATE_CURRENT_CURRICULUM':
             return { ...prevState, currentCurriculum: action.payload.currentCurriculum }
+        case 'POST_LESSONS':
+
+            console.log("in reducer prevState curr", prevState.currentCurriculum) 
+            console.log("in reducer prev curr lessons", prevState.currentCurriculum.lessons)   
+            console.log("in reducer lesson", action.payload.lesson)  
+            let updatedCurriculum = {...prevState.currentCurriculum } 
+            updatedCurriculum.lessons.push(action.payload.lesson)
+            console.log("in reducer", updatedCurriculum)       
+            return { ...prevState, currentCurriculum: updatedCurriculum }
         default:
         
             return prevState
