@@ -60,7 +60,7 @@ export default function Snackling(props){
                 {props.icon && props.icon === "question" && <TinyQuestion size={1} theme="white"></TinyQuestion>}
             </div>
             <div className={classes.middleContainer}>
-                <F5>Your note has been added!</F5>
+                <F5>{props.value}</F5>
             </div>
             <div className={classes.rightContainer}>
                 <Ex size={1} theme="none" close={props.close}></Ex>

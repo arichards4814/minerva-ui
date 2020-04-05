@@ -41,6 +41,7 @@ export default function ContentCard(props){
     const classes = useStyles(props)
     const [videoInfo, setVideoInfo] = useState({})
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState("")
 
     useEffect(() =>{
         // if(props.videoid){
@@ -60,15 +61,32 @@ export default function ContentCard(props){
                 key: process.env.REACT_APP_API_KEY
             }
         })
-        setVideoInfo(response.data.items[0].snippet)
-        setLoading(false)
-        console.log(response.data.items[0].snippet)
+
+        // 
+        if (response.data.items.length > 0){
+            setError("")
+            setLoading(false)
+            setVideoInfo(response.data.items[0].snippet)
+            props.getNewLessonImage(response.data.items[0].snippet.thumbnails.medium.url)
+            console.log(response.data.items[0].snippet)
+        } else if (props.videoUrl){
+            if(props.videoUrl.length > 0){
+                setVideoInfo("")
+            }
+
+            setLoading(true)
+            setError("Cannot retrieve details for this url.")
+        } else {
+
+            setLoading(true)
+            setError("Cannot retrieve details for this url.")
+        }
         //handle the search response here :)
     }
 
     if (videoInfo.thumbnails){
-
         console.log("medium", videoInfo.thumbnails.medium.url)
+        // props.getNewLessonImage(videoInfo.thumbnails.medium.url)
     }
 
 
@@ -84,6 +102,7 @@ return(
                     <div className={classes.body}>
                         {videoInfo.description && <F6>{videoInfo.description}</F6>}
                             {loading && <LoadingAnimation />}
+                        {error != "" && <F5>{error}</F5>}
                     </div>
             </div>
         </div>

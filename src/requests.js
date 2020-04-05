@@ -40,7 +40,8 @@ export const patchCurriculum = (data, id) => fetch(`${baseURL}/curriculums/${id}
         'accept': 'application/json'
     },
     body: JSON.stringify(data)
-}).then(parseData)
+})
+
 
 // GET /notebooks
 export const fetchNotebooks = () => fetch(`${baseURL}/notebooks`)

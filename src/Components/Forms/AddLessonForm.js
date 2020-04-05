@@ -15,6 +15,7 @@ export default function AddLessonForm(props) {
     const [videoURL, setVideoURL] = useState("")
     
     const urlListener = (e) => {
+        props.onChange(e)
         console.log(e.target.value)
         setVideoURL(e.target.value)
     }
@@ -22,13 +23,14 @@ export default function AddLessonForm(props) {
 
     return(
         <div>
-            <F4 font="secondary">Lesson Title:</F4><MinervaInput theme="minerva"/>
-            <F4 font="secondary">Media Url:</F4><MinervaInput theme="secondary" width={400} onChange={urlListener}/>
+            <F4 font="secondary">Lesson Title:</F4><MinervaInput name="title" theme="secondary" onChange={props.onChange}/>
+            <F4 font="secondary">Media Url:</F4><MinervaInput name="media_url" theme="secondary" width={400} onChange={urlListener}/>
             <F4 font="secondary">Content Preview:</F4>
-            <ContentCard videoURL={videoURL}/>
+            <ContentCard videoURL={videoURL} getNewLessonImage={props.getNewLessonImage}/>
            
-            <F4 font="secondary">Description:</F4><MinervaInput theme="third" width={400}/>
-            <MajesticButton color="third">Create</MajesticButton>
+            <F4 font="secondary">Description:</F4><MinervaInput name="description" theme="secondary" width={400} onChange={props.onChange}/>
+            {/* This will be the price toggle... */}
+            <MajesticButton color="third" onClick={props.onSubmit}>Create</MajesticButton>
         </div>
     )
 }

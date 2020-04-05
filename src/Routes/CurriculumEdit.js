@@ -10,6 +10,7 @@ import Display from '../Container/Display'
 import LongCardScroller from '../Container/LongCardScroller'
 import AddLessonForm from '../Components/Forms/AddLessonForm'
 import MinervaInput from '../Components/Forms/MinervaInput'
+import Snackling from '../Components/Snackling'
 
 import EditImage from '../Icons/EditImage'
 import AddNew from '../Icons/AddNew'
@@ -17,17 +18,43 @@ import EditExisting from '../Icons/EditExisting'
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum, setCurrentLesson } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson, updateCurrentCurriculum } from '../actionCreators'
+import SearchButton from '../Components/Forms/SeachButton'
 
 
 const CurriculumEdit = props => {
     const location = useLocation().pathname.split("/")[2]
+
+    //For Snackling
+    const [open, setOpen] = useState(false)
+    const [snacklingMessage, setSnacklingMessage] = useState("")
+
+    const close = () => {
+        setOpen(false)
+    }
 
     const [formState, setFormState] = useState(2)
     //form states
     //0 - Edit Details
     //1 - Edit Image
     //2 - Add Lessons
+
+    // Edit Details
+    const [formCurriculumDetails, setCurriculumDetails] = useState({})
+
+    // Edit Image
+    const [formImageUrl, setFormImageUrl] = useState({
+        image_url: props.currentCurriculum.image_url})
+
+    // EditLessons
+    const [formLesson, setFormLesson] = useState({
+        title: "",
+        media_url: "",
+        image_url: "",
+        description: ""
+    })
+
+
 
     useEffect(() => {
         if (parseInt(location) && props.fetchCurriculum) {
@@ -36,8 +63,14 @@ const CurriculumEdit = props => {
     }, [])
 
     const alterFormState = (index) => {
+        if(index === 0){
+            setCurriculumDetails({
+                title: props.currentCurriculum.title,
+                description: props.currentCurriculum.description
+            })
+        }
         setFormState(index)
-        document.getElementById("minerva-input").focus()
+        // document.getElementById("minerva-input").focus()
     }
 
     const handlePageTitle = () => {
@@ -53,14 +86,64 @@ const CurriculumEdit = props => {
         }
     }
 
+    const handlePageIcon = () => {
+        switch (formState) {
+            case 0:
+                return <EditExisting />
+            case 1:
+                return <EditImage />
+            case 2:
+                return <AddNew />
+            default:
+                return <AddNew />
+        }
+    }
+
+    const handleChangeLessonForm = (e) => {
+        setFormLesson({ ...formLesson, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmitLessonForm = () => {
+        console.log(formLesson)
+        
+        //create lesson in database
+        // clear form, add lesson to list of lessons in current curriculum, 
+    }
+
+    const getNewLessonImage = (newLessonImageUrl) => {
+        setFormLesson({ ...formLesson, image_url: newLessonImageUrl })
+    }
+
+    const handleChangeCurriculumDetails = (e) => {
+        setCurriculumDetails({...formCurriculumDetails, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmitDescriptionChange = () => {
+        let descriptionData = {...props.currentCurriculum, ...formCurriculumDetails}
+        props.updateCurrentCurriculum(descriptionData, props.currentCurriculum.id)
+        setSnacklingMessage("Your change was made!")
+        setOpen(true)
+    }
+
+    const handleChangeImageUrl = (e) => {
+        setFormImageUrl({ ...formCurriculumDetails, image_url: e.target.value })
+    }
+
+    const handleSubmitImageChange = () => {
+        let imageData = { ...props.currentCurriculum, ...formImageUrl }
+        props.updateCurrentCurriculum(imageData, props.currentCurriculum.id)
+        setSnacklingMessage("Your change was made!")
+        setOpen(true)
+    }
+
 
     return (
         <div className="fade-in">
             <Row marginLeft={80}>
                 <Layout width={4} >
                     <F2 font="secondary"> Curriculum Creator: <br>
-                    </br>{handlePageTitle()}</F2>
-                    {formState === 0 ? <MinervaInput type="text" theme="secondary" width={500} value={props.currentCurriculum.title} placeholder="Change title..." /> :
+                 </br>{handlePageIcon()}{handlePageTitle()}</F2>
+                    {formState === 0 ? <MinervaInput type="text" name="title" theme="minerva" value={formCurriculumDetails.title} onChange={handleChangeCurriculumDetails} width={500} placeholder="Change title..." /> :
                     <TitleBox style="rounded" theme="secondary" paddingLeft={3}><F3 font="secondary">{props.currentCurriculum.title}</F3></TitleBox>
                     }
                     {/*  */}
@@ -76,19 +159,32 @@ const CurriculumEdit = props => {
                     <CreatorHeader />
                 </Layout>
             </Row>
+            {formState === 2 &&
             <Row marginTop={30} marginLeft={80} >
                 <Layout width={6}>
                     <LongCardScroller info={props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" />
                 </Layout>
                 <Layout width={6}>
-                    <AddLessonForm />
+                    <AddLessonForm onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage}/>
                     {/* <Display {...props.currentLesson} imgHeight={400} imgWidth={"95%"} /> */}
                 </Layout>
+            </Row>}
 
-            </Row>
+            {formState === 1 &&
+            <Row marginTop={30} marginLeft={80}>
+                <MinervaInput type="text" theme="third" width={700} value={props.currentCurriculum.image_url} onChange={handleChangeImageUrl} placeholder="Enter image url..." />
+                <SearchButton theme="third" value="Save" onClick={handleSubmitImageChange} />
+                <img src={props.currentCurriculum.image_url}></img>
+            </Row>}
 
-            {/* </Row> */}
+            {formState === 0 &&
+                <Row marginTop={30} marginLeft={80}>
+                <MinervaInput type="text" value={formCurriculumDetails.description} onChange={handleChangeCurriculumDetails} name="description" theme="minerva" width={700}  placeholder="Enter image url..." />
+                <SearchButton theme="minerva" value="Save" onClick={handleSubmitDescriptionChange}/>
+                </Row>}
 
+
+                {open && <Snackling theme="minerva" icon="plus" close={close} value={snacklingMessage}></Snackling>}    
         </div>
     )
 }
@@ -105,7 +201,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
-        setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson))
+        setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
+        updateCurrentCurriculum: (data, curriculum_id) => dispatch(updateCurrentCurriculum(data, curriculum_id))
     }
 }
 

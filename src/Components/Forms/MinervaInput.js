@@ -38,6 +38,6 @@ export default function MinervaInput(props){
     const classes = useStyles(props)
 
     return(
-        <input className={classes.root} type={props.type} onChange={props.onChange} value={props.value} placeholder={props.placeholder}></input>
+        <input className={classes.root} name={props.name} type={props.type} onChange={props.onChange} value={props.value} placeholder={props.placeholder}></input>
     )
 }

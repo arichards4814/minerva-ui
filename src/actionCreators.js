@@ -25,5 +25,14 @@ export const fetchUsersCurriculums = (user_id) => dispatch => {
         })
 }
 
+export const updateCurrentCurriculum = (data, curriculum_id) => dispatch => {
+    // in this case I am changing the title and description of the curriculum
+    requests.patchCurriculum(data, curriculum_id)
+        .then(data => {
+            console.log(data)
+        })
+    dispatch({ type: 'UPDATE_CURRENT_CURRICULUM', payload: { currentCurriculum: data } })
+}
+
 
 export const setCurrentLesson = (lesson) => ({ type: 'SET_CURRENT_LESSON', payload: { currentLesson: lesson }})
