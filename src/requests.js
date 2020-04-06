@@ -53,6 +53,16 @@ export const postLessons = (data) => fetch(`${baseURL}/lessons`, {
     body: JSON.stringify(data)
 }).then(parseData)
 
+// PATCH Lessons/:id
+export const patchLesson = (data, id) => fetch(`${baseURL}/lessons/${id}`, {
+    method: 'PATCH',
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+})
+
 
 // GET /notebooks
 export const fetchNotebooks = () => fetch(`${baseURL}/notebooks`)

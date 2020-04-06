@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import { fetchCurriculum, setCurrentLesson, updateCurrentCurriculum, postLessons } from '../actionCreators'
 
 import SearchButton from '../Components/Forms/SeachButton'
+import EditLessonForm from '../Components/Forms/EditLessonForm'
 
 
 const CurriculumEdit = props => {
@@ -46,18 +47,29 @@ const CurriculumEdit = props => {
     const [formImageUrl, setFormImageUrl] = useState({
         image_url: ""})
 
-    // EditLessons
+    // Add Lessons
     const [formLesson, setFormLesson] = useState({
         title: "",
-        media_url: "",
+        material_url: "",
         image_url: "",
         description: "",
         lesson_type: "Video",
         cost: "free"
     })
 
+    // Edit Lessons
+    const [editFormLesson, setEditFormLesson] = useState({
+        id: "",
+        title: "",
+        material_url: "",
+        image_url: "",
+        description: "",
+        lesson_type: "Video",
+        cost: "free"
+    })
+    const [editFormActive, setEditFormActive] = useState(false)
 
-
+    // Get All Curriculum information
     useEffect(() => {
         if (parseInt(location) && props.fetchCurriculum) {
             props.fetchCurriculum(parseInt(location))
@@ -73,6 +85,8 @@ const CurriculumEdit = props => {
         } else if (index === 1){
             setFormImageUrl({
             image_url: props.currentCurriculum.image_url})
+        } else if (index === 2) {
+            setEditFormActive(false)
         }
         setFormState(index)
         // document.getElementById("minerva-input").focus()
@@ -117,14 +131,21 @@ const CurriculumEdit = props => {
     }
 
     const handleSubmitLessonForm = () => {
-        console.log(formLesson)
-        
-        // also validate here
-        // create lesson in database
-        // clear form, add lesson to list of lessons in current curriculum, 
+        // need to validate here
+
         let updatedWithCurrId = {...formLesson, curriculum_id: props.currentCurriculum.id}
-        console.log("dataCheck", updatedWithCurrId)
+        // create lesson in database, add lesson to list of lessons in current curriculum, 
         props.postLessons(updatedWithCurrId)
+
+        // clear form
+        setFormLesson({
+            title: "",
+            material_url: "",
+            image_url: "",
+            description: "",
+            lesson_type: "Video",
+            cost: "free"
+        })
     }
 
     const getNewLessonImage = (newLessonImageUrl) => {
@@ -153,6 +174,55 @@ const CurriculumEdit = props => {
         setOpen(true)
     }
 
+    // functions for the lesson cards
+    const editLessonOnClick = (lesson) => {
+        console.log(lesson)
+        setEditFormLesson({
+            id: "",
+            title: "",
+            material_url: "",
+            image_url: "",
+            description: "",
+            lesson_type: "Video",
+            cost: "free"
+        })
+        setEditFormLesson(lesson)
+        setEditFormActive(true)
+    }
+
+    const deleteLessonOnClick = () => {
+        console.log("will delete")
+    }
+
+    ////
+    //// Edit form handling.
+    const handleChangeEditForm = (e) => {
+        setEditFormLesson({ ...editFormLesson, [e.target.name]: e.target.value })
+    }
+
+    const handleEditToggles1 = (e) => {
+        setEditFormLesson({ ...editFormLesson, lesson_type: e })
+    }
+
+    const handleEditToggles2 = (e) => {
+        setEditFormLesson({ ...editFormLesson, cost: e })
+    }
+
+    const patchLesson = (id) => {
+        console.log(editFormLesson)
+        let formEdited = {
+            curriculum_id: editFormLesson.curriculum_id,
+            title: editFormLesson.title,
+            material_url: editFormLesson.material_url,
+            lesson_type: editFormLesson.lesson_type,
+            description: editFormLesson.description,
+            created_at: editFormLesson.created_at,
+            updated_at: editFormLesson.updated_at,
+            image_url: editFormLesson.image_url,
+            cost: editFormLesson.cost}
+        console.log(formEdited)
+        console.log(id, "oh yes about to get this to work")
+    }
 
     return (
         <div className="fade-in">
@@ -179,12 +249,12 @@ const CurriculumEdit = props => {
             {formState === 2 &&
             <Row marginTop={30} marginLeft={80} >
                 <Layout width={6}>
-                    <LongCardScroller info={props.currentCurriculum && props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" />
+                    <LongCardScroller info={props.currentCurriculum && props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" editLessonOnClick={editLessonOnClick} deleteLessonOnClick={deleteLessonOnClick}/>
                 </Layout>
                 <Layout width={6}>
-                    <AddLessonForm onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage} handleToggles1={handleToggles1} handleToggles2={handleToggles2}/>
-                    {/* <Display {...props.currentLesson} imgHeight={400} imgWidth={"95%"} /> */}
-
+                    {!editFormActive ? <AddLessonForm onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage} handleToggles1={handleToggles1} handleToggles2={handleToggles2} /> : 
+                        <EditLessonForm lesson={editFormLesson} onChange={handleChangeEditForm} handleToggles1={handleEditToggles1} handleToggles2={handleEditToggles2} onSubmit={patchLesson} />}
+                
                     {/* could do another add lesson form that is a patch request... */}
                 </Layout>
             </Row>}

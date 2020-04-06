@@ -21,6 +21,7 @@ const useStyles = makeStyles({
         left: 10
     }
 })
+
 export default function CustomImage(props) {
     const classes = useStyles(props)
     const [hovered, setHovered] = useState(false)

@@ -18,6 +18,8 @@ export const reducer = (prevState = initialState, action) => {
             return { ...prevState, thisUsersCurriculums: action.payload.thisUsersCurriculums }
         case 'FETCH_CURRICULUM':
             return { ...prevState, currentCurriculum: action.payload.currentCurriculum }
+        case 'PATCH_LESSONS':
+            return { ...prevState, currentCurriculum: action.payload.currentCurriculum }
         case 'UPDATE_CURRENT_CURRICULUM':
             return { ...prevState, currentCurriculum: action.payload.currentCurriculum }
         case 'POST_LESSONS':

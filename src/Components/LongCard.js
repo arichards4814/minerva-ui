@@ -4,6 +4,8 @@ import F4 from '../Typing/F4'
 import F5 from '../Typing/F5'
 import F6 from '../Typing/F6'
 import TinyEdit from '../Icons/Tiny/TinyEdit'
+import TinyTrash from '../Icons/Tiny/TinyTrash'
+
 
 
 import { connect } from 'react-redux';
@@ -54,25 +56,27 @@ const useStyles = makeStyles({
     cardImage: {
         height: "90%",
         width: "25%",
-        backgroundColor: "gray",
+        backgroundColor: "white",
         display: "inline-block",
         margin: 2,
         verticalAlign: "top"
     },
     rightSide: {
         display: "inline-block",
-        verticalAlign: "top"
+        verticalAlign: "top",
+        maxWidth: "70%",
     },
     cardTitle: {
         height: "12%"
     },
     cardBody: {
         height: "30%",
+        maxWidth: "80%",
         backgroundColor: "white"
     },
     cardFooter: {
         position: "relative",
-        bottom: 30, 
+        bottom: 70, 
         left: 200,
         textAlign: "center",
         height: "2%"
@@ -104,12 +108,14 @@ const LongCard = props => {
                     <F5>{props.lesson.title}</F5>
                 </div>
                 <div className={classes.cardBody}>
-                    <F6>{props.lesson.description}</F6>
+                    {props.lesson.description}
+                    {/* <F6>{props.lesson.description}</F6> */}
                 </div>
             </div>
             
             <div className={classes.cardFooter}>
-                <TinyEdit theme="minerva" />
+                <TinyTrash theme="fourth" marginBottom={3} onClick={() => props.deleteLessonOnClick(props.lesson)}/>
+                <TinyEdit theme="minerva" onClick={() => props.editLessonOnClick(props.lesson)}/>
             </div>
         </div>
     )

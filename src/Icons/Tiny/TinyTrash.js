@@ -12,7 +12,12 @@ const useStyles = makeStyles({
                 return 30
             }
         },
-        cursor: "pointer"
+        cursor: "pointer",
+        marginBottom: props => {
+            if (props.marginBottom){
+                return props.marginBottom
+            }
+        }
     },
     st0: {
         fill: props => HandleScheme(props)
@@ -25,7 +30,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function TinyEdit(props) {
+export default function TinyTrash(props) {
     const classes = useStyles(props)
 
     // needs to go to 155 on component did mount or on click or something.
@@ -42,11 +47,14 @@ export default function TinyEdit(props) {
             >
                 <g>
                     <g>
-                        <polygon className={classes.st0} points="41.22,11.04 47.58,17.4 21.23,43.75 14.87,45.01 14.87,37.39 		" />
-                        <rect x="44.53" y="5.34" transform="matrix(0.7071 -0.7071 0.7071 0.7071 7.3256 37.3718)" className={classes.st0} width="8.48" height="9" />
+                        <path className={classes.st0} d="M45.66,56.15H13.51L7.28,13.97h42.69L45.66,56.15z M16.85,52.28h25.32l3.52-34.45H11.76L16.85,52.28z" />
                     </g>
-                    <path className={classes.st1} d="M51.39,25.43v24.21c0,2.9-2.35,5.26-5.26,5.26H8.59c-2.9,0-5.26-2.35-5.26-5.26V12.1
-		c0-2.9,2.35-5.26,5.26-5.26h25.34"/>
+                    <rect x="20.72" y="23.47" className={classes.st0} width="2.18" height="22.86" />
+                    <rect x="28.23" y="23.47" className={classes.st0} width="2.18" height="22.86" />
+                    <rect x="36.07" y="23.47" className={classes.st0} width="2.18" height="22.86" />
+                    <path className={classes.st0} d="M53.12,10.79l-0.22,2.45L5.15,8.91l0.22-2.45c0.13-1.45,1.41-2.51,2.86-2.38l14.61,1.33L22.9,4.8
+		                c0.12-1.45,1.4-2.51,2.86-2.38l7.68,0.7c1.45,0.12,2.52,1.4,2.38,2.85l-0.06,0.61l14.98,1.35C52.18,8.07,53.25,9.35,53.12,10.79z"
+                    />
                 </g>
             </svg>
         </div>
