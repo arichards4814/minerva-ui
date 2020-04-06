@@ -5,7 +5,12 @@ const initialState = {
     thisUsersCurriculums: [],
     currentCurriculum: {},
     currentLesson: {},
-    thisUsersNotebooks: []
+
+    notebooks: [],
+    currentNotebook: {},
+    currentNote: {},
+
+    navlingHidden: false
 }
 
 export const reducer = (prevState = initialState, action) => {
@@ -41,12 +46,20 @@ export const reducer = (prevState = initialState, action) => {
             updatedCurriculum2.lessons.splice(foundIndex2, 1)
             return { ...prevState, currentCurriculum: updatedCurriculum2 }
         case 'DELETE_CURRICULUM':
-
             let updatedCurriculums = [ ...prevState.curriculums ]
             let foundIndexCurriculum = updatedCurriculums.findIndex(curriculum => curriculum.id === action.payload.deletedCurriculum)
             updatedCurriculums.splice(foundIndexCurriculum, 1)
             return { ...prevState, curriculums: updatedCurriculums, currentCurriculum: {} }
-
+        case 'FETCH_USERS_NOTEBOOKS':
+            return { ...prevState, notebooks: action.payload.notebooks }
+        case 'SET_CURRENT_NOTEBOOK':
+            return { ...prevState, currentNotebook: action.payload.currentNotebook }
+        case 'FETCH_NOTEBOOK':
+            return { ...prevState, currentNotebook: action.payload.currentNotebook }
+        case 'HIDE_NAVLING':
+            return { ...prevState, navlingHidden: true }
+        case 'SHOW_NAVLING':
+            return { ...prevState, navlingHidden: false }
         default:
         
             return prevState

@@ -7,6 +7,7 @@ import Creator from './Routes/Creator'
 import Explore from './Routes/Explore'
 import CurriculumShow from './Routes/CurriculumShow';
 import CurriculumEdit from './Routes/CurriculumEdit';
+import NotebookShow from './Routes/NotebookShow';
 
 // redux
 import { connect } from 'react-redux';
@@ -31,6 +32,9 @@ const App = props => {
       <Router>
         <Navling />
         <Switch>
+          <Route path="/notebooks/:id">
+            <NotebookShow />
+          </Route>
           <Route path="/notebooks">
             <Notebooks />
           </Route>

@@ -5,12 +5,24 @@ import LongCard from '../Components/LongCard'
 
 const useStyles = makeStyles({
     root: {
-        height: 800,
+        height: props => {
+            if (props.height){
+                return props.height
+            } else {
+                return 800
+            }
+        },
         alignContent: "top",
         overflowX: "auto"
     },
     debug: {
-        height: 800,
+        height: props => {
+            if (props.height) {
+                return props.height
+            } else {
+                return 800
+            }
+        },
         borderStyle: "solid",
         verticalAlign: "top"
     }

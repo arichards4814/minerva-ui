@@ -93,9 +93,6 @@ const Creator = props => {
         props.postCurriculums(data)
         history.push(`/editcurriculums/${props.currentCurriculum.id}`)
 
-        // this should probably be through the 
-        // reducer so I can 
-        // add to state
     }
 
     const goBack = () => {

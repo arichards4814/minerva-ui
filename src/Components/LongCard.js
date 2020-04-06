@@ -9,15 +9,27 @@ import TinyTrash from '../Icons/Tiny/TinyTrash'
 
 
 import { connect } from 'react-redux';
-import { setCurrentLesson } from '../actionCreators'
+import { setCurrentLesson, setCurrentNotebook } from '../actionCreators'
 
 
 const useStyles = makeStyles({
     root: {
         // borderStyle: "solid",
         position: "relative",
-        width: 500,
-        height: 120,
+        width: props => {
+            if(props.width){
+                return props.width
+            } else {
+                return 500
+            }
+        },
+        height: props => {
+            if (props.height) {
+                return props.height
+            } else {
+                return 120
+            }
+        },
         borderRadius: 10,
         // borderWidth: 2,
         boxShadow: "2px 4px 6px #888888",
@@ -97,13 +109,24 @@ const LongCard = props => {
         // setHovered(false)
     }
 
+    const notebookOrLesson = (lessonOrNotebook) => {
+        console.log("what props.lesson looks like", props.lesson)
+        if(props.lesson.notes){
+            props.setCurrentNotebook(props.lesson)
+            console.log("in")
+        } else {
+            props.setCurrentLesson(props.lesson)
+        }
+    }
+
     return (
-        <div className={hovered ? classes.hovered : classes.root} onMouseOver={handleHover} onMouseOut={unHover} onClick={() => props.setCurrentLesson(props.lesson)}>
+        <div className={hovered ? classes.hovered : classes.root} onMouseOver={handleHover} onMouseOut={unHover} onClick={() => notebookOrLesson(props.lesson)}>
             <div className={classes.cardHeader}>
 
             </div>
             <div className={classes.cardImage}>
                 {props.lesson.image_url && <img src={props.lesson.image_url} style={{ height: "100%", width: "100%" }}></img>}
+                {props.image_url && <img src={props.image_url} style={{ height: "100%", width: "100%" }}></img>}
             </div>
             <div className={classes.rightSide}>
                 <div className={classes.cardTitle}>
@@ -111,6 +134,7 @@ const LongCard = props => {
                 </div>
                 <div className={classes.cardBody}>
                     {props.lesson.description}
+                    {props.lesson.notes && <span> # of Notes: {props.lesson.notes.length}<br></br></span>}
                     {/* <F6>{props.lesson.description}</F6> */}
                 </div>
             </div>
@@ -134,7 +158,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson))
+        setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
+        setCurrentNotebook: (notebook) => dispatch(setCurrentNotebook(notebook))
     }
 }
 

@@ -74,6 +74,11 @@ export const deleteLesson = (id) => fetch(`${baseURL}/lessons/${id}`, {
 })
 
 
+// Get /usersnotebooks/:id
+export const fetchUsersNotebooks = (id) => fetch(`${baseURL}/usersnotebooks/${id}`)
+    .then(parseData)
+    .catch(catchError)
+
 
 // GET /notebooks
 export const fetchNotebooks = () => fetch(`${baseURL}/notebooks`)

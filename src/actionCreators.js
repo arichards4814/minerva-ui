@@ -43,7 +43,6 @@ export const postCurriculums = (data) => dispatch => {
             dispatch({ type: 'POST_CURRICULUMS', payload: { curriculum: data } })
             return data
         })
-
         // .then(body => console.log("if the return worked", body))
 }
 
@@ -84,3 +83,31 @@ export const deleteCurriculum = (id) => dispatch => {
 
 
 export const setCurrentLesson = (lesson) => ({ type: 'SET_CURRENT_LESSON', payload: { currentLesson: lesson }})
+
+
+export const setCurrentNotebook = (notebook) => ({ type: 'SET_CURRENT_NOTEBOOK', payload: { currentNotebook: notebook } })
+
+export const fetchNotebook = (id) => dispatch => {
+    //fetch and set it to the current notebook
+    requests.fetchNotebook(id)
+        .then(data => {
+            console.log(data)
+            dispatch({ type: 'FETCH_NOTEBOOK', payload: { currentNotebook: data } })
+        })
+}
+
+
+export const fetchUsersNotebooks = (id) => dispatch => {
+    //
+    requests.fetchUsersNotebooks(id)
+        .then(data => {
+            console.log(data)
+            dispatch({ type: 'FETCH_USERS_NOTEBOOKS', payload: { notebooks: data } })
+        })
+}
+
+
+export const hideNavling = () => ({ type: 'HIDE_NAVLING'})
+
+
+export const showNavling = () => ({ type: 'SHOW_NAVLING' })

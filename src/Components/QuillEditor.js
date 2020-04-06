@@ -63,7 +63,7 @@ export default class QuillEditor extends React.Component {
     render() {
         return (
             <div>
-                <div id="QuillEditor-container">
+                <div id="QuillEditor-container" className="quill-editor">
                     {/* <!-- Create the editor container --> */}
                     <div id="toolbar"></div>
                     <div id="editor">
