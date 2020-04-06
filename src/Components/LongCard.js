@@ -114,7 +114,7 @@ const LongCard = props => {
             </div>
             
             <div className={classes.cardFooter}>
-                <TinyTrash theme="fourth" marginBottom={3} onClick={() => props.deleteLessonOnClick(props.lesson)}/>
+                <TinyTrash theme="fourth" marginBottom={3} onClick={() => props.deleteLessonOnClick(props.lesson.id)}/>
                 <TinyEdit theme="minerva" onClick={() => props.editLessonOnClick(props.lesson)}/>
             </div>
         </div>

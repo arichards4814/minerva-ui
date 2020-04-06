@@ -38,6 +38,7 @@ export default function AddLessonForm(props) {
 
     return(
         <div>
+            <F4>Add Lesson</F4>
             <F4 font="secondary">Lesson Title:</F4><MinervaInput name="title" theme="secondary" onChange={props.onChange}/>
             <br></br>
             <F4 font="secondary">Type:</F4>

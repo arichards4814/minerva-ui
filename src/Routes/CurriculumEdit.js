@@ -10,20 +10,23 @@ import LongCardScroller from '../Container/LongCardScroller'
 import AddLessonForm from '../Components/Forms/AddLessonForm'
 import MinervaInput from '../Components/Forms/MinervaInput'
 import Snackling from '../Components/Snackling'
+import { useHistory } from 'react-router-dom'
 
 import EditImage from '../Icons/EditImage'
 import AddNew from '../Icons/AddNew'
 import EditExisting from '../Icons/EditExisting'
+import TrashIcon from '../Icons/TrashIcon'
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum, setCurrentLesson, updateCurrentCurriculum, postLessons } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson, updateCurrentCurriculum, postLessons, patchLesson, deleteLesson, deleteCurriculum } from '../actionCreators'
 
 import SearchButton from '../Components/Forms/SeachButton'
 import EditLessonForm from '../Components/Forms/EditLessonForm'
 
 
 const CurriculumEdit = props => {
+    const history = useHistory()
     const location = useLocation().pathname.split("/")[2]
 
     //For Snackling
@@ -190,8 +193,18 @@ const CurriculumEdit = props => {
         setEditFormActive(true)
     }
 
-    const deleteLessonOnClick = () => {
-        console.log("will delete")
+    const deleteCurriculumOnClick = () => {
+        if (window.confirm("Are you sure you want to delete this curriculum?")) {
+            props.deleteCurriculum(props.currentCurriculum.id)
+            history.push("/creator")
+        }
+    }
+
+    const deleteLessonOnClick = (id) => {
+        if(window.confirm("Are you sure you want to delete this lesson?")){
+            console.log(id)
+            props.deleteLesson(id)
+        }
     }
 
     ////
@@ -209,18 +222,8 @@ const CurriculumEdit = props => {
     }
 
     const patchLesson = (id) => {
-        console.log(editFormLesson)
-        let formEdited = {
-            curriculum_id: editFormLesson.curriculum_id,
-            title: editFormLesson.title,
-            material_url: editFormLesson.material_url,
-            lesson_type: editFormLesson.lesson_type,
-            description: editFormLesson.description,
-            created_at: editFormLesson.created_at,
-            updated_at: editFormLesson.updated_at,
-            image_url: editFormLesson.image_url,
-            cost: editFormLesson.cost}
-        console.log(formEdited)
+
+        props.patchLesson(editFormLesson, id)
         console.log(id, "oh yes about to get this to work")
     }
 
@@ -240,6 +243,7 @@ const CurriculumEdit = props => {
                         <EditImage tooltip="bottom" content="Change Image" onClick={() => alterFormState(1)}/>
                         <EditExisting tooltip="bottom" content="Edit Details" onClick={() => alterFormState(0)}/>
                         <AddNew tooltip="bottom" content="Add Lessons" onClick={() => alterFormState(2)}/>
+                        {formState === 0 && <TrashIcon tooltip="bottom" content="Delete" onClick={deleteCurriculumOnClick}/>}
                     </Row>
                 </Layout>
                 <Layout width={7}>
@@ -268,6 +272,7 @@ const CurriculumEdit = props => {
 
             {formState === 0 &&
                 <Row marginTop={30} marginLeft={80}>
+                <F3>Description:</F3>
                 <MinervaInput type="text" value={formCurriculumDetails.description} onChange={handleChangeCurriculumDetails} name="description" theme="minerva" width={700}  placeholder="Enter image url..." />
                 <SearchButton theme="minerva" value="Save" onClick={handleSubmitDescriptionChange}/>
                 </Row>}
@@ -292,7 +297,10 @@ const mapDispatchToProps = (dispatch) => {
         fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
         setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
         updateCurrentCurriculum: (data, curriculum_id) => dispatch(updateCurrentCurriculum(data, curriculum_id)),
-        postLessons: (data) => dispatch(postLessons(data))
+        postLessons: (data) => dispatch(postLessons(data)),
+        patchLesson: (data, id) => dispatch(patchLesson(data, id)),
+        deleteLesson: (id) => dispatch(deleteLesson(id)),
+        deleteCurriculum: (id) => dispatch(deleteCurriculum(id))
     }
 }
 

@@ -18,11 +18,9 @@ import AddNew from '../Icons/AddNew'
 import { makeStyles } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 
-import * as requests from '../requests'
-
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum, setCurrentLesson, fetchUsersCurriculums } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson, fetchUsersCurriculums, postCurriculums } from '../actionCreators'
 
 const useStyles = makeStyles({
     footer: {
@@ -92,9 +90,9 @@ const Creator = props => {
                 image_url: newCurriculumImage
             }
         }
-        requests.postCurriculums(data)
-        .then(newData => history.push(`editcurriculums/${newData.id}`))
-        
+        props.postCurriculums(data)
+        history.push(`/editcurriculums/${props.currentCurriculum.id}`)
+
         // this should probably be through the 
         // reducer so I can 
         // add to state
@@ -211,7 +209,8 @@ const mapDispatchToProps = (dispatch) => {
         // here going to have a post method
         fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
         setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
-        fetchUsersCurriculums: (user_id) => dispatch(fetchUsersCurriculums(user_id))
+        fetchUsersCurriculums: (user_id) => dispatch(fetchUsersCurriculums(user_id)),
+        postCurriculums: (curriculum) => dispatch(postCurriculums(curriculum))
     }
 }
 

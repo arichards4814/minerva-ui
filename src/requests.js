@@ -42,6 +42,11 @@ export const patchCurriculum = (data, id) => fetch(`${baseURL}/curriculums/${id}
     body: JSON.stringify(data)
 })
 
+// DELETE Curriculums/:id
+export const deleteCurriculum = (id) => fetch(`${baseURL}/curriculums/${id}`, {
+    method: 'DELETE'
+})
+
 // Post /Lessons
 
 export const postLessons = (data) => fetch(`${baseURL}/lessons`, {
@@ -62,6 +67,12 @@ export const patchLesson = (data, id) => fetch(`${baseURL}/lessons/${id}`, {
     },
     body: JSON.stringify(data)
 })
+
+// DELETE Lessons/:id
+export const deleteLesson = (id) => fetch(`${baseURL}/lessons/${id}`, {
+    method: 'DELETE'
+})
+
 
 
 // GET /notebooks
