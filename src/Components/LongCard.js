@@ -15,6 +15,7 @@ import { setCurrentLesson } from '../actionCreators'
 const useStyles = makeStyles({
     root: {
         // borderStyle: "solid",
+        position: "relative",
         width: 500,
         height: 120,
         borderRadius: 10,
@@ -44,11 +45,11 @@ const useStyles = makeStyles({
                 return 10
             }
         },
-        position: "relative",
-        transform: 'translateX(10px)',
-        transform: 'translateY(-10px)',
+        // position: "relative",
+        // transform: 'translateX(10px)',
+        // transform: 'translateY(-10px)',
 
-        cursor: 'pointer'
+        // cursor: 'pointer'
     },
     cardHeader: {
         height: "2%"
@@ -72,14 +73,15 @@ const useStyles = makeStyles({
     cardBody: {
         height: "30%",
         maxWidth: "80%",
-        backgroundColor: "white"
+        backgroundColor: "white",
+        display: "inline-block"
     },
     cardFooter: {
-        position: "relative",
-        bottom: 70, 
-        left: 200,
-        textAlign: "center",
-        height: "2%"
+        position: "absolute",
+        bottom: 5,
+        right: 0,
+        width: "10%",
+        display: "inline-block"
     },
 });
 
@@ -114,8 +116,9 @@ const LongCard = props => {
             </div>
             
             <div className={classes.cardFooter}>
-                <TinyTrash theme="fourth" marginBottom={3} onClick={() => props.deleteLessonOnClick(props.lesson.id)}/>
-                <TinyEdit theme="minerva" onClick={() => props.editLessonOnClick(props.lesson)}/>
+                {props.style === "edit" &&
+                    <TinyTrash theme="fourth" marginBottom={3} onClick={() => props.deleteLessonOnClick(props.lesson.id)} />}
+                {props.style === "edit" && <TinyEdit theme="minerva" onClick={() => props.editLessonOnClick(props.lesson)}/>}
             </div>
         </div>
     )

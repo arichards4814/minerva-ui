@@ -20,7 +20,7 @@ const LongCardScroller = props => {
     const classes = useStyles(props)
 
     const renderCards = () => {
-        return props.info.map(lesson => <LongCard key={lesson.id} lesson={lesson} editLessonOnClick={props.editLessonOnClick} deleteLessonOnClick={props.deleteLessonOnClick}/>)
+        return props.info.map(lesson => <LongCard key={lesson.id} lesson={lesson} editLessonOnClick={props.editLessonOnClick} deleteLessonOnClick={props.deleteLessonOnClick} style={props.style}/>)
     }
 
     return (

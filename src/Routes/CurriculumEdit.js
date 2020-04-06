@@ -251,9 +251,9 @@ const CurriculumEdit = props => {
                 </Layout>
             </Row>
             {formState === 2 &&
-            <Row marginTop={30} marginLeft={80} >
+            <Row marginLeft={80} >
                 <Layout width={6}>
-                    <LongCardScroller info={props.currentCurriculum && props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" editLessonOnClick={editLessonOnClick} deleteLessonOnClick={deleteLessonOnClick}/>
+                    <LongCardScroller info={props.currentCurriculum && props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" editLessonOnClick={editLessonOnClick} deleteLessonOnClick={deleteLessonOnClick} style={"edit"}/>
                 </Layout>
                 <Layout width={6}>
                     {!editFormActive ? <AddLessonForm onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage} handleToggles1={handleToggles1} handleToggles2={handleToggles2} /> : 
