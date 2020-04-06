@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import F4 from '../Typing/F4'
 import F5 from '../Typing/F5'
 import F6 from '../Typing/F6'
+import TinyEdit from '../Icons/Tiny/TinyEdit'
 
 
 import { connect } from 'react-redux';
@@ -70,7 +71,9 @@ const useStyles = makeStyles({
         backgroundColor: "white"
     },
     cardFooter: {
-        marginTop: 2,
+        position: "relative",
+        bottom: 30, 
+        left: 200,
         textAlign: "center",
         height: "2%"
     },
@@ -82,10 +85,10 @@ const LongCard = props => {
     const [hovered, setHovered] = useState(false)
 
     const handleHover = () => {
-        setHovered(true)
+        // setHovered(true)
     }
     const unHover = () => {
-        setHovered(false)
+        // setHovered(false)
     }
 
     return (
@@ -106,6 +109,7 @@ const LongCard = props => {
             </div>
             
             <div className={classes.cardFooter}>
+                <TinyEdit theme="minerva" />
             </div>
         </div>
     )

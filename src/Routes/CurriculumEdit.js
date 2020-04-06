@@ -6,7 +6,6 @@ import F2 from '../Typing/F2'
 import F3 from '../Typing/F3'
 import { useLocation } from "react-router-dom";
 import TitleBox from '../Components/TitleBox'
-import Display from '../Container/Display'
 import LongCardScroller from '../Container/LongCardScroller'
 import AddLessonForm from '../Components/Forms/AddLessonForm'
 import MinervaInput from '../Components/Forms/MinervaInput'
@@ -159,8 +158,8 @@ const CurriculumEdit = props => {
         <div className="fade-in">
             <Row marginLeft={80}>
                 <Layout width={4} >
-                    <F2 font="secondary"> Curriculum Creator: <br>
-                 </br>{handlePageIcon()}{handlePageTitle()}</F2>
+                    <F2 font="secondary"> Curriculum Creator: </F2>
+                    <F2 font="secondary"> {handlePageTitle()} </F2>
                     {formState === 0 ? <MinervaInput type="text" name="title" theme="minerva" value={formCurriculumDetails.title} onChange={handleChangeCurriculumDetails} width={500} placeholder="Change title..." /> :
                     <TitleBox style="rounded" theme="secondary" paddingLeft={3}><F3 font="secondary">{props.currentCurriculum && props.currentCurriculum.title}</F3></TitleBox>
                     }
@@ -185,6 +184,8 @@ const CurriculumEdit = props => {
                 <Layout width={6}>
                     <AddLessonForm onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage} handleToggles1={handleToggles1} handleToggles2={handleToggles2}/>
                     {/* <Display {...props.currentLesson} imgHeight={400} imgWidth={"95%"} /> */}
+
+                    {/* could do another add lesson form that is a patch request... */}
                 </Layout>
             </Row>}
 
