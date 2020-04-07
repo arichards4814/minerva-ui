@@ -28,7 +28,7 @@ const  Timeline = props => {
     const renderTags = () => {
         console.log(props.notes)
         if(props.notes){
-            return props.notes.map(note => <Notetag note={note} selected={false} totalTime={props.totalTime} position={note.material_time_stamp} goToSpecifiedTime={props.goToSpecifiedTime}/>)
+            return props.currentNotebook.notes.map(note => <Notetag note={note} selected={false} totalTime={props.totalTime} position={note.material_time_stamp} goToSpecifiedTime={props.goToSpecifiedTime}/>)
         }
     }
 
@@ -61,7 +61,8 @@ const  Timeline = props => {
 
 const mapStateToProps = (state) => {
     return {
-        selectedNoteIndex: state.selectedNoteIndex
+        selectedNoteIndex: state.selectedNoteIndex,
+        currentNotebook: state.currentNotebook
     }
 }
 

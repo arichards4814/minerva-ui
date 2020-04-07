@@ -5,9 +5,12 @@ import logo from '../SVGs/logo.svg'
 import LogoHolder from '../Components/LogoHolder.js'
 import bottomLine from '../SVGs/bottom_line.svg'
 import LoadingAnimation from '../Components/LoadingAnimation.js'
+import Expander from '../Icons/Expander'
 
 // redux
 import { connect } from 'react-redux';
+
+import { showNavling } from '../actionCreators'
 
 
 const useStyles = makeStyles({
@@ -24,6 +27,10 @@ const useStyles = makeStyles({
         top: 0,
         backgroundColor: "white",
         zIndex: 1
+    },
+    expander: {
+        position: "absolute",
+        right: 100
     }
 });
 
@@ -37,6 +44,9 @@ const Navling = props => {
             {!props.navlingHidden && <LogoHolder image={logo} />}
             {!props.navlingHidden && <Dock align="right"/>}
             <img src={bottomLine} ></img>
+            <div className={classes.expander}>
+                {props.navlingHidden && <Expander onClick={props.showNavling}/>}
+            </div>
         </div>
     )
 }
@@ -49,6 +59,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        showNavling: () => dispatch(showNavling()),
     }
 }
 

@@ -24,15 +24,7 @@ const useStyles = makeStyles({
         left: 200,
         top: 5,
         // left: "48%",
-        zIndex: 2,
         cursor: "pointer",
-        transform: props => {
-            if (props.orientation) {
-                return "rotate(0deg)"
-            } else {
-                return "rotate(180deg)"
-            }
-        }
     },
     st0: {
         fill: "#00B79D"

@@ -19,6 +19,7 @@ const useStyles = makeStyles({
     root: {
         // borderStyle: "solid",
         position: "relative",
+        overflow: "hidden",
         width: props => {
             if(props.width){
                 return props.width
@@ -48,6 +49,7 @@ const useStyles = makeStyles({
     expanded: {
         // borderStyle: "solid",
         position: "relative",
+        overflow: "hidden",
         width: props => {
             if (props.width) {
                 return props.width
@@ -125,6 +127,7 @@ const NotesLongcard = props => {
         } else {
             setSelected(false)
         }
+        parseInfo()
     })
 
     const handleExpand = () => {
@@ -144,6 +147,14 @@ const NotesLongcard = props => {
         setSelected(true)
     }
 
+    const parseInfo = () => {
+        var html = props.note.content;
+        var div = document.createElement("div");
+        div.innerHTML = html;
+        var text = div.textContent || div.innerText || "";
+        return text
+    }
+
     console.log("These are the props.. take note", props)
     return (
         <div className={expanded ? classes.expanded + " expanded" : classes.root + " not-expanded"} onClick={handleExpand}>
@@ -159,7 +170,7 @@ const NotesLongcard = props => {
                     <F5>{props.note.title}</F5>
                 </div>
                 <div className={classes.cardBody}>
-                    {props.note.content}
+                    {parseInfo()}
                     {/* <F6>{props.note.description}</F6> */}
                 </div>
             </div>

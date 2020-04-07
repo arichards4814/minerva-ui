@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Timeline from '../Components/Timeline';
+import Button from '../Components/Button'
 
 class YouTube extends React.PureComponent {
     static propTypes = {
@@ -79,12 +80,16 @@ class YouTube extends React.PureComponent {
     render = () => {
         const { id } = this.props;
         return (
-            <div >
+            <div style={{ position: "relative" }}  >
                 <div id={`youtube-player-${id}`}  />
                 {/* <button onClick={this.goToSpecifiedTime}>Go to 45</button> */}
                 {/* <Timeline totalTime={this.state.totalTime} goToSpecifiedTime={this.goToSpecifiedTime}/> */}
                 <Timeline notes={this.props.notes} totalTime={this.state.totalTime} goToSpecifiedTime={this.goToSpecifiedTime} />
-                <button onClick={() => this.props.onClick(this.checkCurrentTime())}>Post Note</button>
+                {/* <button onClick={() => this.props.onClick(this.checkCurrentTime())}>Post Note</button> */}
+                <div style={{position: "absolute", right: 63, zIndex: 1}}>
+                    <Button onClick={() => this.props.onClick(this.checkCurrentTime())}>Create</Button>
+                </div>
+                
             </div>
         );
     };

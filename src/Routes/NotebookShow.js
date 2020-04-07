@@ -66,15 +66,16 @@ const NotebookShow = props => {
 
         props.setCurrentNotepadDetails({ ...props.currentNotepadDetails, material_time_stamp: video_time })
         
-        let data = { ...props.currentNotepadContent, ...props.currentNotepadDetails }
+        let data = { ...props.currentNotepadContent, ...props.currentNotepadDetails, material_time_stamp: video_time }
         if(!data.content){
             console.log("No content.")
         } else if (!data.notebook_id){
             console.log("Issue with ID")
         } else if (data.material_time_stamp >= 0){
-            console.log("posting...")
-            //post to notes
-            props.postNotes(data)
+            console.log("posting...", props.currentNotepadDetails)
+            //post to notes=
+            props.postNotes(data) 
+
         }
     }
 
@@ -89,7 +90,7 @@ const NotebookShow = props => {
                     <QuillEditorV2 />
                 </Layout>
                 <Layout width={4}>
-                    <F2 font="secondary"> Notes: <HideIcon orientation={props.navlingHidden} onClick={props.navlingHidden ? props.showNavling : props.hideNavling} /></F2>
+    <F2 font="secondary"> Notes: {!props.navlingHidden && <HideIcon orientation={props.navlingHidden} onClick={props.navlingHidden ? props.showNavling : props.hideNavling} />}</F2>
                     <NotesScroller info={props.currentNotebook.notes} height={600} style={"show"} placeholder="No notes currently." headerTitle="" />
                     
                 </Layout>

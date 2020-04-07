@@ -81,6 +81,11 @@ const QuillEditorV2 = props => {
         
     },[]) //componentDidMount
 
+    // const clearQuillContents = () =>{ 
+    //     if(quillCopy){
+    //         quillCopy.setContents([{ insert: '\n' }]);
+    //     }
+    // }
 
     const setCurrentNotepadContentHelper = () => {
         // console.log("currentnotepadcontent", props.currentNotepadContent)
@@ -93,7 +98,8 @@ const QuillEditorV2 = props => {
             <div>
                 <div id="QuillEditor-container" className="quill-editor">
                     {/* <!-- Create the editor container --> */}
-                    <div id="toolbar"></div>
+                    <div id="toolbar">
+                    </div>
                     <div id="editor">
                         <p></p>
                     </div>
