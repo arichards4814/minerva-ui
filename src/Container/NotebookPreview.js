@@ -43,7 +43,7 @@ const NotebookPreview = props => {
                     <F4>{props.description}</F4>
                 </div>
                 <div className={classes.footer} >
-                    <Button>Open Notebook</Button>
+                    <Button onClick={props.onClick}>Open Notebook</Button>
                 </div>
             </div>
         </div>

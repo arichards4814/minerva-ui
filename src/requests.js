@@ -129,3 +129,19 @@ export const getYoutubeIDFromURL = (url) => {
         return video_id
     }
 }
+
+
+// POST Notes
+export const postNotes = (data) => fetch(`${baseURL}/notes`, {
+    method: 'POST',
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+}).then(parseData)
+
+// DELETE Notes/:id
+export const deleteNote = (id) => fetch(`${baseURL}/notes/${id}`, {
+    method: 'DELETE'
+})

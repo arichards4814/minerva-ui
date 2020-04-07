@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Timeline from './Timeline'
+import Timeline from '../Components/Timeline';
 
 class YouTube extends React.PureComponent {
     static propTypes = {
@@ -46,6 +46,7 @@ class YouTube extends React.PureComponent {
     onPlayerReady = event => {
         // event.target.playVideo();
         this.setState({totalTime: this.player.getDuration()})
+        this.props.getTotalTime(this.player.getDuration())
     };
 
     //////
@@ -54,18 +55,25 @@ class YouTube extends React.PureComponent {
     //   this.player.getVideoUrl()
     //  
     /////
-    //  The timeline should be in this component
+    //  Maybe the timeline should be in this component
     //  Timeline component
     //  NoteTag Component
     /////
 
     checkCurrentTime = () => {
-        console.log(this.player.getCurrentTime())
-        console.log("total time", this.player.getDuration())
+        return Math.floor(this.player.getCurrentTime())
     }
 
-    goToSpecifiedTime = (time) => {
+    // checkDuration = () => {
+        // if(this.player){
+        //     return this.player.getDuration()
+        // }
+        // console.log("total time", this.player.getDuration())
+    // }
+
+    goToSpecifiedTime = (time, passUp) => {
         this.player.seekTo(time)
+        passUp()
     }
 
     render = () => {
@@ -73,10 +81,10 @@ class YouTube extends React.PureComponent {
         return (
             <div >
                 <div id={`youtube-player-${id}`}  />
-
-                <button onClick={this.checkCurrentTime}>Check time</button>
-                <button onClick={this.goToSpecifiedTime}>Go to 45</button>
+                {/* <button onClick={this.goToSpecifiedTime}>Go to 45</button> */}
                 {/* <Timeline totalTime={this.state.totalTime} goToSpecifiedTime={this.goToSpecifiedTime}/> */}
+                <Timeline notes={this.props.notes} totalTime={this.state.totalTime} goToSpecifiedTime={this.goToSpecifiedTime} />
+                <button onClick={() => this.props.onClick(this.checkCurrentTime())}>Post Note</button>
             </div>
         );
     };

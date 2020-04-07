@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+
+// redux
+import { connect } from 'react-redux';
+import { setSelectedNoteIndex } from '../actionCreators'
 
 
 const useStyles = makeStyles({
@@ -8,7 +12,7 @@ const useStyles = makeStyles({
         width: 13.51,
         position: "absolute",
         left: props => Math.floor((840 * props.position) / props.totalTime),
-        bottom: 135
+        bottom: 0
     },
     st0: {
         fill: "#00D1A9",
@@ -18,16 +22,31 @@ const useStyles = makeStyles({
     }
 });
 
-export default function Notetag(props){
-    
+const Notetag = props => {
+    const [selected, setSelected] = useState(false)
     const classes = useStyles(props)
-    //will be out of the length of the timeline, think 840
-    //there will be an on click event that passes in a noteid
 
-    console.log(Math.floor((840 * props.position) / props.totalTime))
+    useEffect(() => {
+        if(props.note.id === props.selectedNoteIndex){
+            setSelected(true)
+            console.log("true")
+        } else {
+            setSelected(false)
+
+            console.log("false")
+        }
+    })
+
+    const setSelectedPassUp = () => {
+        console.log("note id", props.note.id)
+
+        console.log("selected index", props.selectedNoteIndex)
+        props.setSelectedNoteIndex(props.note.id)
+        setSelected(true)
+    }
 
     return(
-        <div className={classes.root + " notetag"} onClick={() => props.goToSpecifiedTime(props.position)}>
+        <div className={classes.root + " notetag"} onClick={() => props.goToSpecifiedTime(props.position, setSelectedPassUp)}>
             <svg
                 width="100%"
                 height="100%"
@@ -35,9 +54,25 @@ export default function Notetag(props){
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
             >
-            <polygon class={props.selected ? classes.selected : classes.st0} points="0,25 13.51,25 13.51,7.43 6.76,0 0,7.43 " />
+            <polygon class={selected ? classes.selected : classes.st0} points="0,25 13.51,25 13.51,7.43 6.76,0 0,7.43 " />
         </svg>
 
         </div>
     )
 }
+
+
+
+const mapStateToProps = (state) => {
+    return {
+        selectedNoteIndex: state.selectedNoteIndex
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setSelectedNoteIndex: (index) => dispatch(setSelectedNoteIndex(index))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notetag);

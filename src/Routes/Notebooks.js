@@ -4,7 +4,7 @@ import Row from '../Container/Row'
 import Layout from '../Container/Layout'
 import F2 from '../Typing/F2'
 import F3 from '../Typing/F3'
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import TitleBox from '../Components/TitleBox'
 import NotebookPreview from '../Container/NotebookPreview'
 import LongCardScroller from '../Container/LongCardScroller'
@@ -16,10 +16,17 @@ import { fetchUsersNotebooks } from '../actionCreators'
 
 const Notebooks = props => {
     const location = useLocation().pathname.split("/")[2]
+    const history = useHistory()
 
     useEffect(() => {
             props.fetchUsersNotebooks(40)
     }, [])
+
+    const goToNotebook = (id) => {
+        if(id){
+            history.push(`/notebooks/${id}`)
+        }
+    }
 
     return (
         <div className="fade-in">
@@ -36,7 +43,7 @@ const Notebooks = props => {
             </Row>
             <Row marginTop={30} marginLeft={3} >
                 <Layout width={6}>
-                    <NotebookPreview {...props.currentNotebook}/>
+                    <NotebookPreview {...props.currentNotebook} onClick={() => goToNotebook(props.currentNotebook.id)}/>
                 </Layout>
                 <Layout width={6}>
                     <LongCardScroller info={props.notebooks} style={"show"} placeholder="You don't have any notebooks." headerTitle="Notebooks:" />

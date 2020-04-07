@@ -28,7 +28,7 @@ export default function NoteIcon(props) {
     // if style.theme === "minerva" theme it like it should be
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} onClick={props.onClick}>
             <svg
                 width="100%"
                 height="100%"

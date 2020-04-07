@@ -10,11 +10,16 @@ const initialState = {
     currentNotebook: {},
     currentNote: {},
 
-    navlingHidden: false
+    navlingHidden: false,
+
+    currentNotepadContent: {},
+    currentNotepadDetails: {},
+
+    selectedNoteIndex: 0
+    
 }
 
 export const reducer = (prevState = initialState, action) => {
-    // console.log('1: ', prevState, ' 2: ', action)
     switch (action.type) {
         case 'SET_CURRENT_LESSON':
             return { ...prevState, currentLesson: action.payload.currentLesson }
@@ -60,8 +65,22 @@ export const reducer = (prevState = initialState, action) => {
             return { ...prevState, navlingHidden: true }
         case 'SHOW_NAVLING':
             return { ...prevState, navlingHidden: false }
+        case 'SET_CURRENT_NOTEPAD_CONTENT':
+            return { ...prevState, currentNotepadContent: action.payload.currentNotepadContent }
+        case 'SET_CURRENT_NOTEPAD_DETAILS':
+            return { ...prevState, currentNotepadDetails: action.payload.currentNotepadDetails }
+        case 'SET_SELECTED_NOTE_INDEX':
+            return { ...prevState, selectedNoteIndex: action.payload.selectedNoteIndex }
+        case 'POST_NOTES':
+            let updatedCurrentNotebook = { ...prevState.currentNotebook }
+            updatedCurrentNotebook.notes.push(action.payload.note)
+            return { ...prevState, currentNotebook: updatedCurrentNotebook }
+        case 'DELETE_NOTE':
+            let currentNotebookCopy = {...prevState.currentNotebook}
+            let foundIndexNote = currentNotebookCopy.notes.findIndex(note => note.id === action.payload.deletedNote)
+            currentNotebookCopy.notes.splice(foundIndexNote, 1)
+            return { ...prevState, currentNotebook: currentNotebookCopy}
         default:
-        
             return prevState
     }
 }

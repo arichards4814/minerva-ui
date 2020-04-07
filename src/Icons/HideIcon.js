@@ -9,26 +9,30 @@ const useStyles = makeStyles({
             if (props.height) {
                 return props.height
             } else {
-                return 50
+                return 30
             }
         },
         width: props => {
             if (props.width) {
                 return props.width
             } else {
-                return 50
+                return 30
             }
         },
-        position: "absolute",
-        top: 18,
-        left: "48%",
+        display: "inline-block",
+        position: 'relative',
+        left: 200,
+        top: 5,
+        // left: "48%",
         zIndex: 2,
+        cursor: "pointer",
         transform: props => {
             if (props.orientation) {
-               return "rotate(0deg)"
+                return "rotate(0deg)"
             } else {
                 return "rotate(180deg)"
-            }}
+            }
+        }
     },
     st0: {
         fill: "#00B79D"
@@ -51,10 +55,10 @@ export default function BackIcon(props) {
 
     }
 
-    console.log(props)
+    // console.log(props)
 
     return (
-        <div className={props.navlingHidden ? classes.root + " up" : classes.root + " down"} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick}>
+        <div className={props.navlingHidden ? classes.root: classes.root} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick}>
            <svg
                 width="100%"
                 height="100%"

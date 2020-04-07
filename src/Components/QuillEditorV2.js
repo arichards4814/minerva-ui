@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Quill from 'quill/core';
 import Toolbar from 'quill/modules/toolbar';
@@ -12,10 +12,16 @@ import Link from 'quill/formats/link';
 import List, { ListItem } from 'quill/formats/list';
 import Icons from 'quill/ui/icons';
 
-let quillCopy = ""
-export default class QuillEditor extends React.Component {
 
-    componentDidMount() {
+// redux
+import { connect } from 'react-redux';
+import { setCurrentNotepadContent } from '../actionCreators'
+
+
+let quillCopy = ""
+const QuillEditorV2 = props => {
+
+    useEffect(() => {
 
         Quill.register({
             'modules/toolbar': Toolbar,
@@ -61,25 +67,28 @@ export default class QuillEditor extends React.Component {
         });
 
         quill.on('text-change', function (delta, oldDelta, source) {
-            console.log(quill.root.innerHTML)
             if (source === 'user') {
-                this.props.handleNotepadChange(quillCopy.root.innerHTML)
+                setCurrentNotepadContentHelper()
+                // props.setCurrentNotepadContent({ ...props.currentNotepadContent, content: quillCopy.root.innerHTML })
+                if(quill.root.innerHTML.length === 8){
+                    //grab youtube time and add it to the currentNotepadContent
+                    console.log("time will be captured")
+                }
             }
         });
 
         quillCopy = quill
         
-    } //componentDidMount
+    },[]) //componentDidMount
 
 
-    changeHelper = () => {
-        this.props.handleNotepadChange(quillCopy.root.innerHTML)
-        // console.log(this.props)
-        // quillCopy.setContents([{ insert: '\n' }]);
+    const setCurrentNotepadContentHelper = () => {
+        // console.log("currentnotepadcontent", props.currentNotepadContent)
+        props.setCurrentNotepadContent({...props.currentNotepadContent, content: quillCopy.root.innerHTML })
     }
 
+    // console.log("current notepad contents", props.currentNotepadContent)
 
-    render() {
         return (
             <div>
                 <div id="QuillEditor-container" className="quill-editor">
@@ -88,9 +97,23 @@ export default class QuillEditor extends React.Component {
                     <div id="editor">
                         <p></p>
                     </div>
-                    <button onClick={this.clearEditor}>Get Inner HTML</button>
                 </div>
             </div>
         )
+    
+}
+
+
+const mapStateToProps = (state) => {
+    return {
+        currentNotepadContent: state.currentNotepadContent
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setCurrentNotepadContent: (content) => dispatch(setCurrentNotepadContent(content))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuillEditorV2);

@@ -5,21 +5,31 @@ import { makeStyles } from '@material-ui/core/styles'
 import Notetag from './Notetag'
 
 
+// redux
+import { connect } from 'react-redux';
+import { setSelectedNoteIndex } from '../actionCreators'
+
+
+
 const useStyles = makeStyles({
     root: {
-        width: 840
+        width: 840,
+        position: 'relative'
     },
     st0: {
         fill: "#FFD000",
     }
 });
 
-export default function Timeline(props){
+const  Timeline = props => {
     const classes = useStyles(props)
 
 
     const renderTags = () => {
-        console.log(props.tags)
+        console.log(props.notes)
+        if(props.notes){
+            return props.notes.map(note => <Notetag note={note} selected={false} totalTime={props.totalTime} position={note.material_time_stamp} goToSpecifiedTime={props.goToSpecifiedTime}/>)
+        }
     }
 
     return(
@@ -34,9 +44,10 @@ export default function Timeline(props){
                 <rect x="9.5" y="3.34" class={classes.st0} width="811" height="14" />
             </svg>
 
-            <Notetag selected={true} totalTime={props.totalTime} position={50} goToSpecifiedTime={props.goToSpecifiedTime}/>
-            <Notetag selected={false} totalTime={props.totalTime} position={75} goToSpecifiedTime={props.goToSpecifiedTime}/>
-            <Notetag selected={false} totalTime={props.totalTime} position={89} goToSpecifiedTime={props.goToSpecifiedTime}/>
+            {renderTags()}
+            {/* <Notetag selected={true} totalTime={1000} position={50} goToSpecifiedTime={props.goToSpecifiedTime}/>
+            <Notetag selected={false} totalTime={1000} position={150} goToSpecifiedTime={props.goToSpecifiedTime}/>
+            <Notetag selected={false} totalTime={props.totalTime} position={89} goToSpecifiedTime={props.goToSpecifiedTime}/> */}
             {/* //need to pass down total time in video
             //need to pass down the timestamp
             //need to divide to get the real number (could be a percentage or something or pixels
@@ -44,3 +55,20 @@ export default function Timeline(props){
         </div>
     )
 }
+
+
+
+
+const mapStateToProps = (state) => {
+    return {
+        selectedNoteIndex: state.selectedNoteIndex
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setSelectedNoteIndex: (index) => dispatch(setSelectedNoteIndex(index))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timeline);

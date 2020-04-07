@@ -191,16 +191,28 @@ svg *{
   height: 120px;
 }
 
-@keyframes rotateAnimation { 
-     100% { transform:rotate(360deg); 
+@keyframes expandAnimation { 
+    0% { 
+        height: 80px; 
+    } 
+     100% { 
+        height: 140px; 
      } 
 } 
 
-
-.up{
-    transform: rotate(20deg)
+.expanded {
+  animation: expandAnimation ease 1s;
 }
 
-.down{
-  animation: rotateAnimation ease 1s;
+@keyframes notexpandAnimation { 
+    0% { 
+        height: 140px; 
+    } 
+     100% { 
+        height: 80px; 
+     } 
+} 
+
+.not-expanded {
+  animation: notexpandAnimation ease 1s;
 }
