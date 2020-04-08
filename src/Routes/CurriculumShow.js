@@ -10,15 +10,24 @@ import Display from '../Container/Display'
 import LongCardScroller from '../Container/LongCardScroller'
 import { useHistory } from 'react-router-dom'
 import Snackling from '../Components/Snackling'
+import Button from '../Components/Button'
+import { makeStyles } from '@material-ui/core'
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum, setCurrentLesson, postNotebooks } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson, postNotebooks, postSubscription } from '../actionCreators'
 
+
+const useStyles = makeStyles({
+    buttonPlacement: {
+        margin: 20
+    }
+})
 
 const CurriculumShow = props => {
     const location = useLocation().pathname.split("/")[2]
     const history = useHistory()
+    const classes = useStyles(props)
 
 
     //For Snackling
@@ -51,14 +60,30 @@ const CurriculumShow = props => {
         history.push(`/notebooks/${props.currentNotebook.id}`)
     }
 
+    const subscribe = () => {
+        console.log("subscribing...")
+        //shouldn't be able to do it if already subscribed.
+
+        //post to subscriptions with user_id and curriculum_id
+        //curriculum_id is stored in props.currentCurriculum
+        //can probably go through the subscriptions array to find that out.
+        let data = {
+            curriculum_id: props.currentCurriculum.id,
+            user_id: 40
+        }
+
+        props.postSubscription(data)
+    }
+
     return (
         <div className="fade-in">
             <Row marginLeft={80}>
                 <Layout width={4} >
                     <F2 font="secondary"> Curriculum</F2>
                     <TitleBox style="rounded" theme="secondary" paddingLeft={3}><F3 font="secondary">{props.currentCurriculum.title}</F3></TitleBox>
-                    {/* <MinervaInput type="text" theme="secondary" onChange={handleChange} value={search} placeholder="Expand your mind..." /> */}
-                    {/* <SearchButton theme="secondary" onClick={handleClick}></SearchButton> */}
+                    <div className={classes.buttonPlacement}>
+                        <Button onClick={subscribe}>Subscribe</Button>
+                    </div>
                 </Layout>
                 <Layout width={7}>
                     <CreatorHeader />
@@ -95,7 +120,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
         setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
         setCurrentNotebook: (notebook) => dispatch(setCurrentLesson(notebook)),
-        postNotebooks: (data) => dispatch(postNotebooks(data))
+        postNotebooks: (data) => dispatch(postNotebooks(data)),
+        postSubscription: (data) => dispatch(postSubscription(data))
     }
 }
 

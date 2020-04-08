@@ -161,3 +161,22 @@ export const deleteNote = (id) => dispatch => {
         })
     dispatch({ type: 'DELETE_NOTE', payload: { deletedNote: id } })
 }
+
+///
+//  USERS_SUBSCRIPTIONS
+///
+export const fetchUsersSubscriptions = (id) => dispatch => {
+    requests.fetchUsersSubscriptions(id)
+        .then(data => {
+            dispatch({ type: 'FETCH_USERS_SUBSCRIPTIONS', payload: { subscriptions: data }})
+        })
+}
+
+export const postSubscription = (data) => dispatch => {
+    //
+    requests.postSubscription(data)
+        .then(data => {
+            console.log(data)
+            dispatch({ type: 'POST_SUBSCRIPTION', payload: { note: data } })
+        })
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Tooltip from '../Components/Tooltip'
+import HandleScheme from '../Schemes/HandleScheme'
 
 
 const useStyles = makeStyles({
@@ -22,12 +23,12 @@ const useStyles = makeStyles({
         display: "inline-block"
     },
     st0: {
-        fill: "#00B79D",
+        fill: props => HandleScheme(props),
     }
 });
 
 export default function (props) {
-    const classes = useStyles()
+    const classes = useStyles(props)
 
     const [hovered, setHovered] = useState(false)
 

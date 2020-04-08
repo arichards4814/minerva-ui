@@ -145,3 +145,27 @@ export const postNotes = (data) => fetch(`${baseURL}/notes`, {
 export const deleteNote = (id) => fetch(`${baseURL}/notes/${id}`, {
     method: 'DELETE'
 })
+
+///
+// USERS_SUBSCRIPTIONS
+///
+
+//fetch all
+export const fetchUsersSubscriptions = (id) => fetch(`${baseURL}/userssubscriptions/${id}`)
+    .then(parseData)
+    .catch(catchError)
+
+//post to subscriptions
+
+export const postSubscription = (data) => fetch(`${baseURL}/subscriptions`, {
+    method: "POST",
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+}).then(parseData)
+
+
+
+

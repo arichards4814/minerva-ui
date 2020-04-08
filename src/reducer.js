@@ -15,7 +15,9 @@ const initialState = {
     currentNotepadContent: {},
     currentNotepadDetails: {},
 
-    selectedNoteIndex: 0
+    selectedNoteIndex: 0,
+
+    subscriptions: {}
     
 }
 
@@ -84,6 +86,10 @@ export const reducer = (prevState = initialState, action) => {
             let foundIndexNote = currentNotebookCopy.notes.findIndex(note => note.id === action.payload.deletedNote)
             currentNotebookCopy.notes.splice(foundIndexNote, 1)
             return { ...prevState, currentNotebook: currentNotebookCopy}
+        case 'FETCH_USERS_SUBSCRIPTIONS':
+            return { ...prevState, subscriptions: action.payload.subscriptions }
+        case 'POST_SUBSCRIPTION':
+            return { ...prevState}
         default:
             return prevState
     }
