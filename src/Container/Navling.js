@@ -11,6 +11,7 @@ import Expander from '../Icons/Expander'
 import { connect } from 'react-redux';
 
 import { showNavling } from '../actionCreators'
+import { secondary } from '../Schemes/ColorScheme.js'
 
 
 const useStyles = makeStyles({
@@ -45,7 +46,7 @@ const Navling = props => {
             {!props.navlingHidden && <Dock align="right"/>}
             <img src={bottomLine} ></img>
             <div className={classes.expander}>
-                {props.navlingHidden && <Expander onClick={props.showNavling}/>}
+                {props.navlingHidden && <Expander onClick={props.showNavling} theme={"secondary"}/>}
             </div>
         </div>
     )

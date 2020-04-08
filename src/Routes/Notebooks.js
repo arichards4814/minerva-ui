@@ -6,26 +6,28 @@ import F2 from '../Typing/F2'
 import { useLocation, useHistory } from "react-router-dom";
 import HideIcon from '../Icons/HideIcon'
 import DropdownTile from '../Components/DropdownTile'
-
+import DropdownChild from '../Components/DropdownChild'
 // redux
 import { connect } from 'react-redux';
 import { fetchUsersNotebooks, hideNavling, showNavling, fetchUsersSubscriptions} from '../actionCreators'
+import { makeStyles } from '@material-ui/core'
 
-
+const useStyles = makeStyles({
+    backIcon: {
+        position: "absolute",
+        right: 300,
+        top: 130
+    }
+})
 const Notebooks = props => {
     const location = useLocation().pathname.split("/")[2]
     const history = useHistory()
+    const classes = useStyles(props)
 
     useEffect(() => {
-
+        props.fetchUsersNotebooks(40)
         props.fetchUsersSubscriptions(40)
     }, [])
-
-    const goToNotebook = (id) => {
-        if (id) {
-            history.push(`/notebooks/${id}`)
-        }
-    }
 
     const renderCurriculums = () => {
         if(props.subscriptions.length){
@@ -33,26 +35,36 @@ const Notebooks = props => {
         }
     }
 
+    const renderAllNotebooks = () => {
+            console.log(props.notebooks)
+            return props.notebooks.map(object => <DropdownChild {...object} width={300} />)
+        
+    }
+
     console.log("subscriptions", props.subscriptions[0])
 
     return (
         <div className="fade-in">
-            {!props.navlingHidden && <HideIcon orientation={props.navlingHidden} onClick={props.navlingHidden ? props.showNavling : props.hideNavling} />}
+            <div className={classes.backIcon}>
+                {!props.navlingHidden && <HideIcon orientation={props.navlingHidden} onClick={props.navlingHidden ? props.showNavling : props.hideNavling} />}
+            </div>
 
             <Row marginLeft={80}>
                 <Layout width={4} >
                     <F2 font="secondary"> Notebooks</F2>
+                    To start a lesson, create a notebook and then begin.
                 </Layout>
                 <Layout width={7}>
                     <NotebooksHeader />
                 </Layout>
             </Row>
-            <Row marginTop={30} marginLeft={3} >
+            <Row marginTop={30} marginLeft={50} >
                 <Layout width={6}>
-                    Your subscriptions:
+                    Based on your subscriptions:
                     {renderCurriculums()}
                 </Layout>
                 <Layout width={6}>
+                    {renderAllNotebooks()}
                 </Layout>
             </Row>
         </div>

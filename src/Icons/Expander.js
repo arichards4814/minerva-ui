@@ -20,7 +20,8 @@ const useStyles = makeStyles({
                 return 50
             }
         },
-        display: "inline-block"
+        display: "inline-block",
+        cursor: "pointer"
     },
     st0: {
         fill: props => HandleScheme(props),

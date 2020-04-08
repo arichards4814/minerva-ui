@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import Row from '../Container/Row'
 import Layout from '../Container/Layout'
 import F2 from '../Typing/F2'
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import NotesScroller from '../Container/NotesScroller'
-import LongCardScroller from '../Container/LongCardScroller'
 import Youtube from '../Components/Youtube'
-import QuillEditor from '../Components/QuillEditor'
+import { makeStyles} from '@material-ui/core'
+import LeftBackIcon from '../Icons/leftBackIcon'
+import NotebooksDock from '../Components/NotebooksDock'
 
 import QuillEditorV2 from '../Components/QuillEditorV2'
-import Timeline from '../Components/Timeline'
 
 import HideIcon from '../Icons/HideIcon'
 
@@ -17,8 +17,18 @@ import HideIcon from '../Icons/HideIcon'
 import { connect } from 'react-redux';
 import { hideNavling, showNavling, fetchNotebook, setCurrentNotepadContent, setCurrentNotepadDetails, postNotes } from '../actionCreators'
 
+const useStyles = makeStyles({
+    backIcon: {
+        position: "absolute",
+        left: -160,
+        transform: "translateX(-15px)",
+        transform: "translateY(10px)"
+    }
+})
 
 const NotebookShow = props => {
+    const history = useHistory()
+    const classes = useStyles(props)
     const location = useLocation().pathname.split("/")[2]
     const [totalTime, setTotalTime] = useState(1)
 
@@ -78,19 +88,25 @@ const NotebookShow = props => {
 
         }
     }
+    
+
+    console.log(props.currentNotebook)
 
 
     return (
         <div className="fade-in">
             <Row marginLeft={80}>
+                <div className={classes.backIcon}><LeftBackIcon onClick={() => history.push("/notebooks")}/></div>
                 <Layout width={8} >
-                    <F2 font="secondary"> Notebook: </F2>
+                    <F2 font="secondary"> Lesson: {props.currentNotebook.lessons && props.currentNotebook.lessons[0].title}</F2>
                     {props.currentNotebook.material_url && props.currentNotebook.material_url.includes("youtube") && <Youtube id={getYoutubeIDFromURL(props.currentNotebook.material_url)} onClick={postNewNote} notes={props.currentNotebook.notes} getTotalTime={getTotalTime}/>}
                     {/* <Timeline notes={props.currentNotebook.notes} totalTime={totalTime}/> */}
                     <QuillEditorV2 />
                 </Layout>
                 <Layout width={4}>
-    <F2 font="secondary"> Notes: {!props.navlingHidden && <HideIcon orientation={props.navlingHidden} onClick={props.navlingHidden ? props.showNavling : props.hideNavling} />}</F2>
+
+                    <NotebooksDock notebook={props.currentNotebook}/>
+                        <F2 font="secondary"> Notes: {!props.navlingHidden && <HideIcon orientation={props.navlingHidden} onClick={props.navlingHidden ? props.showNavling : props.hideNavling} />}</F2>
                     <NotesScroller info={props.currentNotebook.notes} height={600} style={"show"} placeholder="No notes currently." headerTitle="" />
                     
                 </Layout>

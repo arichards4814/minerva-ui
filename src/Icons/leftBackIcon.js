@@ -33,7 +33,7 @@ const useStyles = makeStyles({
     }
 });
 
-export default function BackIcon(props) {
+export default function LeftBackIcon(props) {
     const classes = useStyles(props)
 
     const [hovered, setHovered] = useState(false)
@@ -53,15 +53,14 @@ export default function BackIcon(props) {
            <svg
                 width="100%"
                 height="100%"
-                viewBox="0 0 242.29 242.04"
+                viewBox="0 0 225.3 225.06"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
             >
-
                 <g>
-                    <circle className={classes.st0} cx="121.15" cy="121.02" r="116" />
-                    <polygon className={classes.st1} points="60.6,153.96 44.55,137.35 120.85,61.04 121.09,61.28 121.18,61.19 197.76,137.77 181.15,153.82 
-		            120.94,93.62 	"/>
+                    <circle className={classes.st0} cx="113.37" cy="112.44" r="105.33" />
+                    <polygon className={classes.st1} points="143.28,167.42 128.2,181.99 58.91,112.71 59.13,112.49 59.05,112.41 128.58,42.87 143.16,57.96 
+		88.5,112.63 	"/>
                 </g>
             </svg>
         </div>
