@@ -95,6 +95,15 @@ export const setCurrentLesson = (lesson) => ({ type: 'SET_CURRENT_LESSON', paylo
 // NOTEBOOKS
 /////
 
+export const postNotebooks = (data) => dispatch => {
+    //
+    requests.postNotebooks(data)
+        .then(data => {
+            console.log(data)
+            dispatch({ type: 'POST_NOTEBOOKS', payload: { notebook: data } })
+        })
+}
+
 export const setCurrentNotebook = (notebook) => ({ type: 'SET_CURRENT_NOTEBOOK', payload: { currentNotebook: notebook } })
 
 export const fetchNotebook = (id) => dispatch => {

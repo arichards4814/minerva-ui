@@ -57,6 +57,10 @@ export const reducer = (prevState = initialState, action) => {
             return { ...prevState, curriculums: updatedCurriculums, currentCurriculum: {} }
         case 'FETCH_USERS_NOTEBOOKS':
             return { ...prevState, notebooks: action.payload.notebooks }
+        case 'POST_NOTEBOOKS':
+            let updatedNotebooks = [ ...prevState.notebooks ]
+            updatedNotebooks.push(action.payload.notebook)
+            return { ...prevState, notebooks: updatedNotebooks, currentNotebook: action.payload.notebook }
         case 'SET_CURRENT_NOTEBOOK':
             return { ...prevState, currentNotebook: action.payload.currentNotebook }
         case 'FETCH_NOTEBOOK':

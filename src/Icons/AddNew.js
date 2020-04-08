@@ -45,7 +45,7 @@ export default function AddNew(props) {
     return (
         <div className={classes.root + " selected icon-hover"} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick}>
             {props.tooltip === "top" && <div style={{ marginLeft: "32%" }}>
-                 <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />
+                <Tooltip width={100} right={40} content={props.content} showing={hovered ? "visible" : "hidden"} />
             </div>}
             <svg
                 width="100%"

@@ -37,7 +37,8 @@ export default function CustomImage(props) {
 
     return (
         <div className={hovered ? classes.hovered : classes.root} onMouseOver={handleHover} onMouseOut={unHover}>
-            {props.src ? <img className={classes.root} src={props.src}></img> : <div className={classes.root} style={{backgroundColor: "gray"}}></div>}
+            {props.src ? <img className={classes.root} src={props.src}></img> : <div className={classes.root} style={{backgroundColor: "gray"}}>
+                <img style={{height: "100%"}}src={'/ChooseLessonHeader.png'}></img></div>}
         </div>
     )
 }

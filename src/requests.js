@@ -98,7 +98,7 @@ export const postNotebooks = (data) => fetch(`${baseURL}/notebooks`, {
         'accept': 'application/json'
     },
     body: JSON.stringify(data)
-})
+}).then(parseData)
 
 
 // PATCH Notebooks/:id

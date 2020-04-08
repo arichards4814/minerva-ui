@@ -19,7 +19,7 @@ const Explore = props => {
 
     const renderCurriculums = (filteredCurriculums) => {
         if (props.curriculums) {
-            return filteredCurriculums.map(curriculum => <div style={{marginLeft: 20, marginRight: 20, display: "inline-block"}}><Card key={curriculum.id} {...curriculum} onClick={() => goToCurriculum(curriculum.id)} /></div>)
+            return filteredCurriculums.map(curriculum => <div style={{marginLeft: 30, marginRight: 30, display: "inline-block"}}><Card key={curriculum.id} {...curriculum} onClick={() => goToCurriculum(curriculum.id)} /></div>)
         }
     }
 

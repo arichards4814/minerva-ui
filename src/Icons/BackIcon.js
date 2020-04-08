@@ -43,7 +43,7 @@ export default function BackIcon(props) {
 
     return (
         <div className={classes.root + " selected icon-hover"} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick}>
-            {props.tooltip === "top" && <Tooltip width={100} content={props.content} showing={hovered ? "visible" : "hidden"} />}
+            {props.tooltip === "top" && <Tooltip width={100} right={25} content={props.content} showing={hovered ? "visible" : "hidden"} />}
             <svg
                 width="100%"
                 height="100%"

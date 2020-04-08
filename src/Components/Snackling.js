@@ -10,7 +10,12 @@ import HandleScheme from '../Schemes/HandleScheme'
 
 const useStyles = makeStyles({
     root: {
-        width: 420,
+        width: props => {
+            if (props.width) {
+                return props.width
+            } else {
+                return 420
+            }},
         height: 40,
         borderRadius: 10,
         backgroundColor: props => HandleScheme(props),
@@ -52,7 +57,7 @@ export default function Snackling(props){
 
     console.log(props.icon)
     return(
-        <div className={classes.root + " snackling"}>
+        <div className={classes.root + " snackling"} onClick={props.onClick}>
             <div className={classes.leftContainer}>
                 {props.icon && props.icon === "plus" && <TinyPlus size={1} theme="white"></TinyPlus>}
                 {props.icon && props.icon === "minus" && <TinyMinus size={1} theme="white"></TinyMinus>}
@@ -63,7 +68,7 @@ export default function Snackling(props){
                 <F5>{props.value}</F5>
             </div>
             <div className={classes.rightContainer}>
-                <Ex size={1} theme="none" close={props.close}></Ex>
+                {props.close && <Ex size={1} theme="none" close={props.close}></Ex>}
             </div>
         </div>
     )

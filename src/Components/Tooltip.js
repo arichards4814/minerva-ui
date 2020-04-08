@@ -14,6 +14,13 @@ const useStyles = makeStyles({
         backgroundColor: "#04B89F",
         position: "relative",
         bottom: 20,
+        right: props => {
+            if(props.right){
+                return props.right
+            } else {
+                return 0
+            }
+        },
         paddingLeft: 4,
         paddingRight: 4,
         textAlign: "center",
