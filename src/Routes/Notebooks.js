@@ -46,15 +46,24 @@ const Notebooks = props => {
     }, [])
 
     const renderCurriculums = () => {
-        if(props.subscriptions.length){
-            return props.subscriptions.map(object => <DropdownTile {...object.curriculum} width={300} />)
+        if (props.subscriptions.length) {
+            if (filter) {
+                let filt = props.subscriptions.filter(obj => obj.curriculum.title.includes(filter))
+                return filt.map(object => <DropdownTile {...object.curriculum} width={300} />)
+            } else {
+                return props.subscriptions.map(object => <DropdownTile {...object.curriculum} width={300} />)
+            }
         }
     }
 
     const renderAllNotebooks = () => {
-            console.log(props.notebooks)
-            return props.notebooks.map(object => <DropdownChild {...object} width={400} icon="notebook"/>)
-        
+
+            if (filter){
+                let filt = props.notebooks.filter(notebook => notebook.title.includes(filter))
+                return filt.map(object => <DropdownChild {...object} width={400} icon="notebook" />)
+            } else {
+                return props.notebooks.map(object => <DropdownChild {...object} width={400} icon="notebook"/>)
+            }
     }
 
     const selectHandler = (e) => {
@@ -68,6 +77,10 @@ const Notebooks = props => {
         }
 
         props.postNotebooks(data)
+    }
+
+    const handleFilterChange = (e) => {
+        setFilter(e.target.value)
     }
 
     console.log("subscriptions", props.subscriptions[0])
@@ -103,7 +116,7 @@ const Notebooks = props => {
                         <option value="subscribed">Subcribed Curriculums</option>
                         <option value="mycurriculums">Curriculums I've Created</option>
                     </MinervaSelect>
-                    <MinervaInput theme="minerva" placeholder="search"/>
+                    <MinervaInput theme="minerva" placeholder="search" onChange={handleFilterChange}/>
                 </Layout>
                 <Layout width={3}>
                 </Layout>

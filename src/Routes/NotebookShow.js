@@ -18,7 +18,6 @@ import HideIcon from '../Icons/HideIcon'
 import { connect } from 'react-redux';
 import { patchNotebooks, hideNavling, showNavling, fetchNotebook, setCurrentNotepadContent, setCurrentNotepadDetails, postNotes } from '../actionCreators'
 import Material from '../Container/Material';
-import TinyEdit from '../Icons/Tiny/TinyEdit'
 import MinervaInput from '../Components/Forms/MinervaInput';
 
 const useStyles = makeStyles({
@@ -134,10 +133,9 @@ const NotebookShow = props => {
                 <Layout width={8} >
 
                     <F2 font="secondary">  {props.currentNotebook.lessons && props.currentNotebook.lessons[0] ? "Lesson: " + props.currentNotebook.lessons[0].title : "Notebook: " + props.currentNotebook.title}
-                        {editing && <div><MinervaInput onChange={handleEditChange} theme="secondary" placeholder="New Notebook Title" /><Button theme="secondary" color="white" onClick={submitNameChange}>Change</Button></div>}</F2>
-                    {props.currentNotebook.lessons && props.currentNotebook.lessons[0] ? "" : <div style={{position: "relative", bottom: "0px", right: "70px"}}><TinyEdit onClick={() => setEditing(true)}></TinyEdit></div>}
+                        {editing && props.currentNotebook.lessons && <div><MinervaInput onChange={handleEditChange} theme="secondary" placeholder="New Notebook Title" /><Button theme="secondary" color="white" onClick={submitNameChange}>Change</Button></div>}</F2>
                     {props.currentNotebook.material_url && props.currentNotebook.material_url.includes("youtube") ? <Youtube id={getYoutubeIDFromURL(materialHandler())} onClick={postNewNote} notes={props.currentNotebook.notes} getTotalTime={getTotalTime}/> : 
-                    <Material />}
+                    <Material setEditing={setEditing}/>}
                     
 
                     {/* <Timeline notes={props.currentNotebook.notes} totalTime={totalTime}/> */}

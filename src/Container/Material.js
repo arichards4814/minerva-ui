@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {makeStyles} from "@material-ui/core"
 import MinervaInput from '../Components/Forms/MinervaInput'
 import Button from '../Components/Button'
+import TinyEdit from '../Icons/Tiny/TinyEdit'
 
 // redux
 import { connect } from 'react-redux';
@@ -44,6 +45,7 @@ const Material = props => {
                 </div></React.Fragment>
                 :
                 <div>
+                    <TinyEdit onClick={() => props.setEditing(true)}></TinyEdit>
                     Add Material to this Notebook:
                     <MinervaInput onChange={handleChange} width={400} theme="secondary" placeholder="Add URL Here" />
                     {input && <Button onClick={handleSubmit} margin={10} theme="secondary" color="white">Create</Button>}
