@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import "../Button.scss"
 
 import { makeStyles } from '@material-ui/core'
+import HandleScheme from '../Schemes/HandleScheme'
+import {HandleSchemeTextColor}  from '../Schemes/HandleScheme'
 
 
 const useStyles = makeStyles({
@@ -12,7 +14,17 @@ const useStyles = makeStyles({
             } else {
                 return 40
             }
+        },
+        backgroundColor: props => HandleScheme(props),
+        color: props => HandleSchemeTextColor(props),
+        margin: props => {
+            if(props.margin){
+                return props.margin
+            } else {
+                return 0
+            }
         }
+    
     }
 })
 

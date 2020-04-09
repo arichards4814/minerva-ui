@@ -87,7 +87,7 @@ class YouTube extends React.PureComponent {
                 <Timeline notes={this.props.notes} totalTime={this.state.totalTime} goToSpecifiedTime={this.goToSpecifiedTime} />
                 {/* <button onClick={() => this.props.onClick(this.checkCurrentTime())}>Post Note</button> */}
                 <div style={{position: "absolute", right: 63, zIndex: 1}}>
-                    <Button onClick={() => this.props.onClick(this.checkCurrentTime())}>Create</Button>
+                    <Button theme="secondary" onClick={() => this.props.onClick(this.checkCurrentTime())}>Create</Button>
                 </div>
                 
             </div>

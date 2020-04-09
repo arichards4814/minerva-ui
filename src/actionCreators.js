@@ -1,4 +1,5 @@
 import * as requests from './requests'
+import history from './history.js'
 
 
 /////
@@ -43,6 +44,7 @@ export const postCurriculums = (data) => dispatch => {
     requests.postCurriculums(data)
         .then(data => {
             dispatch({ type: 'POST_CURRICULUMS', payload: { curriculum: data } })
+            history.push(`/editcurriculums/${data.id}`)
             return data
         })
         // .then(body => console.log("if the return worked", body))
@@ -101,6 +103,7 @@ export const postNotebooks = (data) => dispatch => {
         .then(data => {
             console.log(data)
             dispatch({ type: 'POST_NOTEBOOKS', payload: { notebook: data } })
+            history.push(`/notebooks/${data.id}`)
         })
 }
 
@@ -123,6 +126,14 @@ export const fetchUsersNotebooks = (id) => dispatch => {
             console.log(data)
             dispatch({ type: 'FETCH_USERS_NOTEBOOKS', payload: { notebooks: data } })
         })
+}
+
+export const patchNotebooks = (data, id) => dispatch => {
+    requests.patchNotebooks(data, id)
+        .then(data => {
+            console.log(data)
+        })
+    dispatch({ type: 'PATCH_NOTEBOOKS', payload: { notebook: data } })
 }
 
 
@@ -178,5 +189,19 @@ export const postSubscription = (data) => dispatch => {
         .then(data => {
             console.log(data)
             dispatch({ type: 'POST_SUBSCRIPTION', payload: { note: data } })
+        })
+}
+
+
+///
+// LESSONS_NOTEBOOKS
+///
+
+export const postNotebooksWLessonJoiner = (lesson_id, notebook_data) => dispatch => {
+    //
+    requests.postNotebooksWLessonJoiner(lesson_id, notebook_data)
+        .then(data => {
+            console.log("data inside action creator", data)
+            dispatch({ type: 'POST_NOTEBOOKS_W_LESSON_JOINER', payload: { data: data } })
         })
 }

@@ -19,7 +19,8 @@ const useStyles = makeStyles({
                 return 50
             }
         },
-        display: "inline-block"
+        display: "inline-block",
+        cursor: "pointer"
     },
     st0: {
         fill: "#00B79D",
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
 });
 
 export default function SearchCircle(props) {
-    const classes = useStyles()
+    const classes = useStyles(props)
 
     const [hovered, setHovered] = useState(false)
 

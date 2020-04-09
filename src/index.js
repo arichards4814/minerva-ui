@@ -8,6 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { reducer } from './reducer'
 
+
 const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(

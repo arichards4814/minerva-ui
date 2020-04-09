@@ -8,6 +8,7 @@ import Youtube from '../Components/Youtube'
 import { makeStyles} from '@material-ui/core'
 import LeftBackIcon from '../Icons/leftBackIcon'
 import NotebooksDock from '../Components/NotebooksDock'
+import Button from '../Components/Button'
 
 import QuillEditorV2 from '../Components/QuillEditorV2'
 
@@ -15,7 +16,10 @@ import HideIcon from '../Icons/HideIcon'
 
 // redux
 import { connect } from 'react-redux';
-import { hideNavling, showNavling, fetchNotebook, setCurrentNotepadContent, setCurrentNotepadDetails, postNotes } from '../actionCreators'
+import { patchNotebooks, hideNavling, showNavling, fetchNotebook, setCurrentNotepadContent, setCurrentNotepadDetails, postNotes } from '../actionCreators'
+import Material from '../Container/Material';
+import TinyEdit from '../Icons/Tiny/TinyEdit'
+import MinervaInput from '../Components/Forms/MinervaInput';
 
 const useStyles = makeStyles({
     backIcon: {
@@ -31,6 +35,8 @@ const NotebookShow = props => {
     const classes = useStyles(props)
     const location = useLocation().pathname.split("/")[2]
     const [totalTime, setTotalTime] = useState(1)
+    const [editedName, setEditedName] = useState(props.currentNotebook.title)
+    const [editing, setEditing] = useState(false)
 
     useEffect(() => {
         props.fetchNotebook(location)
@@ -74,6 +80,10 @@ const NotebookShow = props => {
 
     const postNewNote = (video_time) => {
 
+        console.log("time", video_time)
+        console.log("current notepad details", props.currentNotepadDetails)
+        console.log("content", props.currentNotepadContent)
+        
         props.setCurrentNotepadDetails({ ...props.currentNotepadDetails, material_time_stamp: video_time })
         
         let data = { ...props.currentNotepadContent, ...props.currentNotepadDetails, material_time_stamp: video_time }
@@ -90,7 +100,31 @@ const NotebookShow = props => {
     }
     
 
-    console.log(props.currentNotebook)
+    const materialHandler = () => {
+        //this will check if there's a lesson attached to this notebook
+        if ( props.currentNotebook.lessons && props.currentNotebook.lessons[0]){
+            console.log("this notebook has a lesson attached to it this url will be used", props.currentNotebook.lessons[0].material_url)
+            return props.currentNotebook.lessons[0].material_url
+        } else {
+            console.log("there is no lesson associated with this notebook this will be the url used", props.currentNotebook.material_url)
+            return props.currentNotebook.material_url
+        }
+    }
+
+
+    const submitNameChange = () => {
+        let data = {
+            ...props.currentNotebook, 
+            title: editedName
+        }
+        props.patchNotebooks(data, props.currentNotebook.id)
+        setEditing(false)
+    }
+
+    const handleEditChange = (e) => {
+        setEditedName(e.target.value)
+    }
+
 
 
     return (
@@ -98,13 +132,18 @@ const NotebookShow = props => {
             <Row marginLeft={80}>
                 <div className={classes.backIcon}><LeftBackIcon onClick={() => history.push("/notebooks")}/></div>
                 <Layout width={8} >
-                    <F2 font="secondary"> Lesson: {props.currentNotebook.lessons && props.currentNotebook.lessons[0].title}</F2>
-                    {props.currentNotebook.material_url && props.currentNotebook.material_url.includes("youtube") && <Youtube id={getYoutubeIDFromURL(props.currentNotebook.material_url)} onClick={postNewNote} notes={props.currentNotebook.notes} getTotalTime={getTotalTime}/>}
+
+                    <F2 font="secondary">  {props.currentNotebook.lessons && props.currentNotebook.lessons[0] ? "Lesson: " + props.currentNotebook.lessons[0].title : "Notebook: " + props.currentNotebook.title}
+                        {editing && <div><MinervaInput onChange={handleEditChange} theme="secondary" placeholder="New Notebook Title" /><Button theme="secondary" color="white" onClick={submitNameChange}>Change</Button></div>}</F2>
+                    {props.currentNotebook.lessons && props.currentNotebook.lessons[0] ? "" : <div style={{position: "relative", bottom: "0px", right: "70px"}}><TinyEdit onClick={() => setEditing(true)}></TinyEdit></div>}
+                    {props.currentNotebook.material_url && props.currentNotebook.material_url.includes("youtube") ? <Youtube id={getYoutubeIDFromURL(materialHandler())} onClick={postNewNote} notes={props.currentNotebook.notes} getTotalTime={getTotalTime}/> : 
+                    <Material />}
+                    
+
                     {/* <Timeline notes={props.currentNotebook.notes} totalTime={totalTime}/> */}
                     <QuillEditorV2 />
                 </Layout>
                 <Layout width={4}>
-
                     <NotebooksDock notebook={props.currentNotebook}/>
                         <F2 font="secondary"> Notes: {!props.navlingHidden && <HideIcon orientation={props.navlingHidden} onClick={props.navlingHidden ? props.showNavling : props.hideNavling} />}</F2>
                     <NotesScroller info={props.currentNotebook.notes} height={600} style={"show"} placeholder="No notes currently." headerTitle="" />
@@ -142,7 +181,9 @@ const mapDispatchToProps = (dispatch) => {
         showNavling: () => dispatch(showNavling()),
         setCurrentNotepadContent: (content) => dispatch(setCurrentNotepadContent(content)),
         setCurrentNotepadDetails: (content) => dispatch(setCurrentNotepadDetails(content)),
-        postNotes: (data) => dispatch(postNotes(data))
+        postNotes: (data) => dispatch(postNotes(data)),
+        patchNotebooks: (data, id) => dispatch(patchNotebooks(data, id))
+
     }
 }
 

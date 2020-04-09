@@ -32,7 +32,8 @@ const useStyles = makeStyles({
     },
     children: {
         marginTop: 10,
-        marginLeft: 40
+        marginLeft: 40,
+        marginBottom: 10
     }
 })
 
@@ -41,7 +42,7 @@ const DropdownTile = props => {
     const [open, setOpen] = useState(false)
 
     const renderChildren = () => {
-        return props.lessons.map(lesson => <DropdownChild {...lesson} width={300} secondwidth={200}/>)
+        return props.lessons.map(lesson => <DropdownChild {...lesson} width={300} secondwidth={300}/>)
     }
 
     const handleOpen = () => {

@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core'
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum, setCurrentLesson, postNotebooks, postSubscription } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson, postNotebooks, postSubscription, fetchUsersSubscriptions } from '../actionCreators'
 
 
 const useStyles = makeStyles({
@@ -40,6 +40,7 @@ const CurriculumShow = props => {
         }
         props.setCurrentLesson({})
         props.setCurrentNotebook({})
+        props.fetchUsersSubscriptions(40)
     }, [])
 
 
@@ -75,6 +76,19 @@ const CurriculumShow = props => {
         props.postSubscription(data)
     }
 
+    const checkIfSubscribed = () => {
+        //go through subscriptions and see if ID exists.
+        let curriculum = null
+        if(props.subscriptions[0]){
+            curriculum = props.subscriptions.find(sub => sub.curriculum.id === props.currentCurriculum.id)
+        }
+        if (curriculum){
+            return true
+        } else {
+            return false
+        }
+    }
+
     return (
         <div className="fade-in">
             <Row marginLeft={80}>
@@ -82,7 +96,7 @@ const CurriculumShow = props => {
                     <F2 font="secondary"> Curriculum</F2>
                     <TitleBox style="rounded" theme="secondary" paddingLeft={3}><F3 font="secondary">{props.currentCurriculum.title}</F3></TitleBox>
                     <div className={classes.buttonPlacement}>
-                        <Button onClick={subscribe}>Subscribe</Button>
+                        {checkIfSubscribed() ? <Button theme={"minerva"} onClick={subscribe}>Unsubscribe</Button> : <Button theme={"secondary"} onClick={subscribe}>Subscribe</Button>}
                     </div>
                 </Layout>
                 <Layout width={7}>
@@ -98,7 +112,7 @@ const CurriculumShow = props => {
                 </Layout>
 
             </Row>
-              
+            {checkIfSubscribed()}
             {/* </Row> */}
             {props.currentNotebook.id && <Snackling width={500} theme="minerva" icon="plus" onClick={goToNotebook} value={snacklingMessage}></Snackling>}   
         </div>
@@ -111,7 +125,8 @@ const mapStateToProps = (state) => {
     return {
         currentCurriculum: state.currentCurriculum,
         currentLesson: state.currentLesson,
-        currentNotebook: state.currentNotebook
+        currentNotebook: state.currentNotebook,
+        subscriptions: state.subscriptions
     }
 }
 
@@ -121,7 +136,8 @@ const mapDispatchToProps = (dispatch) => {
         setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
         setCurrentNotebook: (notebook) => dispatch(setCurrentLesson(notebook)),
         postNotebooks: (data) => dispatch(postNotebooks(data)),
-        postSubscription: (data) => dispatch(postSubscription(data))
+        postSubscription: (data) => dispatch(postSubscription(data)),
+        fetchUsersSubscriptions: (id) => dispatch(fetchUsersSubscriptions(id))
     }
 }
 

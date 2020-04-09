@@ -3,7 +3,14 @@ import { makeStyles } from '@material-ui/core'
 import TinyPlus from '../Icons/Tiny/TinyPlus'
 import TinyNotebook from '../Icons/Tiny/TinyNotebook'
 import { useHistory } from 'react-router-dom'
+import SearchCircle from '../Icons/SearchCircle'
+import Pin from '../Icons/Pin'
 
+
+// redux
+import { connect } from 'react-redux';
+import { postNotebooksWLessonJoiner } from '../actionCreators'
+import DropdownTile from './DropdownTile'
 
 const useStyles = makeStyles({
     root: {
@@ -81,6 +88,17 @@ const DropdownChild = props => {
     const createNotebook = () => {
         console.log(notebookName)
         console.log("here are the props", props)
+
+        let data = {
+            title: notebookName,
+            material_url: props.material_url,
+             user_id: 40
+        }
+
+        props.postNotebooksWLessonJoiner(props.id, data)
+        setEditing(false)
+        console.log('this components props', props)
+
         // the data for the notebook itself will just be a title, user_id, //is material_id necessary here?
         //here will make a post & create the lessonnotebooks joiner
         //lesson_id: props.id
@@ -93,6 +111,7 @@ const DropdownChild = props => {
     }
 
 
+
     //onclick of the tiny plus it will show an input with a plus icon.
     //onclick of that plus icon a new notebook will be created.
 
@@ -101,6 +120,8 @@ const DropdownChild = props => {
             <div className={classes.root}>
                 {props.title}
                 <div className={classes.icon}>
+                    {props.icon && props.icon === "notebook" && <div style={{position:"relative", right: 40}}><Pin /></div>}
+                    {props.icon && props.icon === "notebook" && <div style={{ position: "relative", bottom: 40 }}><TinyNotebook size={1.5} onClick={() => history.push(`/notebooks/${props.id}`)} /></div> }
                     {props.notebooks && props.notebooks.length < 1 && !editing && <TinyPlus theme="minerva" onClick={openEdit} cursor={"pointer"}/>}
                 </div>
             </div>
@@ -114,11 +135,26 @@ const DropdownChild = props => {
             <div className={classes.notebook}>
                 {props.notebooks[0].title}
                 <div className={classes.icon} style={{marginBottom: 10}}>
-                    <TinyNotebook size={1.5} onClick={() => history.push(`/notebooks/${props.notebooks[0].id}`)}/>
+                    <div style={{ position: "relative", right: 40 }}><Pin /></div>
+                    <div style={{ position: "relative", bottom: 40 }}><TinyNotebook size={1.5} onClick={() => history.push(`/notebooks/${props.notebooks[0].id}`)}/></div>
                 </div>
             </div>}
         </div>
     )
 }
 
-export default DropdownChild
+
+const mapStateToProps = (state) => {
+    return {
+        currentCurriculum: state.currentCurriculum,
+        subscriptions: state.subscriptions
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        postNotebooksWLessonJoiner: (lesson_id, notebook_data) => dispatch(postNotebooksWLessonJoiner(lesson_id, notebook_data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropdownChild);

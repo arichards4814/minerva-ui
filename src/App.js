@@ -9,12 +9,15 @@ import CurriculumShow from './Routes/CurriculumShow';
 import CurriculumEdit from './Routes/CurriculumEdit';
 import NotebookShow from './Routes/NotebookShow';
 
+import history from './history.js'
+
+
 // redux
 import { connect } from 'react-redux';
 import { fetchCurriculums } from './actionCreators'
 
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route
 } from "react-router-dom";
@@ -29,7 +32,7 @@ const App = props => {
 
   return (
     <div >
-      <Router>
+      <Router history={history}>
         <Navling />
         <Switch>
           <Route path="/notebooks/:id">

@@ -91,7 +91,7 @@ const Creator = props => {
             }
         }
         props.postCurriculums(data)
-        history.push(`/editcurriculums/${props.currentCurriculum.id}`)
+        // history.push(`/editcurriculums/${props.currentCurriculum.id}`)
 
     }
 

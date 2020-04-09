@@ -78,6 +78,7 @@ export const reducer = (prevState = initialState, action) => {
         case 'SET_SELECTED_NOTE_INDEX':
             return { ...prevState, selectedNoteIndex: action.payload.selectedNoteIndex }
         case 'POST_NOTES':
+            console.log("checking what the notebook looks like now", prevState.currentNotebook)
             let updatedCurrentNotebook = { ...prevState.currentNotebook }
             updatedCurrentNotebook.notes.push(action.payload.note)
             return { ...prevState, currentNotebook: updatedCurrentNotebook }
@@ -90,6 +91,21 @@ export const reducer = (prevState = initialState, action) => {
             return { ...prevState, subscriptions: action.payload.subscriptions }
         case 'POST_SUBSCRIPTION':
             return { ...prevState}
+        case 'POST_NOTEBOOKS_W_LESSON_JOINER':
+            //find the right lesson within subscriptions. Then add to its notebook
+            let subCopy = [...prevState.subscriptions]
+            console.log("subcopy", subCopy)
+            subCopy.forEach(obj => obj.curriculum.lessons.forEach(lesson => {
+                if (lesson.id === action.payload.data.lesson_id){
+                    lesson.notebooks.push(action.payload.data.body)
+                }
+            }))
+
+            console.log("altered", subCopy)
+
+            return {...prevState, subscriptions: subCopy }
+        case 'PATCH_NOTEBOOKS':
+            return {...prevState, currentNotebook: action.payload.notebook}
         default:
             return prevState
     }

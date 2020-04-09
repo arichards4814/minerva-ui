@@ -42,7 +42,7 @@ const Display = props => {
                     <F4>{props.description}</F4>
                 </div>
                 <div className={classes.footer} >
-                    <Button onClick={props.onClick}>Start Lesson</Button>
+                    {props.title && <Button theme={"third"}onClick={props.onClick}>Start Lesson</Button>}
                 </div>
             </div>
         </div>

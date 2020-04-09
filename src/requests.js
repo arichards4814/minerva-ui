@@ -167,5 +167,32 @@ export const postSubscription = (data) => fetch(`${baseURL}/subscriptions`, {
 }).then(parseData)
 
 
+//post to notebooks and create a lesson joiner
 
+export const postNotebooksWLessonJoiner = (lesson_id, notebook_data) => fetch(`${baseURL}/notebooks`, {
+    method: 'POST',
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(notebook_data)
+        }).then(response => response.json())
+            .then(body => {
+                let ids = {
+                    lesson_id: lesson_id,
+                    notebook_id: body.id
+                }
+               
+                fetch(`${baseURL}/notebookslessons`,{
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            'accept': 'application/json'
+                        },
+                        body: JSON.stringify(ids)
+                    }).then(parseData).then(body => {
+                        return body
+                    })
 
+                return {lesson_id: lesson_id, body}
+            })
