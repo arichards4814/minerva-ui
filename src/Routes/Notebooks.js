@@ -16,6 +16,7 @@ import TinyPlus from '../Icons/Tiny/TinyPlus'
 import TinyNotebook from '../Icons/Tiny/TinyNotebook'
 import Expander from '../Icons/Expander'
 import Pin from '../Icons/Pin'
+import Uploader from '../Components/Uploader'
 
 // redux
 import { connect } from 'react-redux';
@@ -93,6 +94,7 @@ const Notebooks = props => {
 
             <Row marginLeft={80}>
                 <Layout width={4} >
+                    <Uploader />
                     <F2 font="secondary"> Notebooks</F2>
                     To start a lesson, create a notebook and then begin.
                     <div style={{marginTop: 40}}>

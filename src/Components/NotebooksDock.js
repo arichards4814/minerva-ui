@@ -8,7 +8,7 @@ import LeftBackUnaltered from '../Icons/leftBackUnaltered'
 const useStyles = makeStyles({
     root:{
         height: 70,
-        borderStyle: "solid"
+        // borderStyle: "solid"
     }
 })
 

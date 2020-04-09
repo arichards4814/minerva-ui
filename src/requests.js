@@ -196,3 +196,17 @@ export const postNotebooksWLessonJoiner = (lesson_id, notebook_data) => fetch(`$
 
                 return {lesson_id: lesson_id, body}
             })
+
+
+//posting an image to the backend
+
+// let formdata = new FormData();
+// formdata.append("image", { uri: imageUri, name: `${itemID}.jpg`, type: 'image/jpeg' })
+
+export const postImageToCurriculum = (curriculum_id, formdata) => fetch(`${baseURL}/curriculums/${curriculum_id}/image`, {
+    method: "POST",
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    },
+    body: formdata
+})
