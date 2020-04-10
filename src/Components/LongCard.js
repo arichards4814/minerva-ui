@@ -5,6 +5,9 @@ import F5 from '../Typing/F5'
 import F6 from '../Typing/F6'
 import TinyEdit from '../Icons/Tiny/TinyEdit'
 import TinyTrash from '../Icons/Tiny/TinyTrash'
+import VideoIcon from '../Icons/VideoIcon'
+import BlogIcon from '../Icons/BlogIcon'
+import BookIcon from '../Icons/BookIcon'
 
 
 
@@ -68,7 +71,7 @@ const useStyles = makeStyles({
     },
     cardImage: {
         height: "90%",
-        width: "25%",
+        width: "30%",
         backgroundColor: "white",
         display: "inline-block",
         margin: 2,
@@ -77,21 +80,22 @@ const useStyles = makeStyles({
     rightSide: {
         display: "inline-block",
         verticalAlign: "top",
-        maxWidth: "70%",
+        maxWidth: "60%",
+        padding: 10
     },
     cardTitle: {
         height: "12%"
     },
     cardBody: {
         height: "30%",
-        maxWidth: "80%",
+        maxWidth: "100%",
         backgroundColor: "white",
         display: "inline-block"
     },
     cardFooter: {
         position: "absolute",
         bottom: 5,
-        right: 0,
+        right: 5,
         width: "10%",
         display: "inline-block"
     },
@@ -143,6 +147,10 @@ const LongCard = props => {
                 {props.style === "edit" &&
                     <TinyTrash theme="fourth" marginBottom={3} onClick={() => props.deleteLessonOnClick(props.lesson.id)} />}
                 {props.style === "edit" && <TinyEdit theme="minerva" onClick={() => props.editLessonOnClick(props.lesson)}/>}
+                {props.lesson.lesson_type && props.lesson.lesson_type === "video" || props.lesson.lesson_type === "Video" && <VideoIcon />}
+                {props.lesson.lesson_type && props.lesson.lesson_type === "blog" || props.lesson.lesson_type === "Blog" && <BlogIcon />}
+                {props.lesson.lesson_type && props.lesson.lesson_type === "book" || props.lesson.lesson_type === "Book" && <BookIcon />}
+
             </div>
         </div>
     )

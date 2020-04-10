@@ -9,9 +9,9 @@ import TitleBox from '../Components/TitleBox'
 import Display from '../Container/Display'
 import LongCardScroller from '../Container/LongCardScroller'
 import { useHistory } from 'react-router-dom'
-import Snackling from '../Components/Snackling'
 import Button from '../Components/Button'
 import { makeStyles } from '@material-ui/core'
+import TagsList from '../Components/TagsList'
 
 // redux
 import { connect } from 'react-redux';
@@ -28,10 +28,6 @@ const CurriculumShow = props => {
     const location = useLocation().pathname.split("/")[2]
     const history = useHistory()
     const classes = useStyles(props)
-
-
-    //For Snackling
-    const [snacklingMessage, setSnacklingMessage] = useState("A notebook has been created.")
     
 
     useEffect(() => {
@@ -98,6 +94,7 @@ const CurriculumShow = props => {
                     <div className={classes.buttonPlacement}>
                         {checkIfSubscribed() ? <Button theme={"minerva"} onClick={subscribe}>Unsubscribe</Button> : <Button theme={"secondary"} onClick={subscribe}>Subscribe</Button>}
                     </div>
+                    <TagsList tags={props.currentCurriculum.tags}/>
                 </Layout>
                 <Layout width={7}>
                     <CreatorHeader />
@@ -114,8 +111,7 @@ const CurriculumShow = props => {
             </Row>
             {checkIfSubscribed()}
             {/* </Row> */}
-            {props.currentNotebook.id && <Snackling width={500} theme="minerva" icon="plus" onClick={goToNotebook} value={snacklingMessage}></Snackling>}   
-        </div>
+         </div>
     )
 }
 

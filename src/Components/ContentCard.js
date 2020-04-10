@@ -34,7 +34,8 @@ const useStyles = makeStyles({
     },
     body:{
         height: 100,
-        paddingLeft: 10
+        paddingLeft: 10,
+        maxWidth: 330
     }
 })
 
@@ -79,7 +80,7 @@ export default function ContentCard(props){
             setError("")
             setLoading(false)
             setVideoInfo(response.data.items[0].snippet)
-            props.getNewLessonImage(response.data.items[0].snippet.thumbnails.medium.url)
+            props.getNewLessonImage(response.data.items[0].snippet.thumbnails.high.url)
             console.log(response.data.items[0].snippet)
         } else if (props.videoUrl){
             if(props.videoUrl.length > 0){
