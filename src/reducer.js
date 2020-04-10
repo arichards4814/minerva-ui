@@ -17,7 +17,8 @@ const initialState = {
 
     selectedNoteIndex: 0,
 
-    subscriptions: {}
+    subscriptions: {},
+    pinned: {}
     
 }
 
@@ -100,12 +101,19 @@ export const reducer = (prevState = initialState, action) => {
                     lesson.notebooks.push(action.payload.data.body)
                 }
             }))
-
-            console.log("altered", subCopy)
-
             return {...prevState, subscriptions: subCopy }
         case 'PATCH_NOTEBOOKS':
             return {...prevState, currentNotebook: action.payload.notebook}
+        case 'PIN_NOTEBOOK':
+            let notebooksCopy = [...prevState.notebooks]
+            let index = notebooksCopy.findIndex(notebook => parseInt(notebook.id) === parseInt(action.payload.notebook.id))
+            notebooksCopy[index] = action.payload.notebook
+            return {...prevState, currentNotebook: action.payload.notebook, notebooks: notebooksCopy, pinned: action.payload.notebook}
+        case 'UNPIN_NOTEBOOK':
+            let notebooksCopyUnpinned = [...prevState.notebooks]
+            let indexUnpinned = notebooksCopyUnpinned.findIndex(notebook => notebook.id === action.payload.notebook.id)
+            notebooksCopyUnpinned[indexUnpinned] = action.payload.notebook
+            return { ...prevState, currentNotebook: action.payload.notebook, notebooks: notebooksCopyUnpinned, pinned: {} }
         default:
             return prevState
     }

@@ -205,3 +205,19 @@ export const postNotebooksWLessonJoiner = (lesson_id, notebook_data) => dispatch
             dispatch({ type: 'POST_NOTEBOOKS_W_LESSON_JOINER', payload: { data: data } })
         })
 }
+
+export const pinNotebook = (id, data) => dispatch => {
+    requests.pinNotebook(id, data)
+        .then(recieved => {
+            console.log("data inside action creator", recieved)
+            dispatch({ type: 'PIN_NOTEBOOK', payload: { notebook: recieved } })
+        })
+}
+
+export const unpinNotebook = (id, data) => dispatch => {
+    requests.unpinNotebook(id, data)
+        .then(recieved => {
+            console.log("data inside action creator", recieved)
+            dispatch({ type: 'UNPIN_NOTEBOOK', payload: { notebook: recieved } })
+        })
+}

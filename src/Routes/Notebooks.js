@@ -16,7 +16,7 @@ import TinyPlus from '../Icons/Tiny/TinyPlus'
 import TinyNotebook from '../Icons/Tiny/TinyNotebook'
 import Expander from '../Icons/Expander'
 import Pin from '../Icons/Pin'
-import Uploader from '../Components/Uploader'
+import PinBar from '../Components/PinBar'
 
 // redux
 import { connect } from 'react-redux';
@@ -84,7 +84,6 @@ const Notebooks = props => {
         setFilter(e.target.value)
     }
 
-    console.log("subscriptions", props.subscriptions[0])
 
     return (
         <div className="fade-in">
@@ -94,11 +93,10 @@ const Notebooks = props => {
 
             <Row marginLeft={80}>
                 <Layout width={4} >
-                    <Uploader />
                     <F2 font="secondary"> Notebooks</F2>
                     To start a lesson, create a notebook and then begin.
                     <div style={{marginTop: 40}}>
-                        <Pin width={40} height={40}/>  No pinned notebook. 
+                        <PinBar />
                     </div>
                 </Layout>
                 <Layout width={7}>

@@ -210,3 +210,24 @@ export const postImageToCurriculum = (curriculum_id, formdata) => fetch(`${baseU
     },
     body: formdata
 })
+
+
+// pin and unpin 
+
+export const pinNotebook = (id, data) => fetch(`${baseURL}/pin/${id}`, {
+    method: "POST",
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+}).then(parseData)
+
+export const unpinNotebook = (id, data) => fetch(`${baseURL}/unpin/${id}`, {
+    method: "POST",
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+}).then(parseData)

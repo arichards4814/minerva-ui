@@ -9,7 +9,7 @@ import Pin from '../Icons/Pin'
 
 // redux
 import { connect } from 'react-redux';
-import { postNotebooksWLessonJoiner } from '../actionCreators'
+import { postNotebooksWLessonJoiner, pinNotebook, unpinNotebook } from '../actionCreators'
 import DropdownTile from './DropdownTile'
 
 const useStyles = makeStyles({
@@ -110,6 +110,17 @@ const DropdownChild = props => {
         setNotebookName(e.target.value)
     }
 
+    const pinNotebook1 = () => {
+        console.log(props)
+        if(props.pinned && props.pinned.id){
+            props.unpinNotebook(props.pinned.id, props.pinned)
+        }
+        if(props.notebooks){
+            props.pinNotebook(props.notebooks[0].id, props.notebooks[0])
+        } else {
+            props.pinNotebook(props.id, props)
+        }
+    }
 
 
     //onclick of the tiny plus it will show an input with a plus icon.
@@ -120,7 +131,7 @@ const DropdownChild = props => {
             <div className={classes.root}>
                 {props.title}
                 <div className={classes.icon}>
-                    {props.icon && props.icon === "notebook" && <div style={{position:"relative", right: 40}}><Pin /></div>}
+                    {props.icon && props.icon === "notebook" && <div style={{ position: "relative", right: 40 }}><Pin onClick={pinNotebook1}/></div>}
                     {props.icon && props.icon === "notebook" && <div style={{ position: "relative", bottom: 40 }}><TinyNotebook size={1.5} onClick={() => history.push(`/notebooks/${props.id}`)} /></div> }
                     {props.notebooks && props.notebooks.length < 1 && !editing && <TinyPlus theme="minerva" onClick={openEdit} cursor={"pointer"}/>}
                 </div>
@@ -135,7 +146,7 @@ const DropdownChild = props => {
             <div className={classes.notebook}>
                 {props.notebooks[0].title}
                 <div className={classes.icon} style={{marginBottom: 10}}>
-                    <div style={{ position: "relative", right: 40 }}><Pin /></div>
+                    <div style={{ position: "relative", right: 40 }}><Pin onClick={pinNotebook1}/></div>
                     <div style={{ position: "relative", bottom: 40 }}><TinyNotebook size={1.5} onClick={() => history.push(`/notebooks/${props.notebooks[0].id}`)}/></div>
                 </div>
             </div>}
@@ -147,13 +158,16 @@ const DropdownChild = props => {
 const mapStateToProps = (state) => {
     return {
         currentCurriculum: state.currentCurriculum,
-        subscriptions: state.subscriptions
+        subscriptions: state.subscriptions,
+        pinned: state.pinned
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        postNotebooksWLessonJoiner: (lesson_id, notebook_data) => dispatch(postNotebooksWLessonJoiner(lesson_id, notebook_data))
+        postNotebooksWLessonJoiner: (lesson_id, notebook_data) => dispatch(postNotebooksWLessonJoiner(lesson_id, notebook_data)),
+        pinNotebook: (id, data) => dispatch(pinNotebook(id,data)),
+        unpinNotebook: (id, data) => dispatch(unpinNotebook(id, data)),
     }
 }
 

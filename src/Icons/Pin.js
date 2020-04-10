@@ -37,7 +37,7 @@ export default function LeftBackIcon(props) {
    
 
     return (
-        <div className={classes.root} >
+        <div className={classes.root} onClick={props.onClick}>
             <svg
                 width="100%"
                 height="100%"
