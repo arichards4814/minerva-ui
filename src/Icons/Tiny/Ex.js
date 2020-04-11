@@ -19,7 +19,7 @@ const useStyles = makeStyles({
         fill: "none"
     },
     st1hovered: {
-        fill: "white"
+        fill: "gray"
     }
 });
 
@@ -38,7 +38,7 @@ export default function NoteIcon(props) {
     }  
 
     return (
-        <div className={classes.root + " ex"} onClick={props.close} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
+        <div className={classes.root + " ex"} onClick={props.onClick} onMouseOver={handleHover} onMouseOut={handleMouseOut}>
             <svg
                 width="100%"
                 height="100%"

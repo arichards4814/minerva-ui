@@ -33,7 +33,7 @@ export default function LargeImage(props){
     return(
         <div className={hovered ? classes.hovered : classes.root} onMouseOver={handleHover} onMouseOut={unHover}>
             <div className={classes.overlay} >
-                <F1 color="white" font="secondary">{props.title}</F1>
+                <F1 color="#00B79D" font="secondary">{props.title}</F1>
             </div>
             <img className={classes.root} src={props.src}></img>
         </div>

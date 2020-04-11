@@ -6,7 +6,6 @@ import F2 from '../Typing/F2'
 import F3 from '../Typing/F3'
 import F6 from '../Typing/F3'
 import { useLocation } from "react-router-dom";
-import TitleBox from '../Components/TitleBox'
 import Display from '../Container/Display'
 import LongCardScroller from '../Container/LongCardScroller'
 import MinervaInput from '../Components/Forms/MinervaInput'
@@ -17,10 +16,12 @@ import BackIcon from '../Icons/BackIcon'
 import AddNew from '../Icons/AddNew'
 import { makeStyles } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import TagsList from '../Components/TagsList'
 
 // redux
 import { connect } from 'react-redux';
 import { fetchCurriculum, setCurrentLesson, fetchUsersCurriculums, postCurriculums } from '../actionCreators'
+import UploaderV3 from '../Components/UploaderV3'
 
 const useStyles = makeStyles({
     footer: {
@@ -38,6 +39,7 @@ const Creator = props => {
     const location = useLocation().pathname.split("/")[2]
     const [formTitle, setFormTitle] = useState("")
     const [errors, setErrors] = useState("")
+    const [tags, setTags] = useState([])
 
     const [stage, setStage] = useState(0)
 
@@ -81,6 +83,12 @@ const Creator = props => {
         setFormTitle("")
     }
 
+    const handleClick3 = () => {
+        // setNewCurriculumImage(formTitle)
+        setStage(4)
+        setFormTitle("")
+    }
+
     const submitFinalForm = () => {
         let data ={
             curriculum: {
@@ -90,9 +98,7 @@ const Creator = props => {
                 image_url: newCurriculumImage
             }
         }
-        props.postCurriculums(data)
-        // history.push(`/editcurriculums/${props.currentCurriculum.id}`)
-
+        props.postCurriculums(data, tags)
     }
 
     const goBack = () => {
@@ -118,6 +124,17 @@ const Creator = props => {
         }
     }
 
+    const addTag = () => {
+        setTags([...tags, {name: formTitle}])
+    }
+
+    const removeTag = (name) => {
+        let tagsCopy = [...tags]
+        let index = tagsCopy.findIndex(tag => tag.name === name)
+        console.log(index)
+        tagsCopy.splice(index, 1)
+        setTags(tagsCopy)
+    }
 
     return (
         <div className="fade-in">
@@ -138,7 +155,7 @@ const Creator = props => {
                 <Layout width={3}>
                 </Layout>
                 <Layout width={6}>
-
+                    <UploaderV3 />
 
                     {stage === 0 && <div>
                         <F2 font="secondary">Title</F2>
@@ -159,7 +176,15 @@ const Creator = props => {
                         <img src={formTitle} style={{width: 500, height: 300, position: "relative", right: 120}}></img>
                     </div>}
 
-                    {stage === 3 && <div style={{textAlign: "center", marginTop: 30}}>
+                    {stage === 3 && <div>
+                        <F2 font="secondary">Tags</F2>
+                        <MinervaInput width={500} height={75} fontSize={14} type="text" theme="secondary" onChange={handleChange} value={formTitle} placeholder="Choose tags for your curriculum..." />
+                        <SearchButton theme="secondary" onClick={addTag} value="Add"></SearchButton>
+                        <SearchButton theme="secondary" onClick={handleClick3} value="Next"></SearchButton>
+                        <TagsList tags={tags} exClick={removeTag}/>
+                    </div>}
+
+                    {stage === 4 && <div style={{textAlign: "center", marginTop: 30}}>
                         <SearchButton width={300} height={100} fontSize={80} onClick={submitFinalForm} theme="secondary" value="Create and add lessons!"></SearchButton>
                         </div>}
 
@@ -207,7 +232,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
         setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
         fetchUsersCurriculums: (user_id) => dispatch(fetchUsersCurriculums(user_id)),
-        postCurriculums: (curriculum) => dispatch(postCurriculums(curriculum))
+        postCurriculums: (curriculum, tags) => dispatch(postCurriculums(curriculum, tags))
     }
 }
 

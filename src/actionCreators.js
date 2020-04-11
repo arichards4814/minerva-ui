@@ -40,13 +40,34 @@ export const updateCurrentCurriculum = (data, curriculum_id) => dispatch => {
 }
 
 
-export const postCurriculums = (data) => dispatch => {
-    requests.postCurriculums(data)
-        .then(data => {
-            dispatch({ type: 'POST_CURRICULUMS', payload: { curriculum: data } })
-            history.push(`/editcurriculums/${data.id}`)
-            return data
-        })
+export const postCurriculums = (data, tags) => dispatch => {
+    if(tags){
+        requests.postCurriculums(data)
+            .then(data => {
+                //cycle through each tag and post to back end
+                //then create the joiner between the twon
+                console.log('data', data)
+                tags.forEach(tag => {
+                    requests.postTag({name: tag.name})
+                    .then(body => {
+                        console.log("body", body)
+                        console.log('data inside', data)
+                        requests.postCurriculumsTag({tag_id: body.id, curriculum_id: data.id})})
+                })
+
+                dispatch({ type: 'POST_CURRICULUMS', payload: { curriculum: data } })
+                history.push(`/editcurriculums/${data.id}`)
+                return data
+            })
+
+    } else {
+        requests.postCurriculums(data)
+            .then(data => {
+                dispatch({ type: 'POST_CURRICULUMS', payload: { curriculum: data } })
+                history.push(`/editcurriculums/${data.id}`)
+                return data
+            })
+    }
         // .then(body => console.log("if the return worked", body))
 }
 

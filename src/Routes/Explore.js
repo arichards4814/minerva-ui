@@ -5,7 +5,9 @@ import Layout from '../Container/Layout'
 import F2 from '../Typing/F2'
 import MinervaInput from '../Components/Forms/MinervaInput'
 import Card from '../Components/Card'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
+import TagsList from '../Components/TagsList'
+import Ex from '../Icons/Tiny/Ex'
 
 // redux
 import { connect } from 'react-redux';
@@ -15,7 +17,16 @@ import { fetchCurriculums } from '../actionCreators'
 const Explore = props => {
     const [search, setSearch] = useState("")
     let history = useHistory()
+    const tags = [{name: "Photoshop"},
+    {name: "Code"}, {name: "Drums"}]
+    let location = useLocation()
 
+    console.log(location.search)
+    useEffect(()=>{
+        if(location.search.includes("=")){
+            setSearch(location.search.split("=")[1])
+        }
+    })
 
     const renderCurriculums = (filteredCurriculums) => {
         if (props.curriculums) {
@@ -44,12 +55,23 @@ const Explore = props => {
         history.push(`curriculums/${id}`)
     }
 
+    const clearSearch = () => {
+
+        history.push(`/explore`)
+        setSearch("")
+    }
+
     return (
         <div className="fade-in">
             <Row marginLeft={80}>
                 <Layout width={4} >
                     <F2 font="secondary"> Explore</F2>
                     <MinervaInput type="text" theme="secondary" onChange={handleChange} value={search} placeholder="Expand your mind..."/>
+                    <div style={{display: "inline-block", width: 50, verticalAlign: "middle"}}>
+                        <Ex onClick={clearSearch} />
+                    </div>
+                    <div style={{ marginTop: 10, color: "#888888", width: 100, padding: 3}}>Popular Tags:</div>
+                    <TagsList tags={tags} />
                     {/* <SearchButton theme="secondary" onClick={handleClick}></SearchButton> */}
                 </Layout>
                 <Layout width={7}>

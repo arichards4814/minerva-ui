@@ -24,7 +24,9 @@ const useStyles = makeStyles({
         overflowX: 'scroll',
         overflowY: 'hidden',
         whiteSpace: 'nowrap',
-        paddingBottom: 10
+        paddingBottom: 10,
+        width: "80%",
+        marginLeft: "10%"
     }
 })
 

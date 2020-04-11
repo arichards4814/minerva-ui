@@ -231,3 +231,23 @@ export const unpinNotebook = (id, data) => fetch(`${baseURL}/unpin/${id}`, {
     },
     body: JSON.stringify(data)
 }).then(parseData)
+
+
+export const postTag = (name) => fetch(`${baseURL}/tags`, {
+    method: "POST",
+    headers: {
+    'content-type': 'application/json',
+    'accept': 'application/json'
+    },
+    body: JSON.stringify(name)})
+    .then(parseData)
+
+export const postCurriculumsTag = (data) => fetch(`${baseURL}/curriculumstags`, {
+    method: "POST",
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+}).then(parseData)
+    
