@@ -8,6 +8,7 @@ import Explore from './Routes/Explore'
 import CurriculumShow from './Routes/CurriculumShow';
 import CurriculumEdit from './Routes/CurriculumEdit';
 import NotebookShow from './Routes/NotebookShow';
+import Signup from './Routes/Signup';
 
 import history from './history.js'
 
@@ -52,6 +53,9 @@ const App = props => {
           </Route>
           <Route path="/curriculums/:id">
             <CurriculumShow />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
           <Route path="/">
             <Home /> 

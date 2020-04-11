@@ -251,3 +251,17 @@ export const postCurriculumsTag = (data) => fetch(`${baseURL}/curriculumstags`, 
     body: JSON.stringify(data)
 }).then(parseData)
     
+
+////
+// Signup
+///
+
+
+export const postUsers = (data) => fetch(`${baseURL}/users`, {
+    method: "POST",
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+}).then(parseData)

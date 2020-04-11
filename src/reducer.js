@@ -1,6 +1,7 @@
 
 
 const initialState = {
+    currentUser: {},
     curriculums: [],
     thisUsersCurriculums: [],
     currentCurriculum: {},
@@ -18,7 +19,9 @@ const initialState = {
     selectedNoteIndex: 0,
 
     subscriptions: {},
-    pinned: {}
+    pinned: {},
+
+    errors: []
     
 }
 
@@ -114,6 +117,15 @@ export const reducer = (prevState = initialState, action) => {
             let indexUnpinned = notebooksCopyUnpinned.findIndex(notebook => notebook.id === action.payload.notebook.id)
             notebooksCopyUnpinned[indexUnpinned] = action.payload.notebook
             return { ...prevState, currentNotebook: action.payload.notebook, notebooks: notebooksCopyUnpinned, pinned: {} }
+        case 'POST_USERS':
+            console.log(action.payload)
+            if (action.payload.user.errors){
+                return { ...prevState, currentUser: {}, errors: action.payload.user.errors}
+            } else {
+                localStorage.user_id = action.payload.user.id
+                return { ...prevState, currentUser: {id: action.payload.user.id, username: action.payload.user.username}}
+            }
+            //route to home here
         default:
             return prevState
     }

@@ -242,3 +242,13 @@ export const unpinNotebook = (id, data) => dispatch => {
             dispatch({ type: 'UNPIN_NOTEBOOK', payload: { notebook: recieved } })
         })
 }
+
+
+export const postUsers = (data) => dispatch => {
+    //
+    requests.postUsers(data)
+        .then(data => {
+            history.push(`/`)
+            dispatch({ type: 'POST_USERS', payload: { user: data } })
+        })
+}
