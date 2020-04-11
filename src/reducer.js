@@ -136,7 +136,9 @@ export const reducer = (prevState = initialState, action) => {
                 localStorage.user_id = action.payload.user.id
                 return { ...prevState, currentUser: {id: action.payload.user.id, username: action.payload.user.username}}
             }
-            //route to home here
+        case 'LOGOUT':
+            localStorage.removeItem("user_id")
+            return { ...prevState, currentUser: {} }
         default:
             return prevState
     }

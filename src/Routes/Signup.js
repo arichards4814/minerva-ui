@@ -5,6 +5,7 @@ import F5 from '../Typing/F5'
 import F6 from '../Typing/F6'
 import Row from '../Container/Row'
 import Layout from '../Container/Layout'
+import { useHistory } from 'react-router-dom'
 
 
 
@@ -38,10 +39,15 @@ const useStyles = makeStyles({
     },
     error: {
         color: "red"
+    },
+    footer: {
+        marginTop: 50,
+        textAlign: "center"
     }
 })
 const Signup = props => {
     const classes = useStyles(props)
+    const history = useHistory()
     const [form, setForm] = useState({
         username: "",
         email: "",
@@ -102,6 +108,11 @@ const Signup = props => {
 
                         {error && <div className={classes.error}>{error}</div>}
                         {props.errors && <div className={classes.error}>{props.errors.map((er, i) => <div key={i}>{er}</div>)}</div>}
+
+                        <div className={classes.footer}> 
+                            <div>Already a creator?</div>
+                            <button className={classes.button} onClick={() => history.push('/login')}>Log In</button>
+                        </div>
                     </Layout>
                 <Layout width={4}>
 

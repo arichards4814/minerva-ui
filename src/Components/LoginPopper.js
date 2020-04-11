@@ -1,6 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+
+
+// redux
+import { connect } from 'react-redux';
+import { logout } from '../actionCreators'
 
 const useStyles = makeStyles({
     root: {
@@ -30,20 +35,42 @@ const useStyles = makeStyles({
         outline: "none"
     }
 })
+
 const LoginPopper = props => {
     const classes = useStyles(props)
-    const [popped, setPopped] = useState(false)
     const history = useHistory()
 
+    const logout = () => {
+        props.logout()
+    }
 
+    console.log(props.currentUser)
 
     return (
         <div className={classes.root}>
-            <div>To experience all features:</div>
-            <button className={classes.button} onClick={() => history.push('/login')}>Login</button>
-            <button className={classes.button} onClick={() => history.push('/signup')}>Signup</button>
-            <button className={classes.button}>Logout</button>
+            {!props.currentUser.id &&
+            <React.Fragment>
+                <div>To experience all features:</div>
+                <button className={classes.button} onClick={() => history.push('/login')}>Login</button>
+                <button className={classes.button} onClick={() => history.push('/signup')}>Signup</button>
+            </React.Fragment>
+            }
+            {props.currentUser.id && <button className={classes.button} onClick={logout}>Logout</button>}
         </div>)
 }
 
-export default LoginPopper
+
+const mapStateToProps = (state) => {
+    return {
+        currentUser: state.currentUser,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logout: () => dispatch(logout())
+    }
+    
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPopper);

@@ -21,7 +21,8 @@ import { fetchCurriculums, fetchCurrentUser } from './actionCreators'
 import {
   Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 
 
@@ -43,22 +44,32 @@ const App = props => {
         <Navling />
         <Switch>
           <Route path="/notebooks/:id">
-            <NotebookShow />
+            {props.currentUser && props.currentUser.id ?
+              <NotebookShow /> :
+              <Redirect to="/signup" />}
           </Route>
           <Route path="/notebooks">
-            <Notebooks />
+            {props.currentUser && props.currentUser.id ?
+            <Notebooks /> :
+            <Redirect to="/signup" /> }
           </Route>
           <Route path="/explore">
             <Explore />
           </Route>
           <Route path="/creator">
-            <Creator />
+            {props.currentUser && props.currentUser.id ?
+            <Creator /> : 
+            <Redirect to="/signup" />}
           </Route>
           <Route path="/editcurriculums/:id">
-            <CurriculumEdit />
+            {props.currentUser && props.currentUser.id ?
+              <CurriculumEdit /> :
+              <Redirect to="/signup" />}
           </Route>
           <Route path="/curriculums/:id">
-            <CurriculumShow />
+            {props.currentUser && props.currentUser.id ?
+              <CurriculumShow /> :
+              <Redirect to="/signup" />}
           </Route>
           <Route path="/signup">
             <Signup />
@@ -78,7 +89,8 @@ const App = props => {
 
 const mapStateToProps = (state) => {
   return {
-    curriculums: state.curriculums
+    curriculums: state.curriculums,
+    currentUser: state.currentUser
   }
 }
 

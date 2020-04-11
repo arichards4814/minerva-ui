@@ -269,4 +269,14 @@ export const postLogin = (data) => dispatch => {
         .then(data => {
             dispatch({ type: 'POST_LOGIN', payload: { user: data } })
         })
+
+    history.push('/')
+}
+
+
+
+export const logout = () => dispatch => {
+    //
+    dispatch({ type: 'LOGOUT', payload: {} })
+    history.push('/login')
 }
