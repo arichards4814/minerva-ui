@@ -42,8 +42,8 @@ const Notebooks = props => {
     const [filter, setFilter] = useState("")
 
     useEffect(() => {
-        props.fetchUsersNotebooks(40)
-        props.fetchUsersSubscriptions(40)
+        props.fetchUsersNotebooks(localStorage.user_id)
+        props.fetchUsersSubscriptions(localStorage.user_id)
     }, [])
 
     const renderCurriculums = () => {
@@ -73,7 +73,7 @@ const Notebooks = props => {
 
     const createBlankNotebook = () => {
         let data = {
-            user_id: 40,
+            user_id: localStorage.user_id,
             title: "New Notebook"
         }
 

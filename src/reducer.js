@@ -27,6 +27,17 @@ const initialState = {
 
 export const reducer = (prevState = initialState, action) => {
     switch (action.type) {
+        case 'POST_LOGIN':
+            if (action.payload.user.errors) {
+                return { ...prevState, currentUser: {}, errors: action.payload.user.errors }
+            } else {
+                localStorage.user_id = action.payload.user.id
+                return { ...prevState, currentUser: { id: action.payload.user.id, username: action.payload.user.username } }
+            }
+        case 'FETCH_CURRENT_USER':
+            let userInfo = {username: action.payload.user.username, 
+            id: action.payload.user.id}
+            return { ...prevState, currentUser: userInfo}
         case 'SET_CURRENT_LESSON':
             return { ...prevState, currentLesson: action.payload.currentLesson }
         case 'FETCH_CURRICULUMS':

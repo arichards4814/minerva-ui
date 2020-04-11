@@ -9,13 +9,14 @@ import CurriculumShow from './Routes/CurriculumShow';
 import CurriculumEdit from './Routes/CurriculumEdit';
 import NotebookShow from './Routes/NotebookShow';
 import Signup from './Routes/Signup';
+import Login from './Routes/Login';
 
 import history from './history.js'
 
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculums } from './actionCreators'
+import { fetchCurriculums, fetchCurrentUser } from './actionCreators'
 
 import {
   Router,
@@ -28,7 +29,12 @@ const App = props => {
 
   //ask isabelle about this
   useEffect(() => {
+    if (localStorage.user_id) {
+      console.log("test", localStorage.user_id)
+      props.fetchCurrentUser(localStorage.user_id)
+    }
     props.fetchCurriculums()
+    
   }, [])
 
   return (
@@ -57,6 +63,9 @@ const App = props => {
           <Route path="/signup">
             <Signup />
           </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
           <Route path="/">
             <Home /> 
           </Route>
@@ -75,7 +84,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCurriculums: () => dispatch(fetchCurriculums())
+    fetchCurriculums: () => dispatch(fetchCurriculums()),
+    fetchCurrentUser: (id) => dispatch(fetchCurrentUser(id))
   }
 }
 

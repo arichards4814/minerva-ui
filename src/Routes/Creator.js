@@ -53,7 +53,7 @@ const Creator = props => {
         if (parseInt(location) && props.fetchCurriculum) {
             props.fetchCurriculum(parseInt(location))
         }
-        props.fetchUsersCurriculums(40)
+        props.fetchUsersCurriculums(localStorage.user_id)
     }, [])
 
     const handleChange = (e) => {
@@ -92,7 +92,7 @@ const Creator = props => {
     const submitFinalForm = () => {
         let data ={
             curriculum: {
-                user_id: 40,
+                user_id: localStorage.user_id,
                 title: newCurriculumTitle,
                 description: newCurriculumDescription,
                 image_url: newCurriculumImage

@@ -6,6 +6,22 @@ const parseData = response => response.json()
 const catchError = error => console.log(`%c${error}`, 'color: red;')
 
 //////////////////////////////////////////////////////
+// POST /login
+export const postLogin = (data) => fetch(`${baseURL}/login`, {
+    method: "POST",
+    headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+})
+    .then(parseData)
+    .catch(catchError)
+
+// POST /currentuser
+export const fetchCurrentUser = (id) => fetch(`${baseURL}/users/${id}`)
+    .then(parseData)
+    .catch(catchError)
 
 // GET /curriculums
 export const fetchCurriculums = () => fetch(`${baseURL}/curriculums`)

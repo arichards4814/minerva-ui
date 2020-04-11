@@ -252,3 +252,21 @@ export const postUsers = (data) => dispatch => {
             dispatch({ type: 'POST_USERS', payload: { user: data } })
         })
 }
+
+
+export const fetchCurrentUser = (id) => dispatch => {
+    //
+    requests.fetchCurrentUser(id)
+        .then(data => {
+            dispatch({ type: 'FETCH_CURRENT_USER', payload: { user: data } })
+        })
+}
+
+
+export const postLogin = (data) => dispatch => {
+    //
+    requests.postLogin(data)
+        .then(data => {
+            dispatch({ type: 'POST_LOGIN', payload: { user: data } })
+        })
+}

@@ -7,6 +7,7 @@ import Layout from '../Container/Layout'
 import TitleBox from '../Components/TitleBox'
 import Card from '../Components/Card'
 import LoadingAnimation from '../Components/LoadingAnimation'
+import LoginPopper from '../Components/LoginPopper'
 import { useHistory } from 'react-router-dom'
 
 
@@ -43,6 +44,7 @@ const Home = props =>{
 
     return(
         <div className="fade-in">
+            {!props.currentUser && <LoginPopper />}
             <Row marginTop={40} marginBottom={40}>
                 <Layout width={4} align="center">
                     <MajesticButton onClick={() => history.push("/explore")}><F3 font="secondary">Explore Curriculums</F3></MajesticButton>
@@ -76,7 +78,8 @@ const Home = props =>{
 
 const mapStateToProps = (state) => {
     return {
-        curriculums: state.curriculums
+        curriculums: state.curriculums,
+        currentUser: state.currentUser
     }
 }
 

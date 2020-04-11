@@ -36,7 +36,7 @@ const CurriculumShow = props => {
         }
         props.setCurrentLesson({})
         props.setCurrentNotebook({})
-        props.fetchUsersSubscriptions(40)
+        props.fetchUsersSubscriptions(localStorage.user_id)
     }, [])
 
 
@@ -44,7 +44,7 @@ const CurriculumShow = props => {
         console.log("inside create")
         if(props.currentLesson){
             let data = {
-                user_id: 40,
+                user_id: localStorage.user_id,
                 title: props.currentLesson.title,
                 material_url: props.currentLesson.material_url
             }
@@ -66,7 +66,7 @@ const CurriculumShow = props => {
         //can probably go through the subscriptions array to find that out.
         let data = {
             curriculum_id: props.currentCurriculum.id,
-            user_id: 40
+            user_id: localStorage.user_id
         }
 
         props.postSubscription(data)
