@@ -71,6 +71,38 @@ export const postCurriculums = (data, tags) => dispatch => {
         // .then(body => console.log("if the return worked", body))
 }
 
+export const postCurriculumsWImage = (data, tags) => dispatch => {
+    if (tags) {
+        requests.postCurriculumsWImage(data)
+            .then(data => {
+                //cycle through each tag and post to back end
+                //then create the joiner between the twon
+                console.log('data', data)
+                tags.forEach(tag => {
+                    requests.postTag({ name: tag.name })
+                        .then(body => {
+                            console.log("body", body)
+                            console.log('data inside', data)
+                            requests.postCurriculumsTag({ tag_id: body.id, curriculum_id: data.id })
+                        })
+                })
+
+                dispatch({ type: 'POST_CURRICULUMS_W_IMAGE', payload: { curriculum: data } })
+                history.push(`/editcurriculums/${data.id}`)
+                return data
+            })
+
+    } else {
+        requests.postCurriculumsWImage(data)
+            .then(data => {
+                dispatch({ type: 'POST_CURRICULUMS_W_IMAGE', payload: { curriculum: data } })
+                history.push(`/editcurriculums/${data.id}`)
+                return data
+            })
+    }
+    // .then(body => console.log("if the return worked", body))
+}
+
 
 export const deleteCurriculum = (id) => dispatch => {
     console.log("in action creator")
@@ -279,4 +311,15 @@ export const logout = () => dispatch => {
     //
     dispatch({ type: 'LOGOUT', payload: {} })
     history.push('/login')
+}
+
+
+
+
+export const patchCurriculumWImage = (data, id) => dispatch => {
+    requests.patchImageWCurriculum(data, id)
+    .then(data => {
+        console.log("in action creator", data)
+        dispatch({type: 'PATCH_CURRICULUM_W_IMAGE', payload: {curriculum: data}})
+    })
 }

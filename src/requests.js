@@ -48,6 +48,12 @@ export const postCurriculums = (data) => fetch(`${baseURL}/curriculums`, {
     body: JSON.stringify(data)
 }).then(parseData)
 
+// POST Curriculums
+export const postCurriculumsWImage = (formData) => fetch(`${baseURL}/curriculums`, {
+    method: 'POST',
+    body: formData
+}).then(parseData)
+
 // PATCH Curriculums/:id
 export const patchCurriculum = (data, id) => fetch(`${baseURL}/curriculums/${id}`, {
     method: 'PATCH',
@@ -219,12 +225,9 @@ export const postNotebooksWLessonJoiner = (lesson_id, notebook_data) => fetch(`$
 // let formdata = new FormData();
 // formdata.append("image", { uri: imageUri, name: `${itemID}.jpg`, type: 'image/jpeg' })
 
-export const postImageToCurriculum = (curriculum_id, formdata) => fetch(`${baseURL}/curriculums/${curriculum_id}/image`, {
-    method: "POST",
-    headers: {
-        'Content-Type': 'multipart/form-data',
-    },
-    body: formdata
+export const patchImageWCurriculum = (formData, curriculum_id) => fetch(`${baseURL}/curriculums/${curriculum_id}/image`, {
+    method: "PATCH",
+    body: formData
 }).then(parseData)
 
 

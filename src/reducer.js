@@ -54,6 +54,20 @@ export const reducer = (prevState = initialState, action) => {
             curriculumsCopy.push(action.payload.curriculum)
             console.log("curriculums copy on post", curriculumsCopy) 
             return {...prevState, curriculums: curriculumsCopy, currentCurriculum: action.payload.curriculum}
+        case 'POST_CURRICULUMS_W_IMAGE':
+            //not iterable???
+            let curriculumsCopyWIMAGE = [...prevState.curriculums]
+            curriculumsCopyWIMAGE.push(action.payload.curriculum)
+            console.log("curriculums w IMAGE", curriculumsCopyWIMAGE)
+            return { ...prevState, curriculums: curriculumsCopyWIMAGE, currentCurriculum: action.payload.curriculum }
+        case 'PATCH_CURRICULUM_W_IMAGE':
+            //not iterable???
+            console.log("in reducer", action.payload)
+            let curriculumsCopyWIMAGEPATCH = [...prevState.curriculums]
+            let currIndex = curriculumsCopyWIMAGEPATCH.findIndex(curriculum => curriculum.id === action.payload.curriculum.id)
+            curriculumsCopyWIMAGEPATCH[currIndex] = action.payload.curriculum
+            console.log("curriculums w IMAGE", curriculumsCopyWIMAGEPATCH)
+            return { ...prevState, curriculums: curriculumsCopyWIMAGEPATCH, currentCurriculum: action.payload.curriculum }
         case 'PATCH_LESSON':
             let updatedCurriculum1 = { ...prevState.currentCurriculum } 
             let foundIndex = updatedCurriculum1.lessons.findIndex(lesson => lesson.id === action.payload.lesson.id)

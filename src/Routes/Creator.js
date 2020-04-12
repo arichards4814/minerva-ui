@@ -21,7 +21,7 @@ import { baseURL } from '../requests'
 
 // redux
 import { connect } from 'react-redux';
-import { fetchCurriculum, setCurrentLesson, fetchUsersCurriculums, postCurriculums } from '../actionCreators'
+import { fetchCurriculum, setCurrentLesson, fetchUsersCurriculums, postCurriculums, postCurriculumsWImage} from '../actionCreators'
 import UploaderV2 from '../Components/UploaderV2'
 
 const useStyles = makeStyles({
@@ -38,15 +38,18 @@ const Creator = props => {
 
     const classes = useStyles(props)
     const location = useLocation().pathname.split("/")[2]
-    const [formTitle, setFormTitle] = useState("")
     const [errors, setErrors] = useState("")
-    const [tags, setTags] = useState([])
 
+    //for tags
+    const [formTitle, setFormTitle] = useState("")
+
+    // form stage
     const [stage, setStage] = useState(0)
 
     const [newCurriculumTitle, setNewCurriculumTitle] = useState("")
     const [newCurriculumDescription, setNewCurriculumDescription] = useState("")
-    const [newCurriculumImage, setNewCurriculumImage] = useState("")
+    const [tags, setTags] = useState([])
+    const [newCurriculumImage, setNewCurriculumImage] = useState(null)
 
     const [selectedToEdit, setSelectedToEdit] = useState("")
 
@@ -57,38 +60,31 @@ const Creator = props => {
         props.fetchUsersCurriculums(localStorage.user_id)
     }, [])
 
+
+    /////////////
+    const handleChangeTitle = (e) => {
+        setNewCurriculumTitle(e.target.value)
+    }
+
+    const handleChangeDescription = (e) => {
+        setNewCurriculumDescription(e.target.value)
+    }
+
+    const handleImageDragAndDrop = (image) => {
+        setNewCurriculumImage(image)
+    }
+
     const handleChange = (e) => {
         setFormTitle(e.target.value)
     }
+    //////////////
+
+    const addStage = (num) => {
+        setStage(stage + num)
+    }
+
+    //////////////
     
-    const handleClick0 = () => {
-        if (formTitle === ""){
-            setErrors("You must enter a name for your curriculum.")
-        } else {
-            setNewCurriculumTitle(formTitle)
-            setStage(1)
-            setFormTitle("")
-            setErrors("")
-        }
-    }
-
-    const handleClick1 = () => {
-        setNewCurriculumDescription(formTitle)
-        setStage(2)
-        setFormTitle("")
-    }
-
-    const handleClick2 = () => {
-        setNewCurriculumImage(formTitle)
-        setStage(3)
-        setFormTitle("")
-    }
-
-    const handleClick3 = () => {
-        // setNewCurriculumImage(formTitle)
-        setStage(4)
-        setFormTitle("")
-    }
 
     const submitFinalForm = () => {
         let data ={
@@ -117,6 +113,7 @@ const Creator = props => {
     const handleSelectChange = (e) => {
         setSelectedToEdit(e.target.value)
     }
+
     const handleSelectSubmit = () => {
         if (selectedToEdit === ""){
             setErrors("You must select a curriculum to edit.")
@@ -127,6 +124,7 @@ const Creator = props => {
 
     const addTag = () => {
         setTags([...tags, {name: formTitle}])
+        setFormTitle("")
     }
 
     const removeTag = (name) => {
@@ -135,6 +133,30 @@ const Creator = props => {
         console.log(index)
         tagsCopy.splice(index, 1)
         setTags(tagsCopy)
+    }
+
+    const showDetails = () => {
+        console.log(newCurriculumTitle, newCurriculumDescription)
+        console.log(newCurriculumImage)
+
+        const formData = new FormData();
+
+        formData.append("curriculum[user_id]", localStorage.user_id);
+        formData.append("curriculum[title]", newCurriculumTitle);
+        formData.append("curriculum[description]", newCurriculumDescription);
+        formData.append("curriculum[image]", newCurriculumImage);
+
+        props.postCurriculumsWImage(formData, tags)
+    
+    //     fetch(`${baseURL}/curriculums`, {
+    //         method: "POST",
+    //         body: formData
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(data)
+    //         });
+    // }
     }
 
     return (
@@ -156,33 +178,33 @@ const Creator = props => {
                 <Layout width={3}>
                 </Layout>
                 <Layout width={6}>
-                    <UploaderV2 />
 
                     {stage === 0 && <div>
                         <F2 font="secondary">Title</F2>
-                    <MinervaInput width={500} height={75} fontSize={25} type="text" theme="secondary" onChange={handleChange} value={formTitle} placeholder="Name Your Curriculum..." />
-                    <SearchButton theme="secondary" onClick={handleClick0} value="Next"></SearchButton>
+                        <MinervaInput width={500} height={75} fontSize={25} type="text" theme="secondary" onChange={handleChangeTitle} value={newCurriculumTitle} placeholder="Name Your Curriculum..." />
+                    <SearchButton theme="secondary" onClick={() => addStage(1)} value="Next"></SearchButton>
                     </div>}
 
                     {stage === 1 && <div>
                         <F2 font="secondary">Description</F2>
-                        <MinervaInput width={500} height={75} fontSize={14} type="text" theme="secondary" onChange={handleChange} value={formTitle} placeholder="Set a description for this curriculum..." />
-                        <SearchButton theme="secondary" onClick={handleClick1} value="Next"></SearchButton>
+                        <MinervaInput width={500} height={75} fontSize={14} type="text" theme="secondary" onChange={handleChangeDescription} value={newCurriculumDescription} placeholder="Set a description for this curriculum..." />
+                        <SearchButton theme="secondary" onClick={() => addStage(1)} value="Next"></SearchButton>
                     </div>}
 
+                    
                     {stage === 2 && <div>
-                        <F2 font="secondary">Image</F2>
-                        <MinervaInput width={500} height={75} fontSize={14} type="text" theme="secondary" onChange={handleChange} value={formTitle} placeholder="Set a main image for this curriculum..." />
-                        <SearchButton theme="secondary" onClick={handleClick2} value="Next"></SearchButton>
-                        <img src={formTitle} style={{width: 500, height: 300, position: "relative", right: 120}}></img>
-                    </div>}
-
-                    {stage === 3 && <div>
                         <F2 font="secondary">Tags</F2>
                         <MinervaInput width={500} height={75} fontSize={14} type="text" theme="secondary" onChange={handleChange} value={formTitle} placeholder="Choose tags for your curriculum..." />
                         <SearchButton theme="secondary" onClick={addTag} value="Add"></SearchButton>
-                        <SearchButton theme="secondary" onClick={handleClick3} value="Next"></SearchButton>
+                        <SearchButton theme="secondary" onClick={() => addStage(1)} value="Next"></SearchButton>
                         <TagsList tags={tags} exClick={removeTag}/>
+                    </div>}
+
+                    {stage === 3 && <div>
+                        <F2 font="secondary">Image</F2>
+                        <UploaderV2 setImageInCreator={handleImageDragAndDrop}/>
+                        <button onClick={showDetails}>tester buttonia</button>
+                        {/* <SearchButton theme="secondary" onClick={handleClick3} value="Next"></SearchButton> */}
                     </div>}
 
                     {stage === 4 && <div style={{textAlign: "center", marginTop: 30}}>
@@ -233,7 +255,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchCurriculum: (id) => dispatch(fetchCurriculum(id)),
         setCurrentLesson: (lesson) => dispatch(setCurrentLesson(lesson)),
         fetchUsersCurriculums: (user_id) => dispatch(fetchUsersCurriculums(user_id)),
-        postCurriculums: (curriculum, tags) => dispatch(postCurriculums(curriculum, tags))
+        postCurriculums: (curriculum, tags) => dispatch(postCurriculums(curriculum, tags)),
+        postCurriculumsWImage: (curriculum, tags) => dispatch(postCurriculumsWImage(curriculum, tags))
     }
 }
 

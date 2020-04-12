@@ -31,7 +31,6 @@ const App = props => {
   //ask isabelle about this
   useEffect(() => {
     if (localStorage.user_id) {
-      console.log("test", localStorage.user_id)
       props.fetchCurrentUser(localStorage.user_id)
     }
     props.fetchCurriculums()
@@ -44,12 +43,12 @@ const App = props => {
         <Navling />
         <Switch>
           <Route path="/notebooks/:id">
-            {props.currentUser && props.currentUser.id ?
+            {props.currentUser && localStorage.user_id ?
               <NotebookShow /> :
               <Redirect to="/signup" />}
           </Route>
           <Route path="/notebooks">
-            {props.currentUser && props.currentUser.id ?
+            {props.currentUser && localStorage.user_id ?
             <Notebooks /> :
             <Redirect to="/signup" /> }
           </Route>
@@ -57,17 +56,17 @@ const App = props => {
             <Explore />
           </Route>
           <Route path="/creator">
-            {props.currentUser && props.currentUser.id ?
+            {props.currentUser && localStorage.user_id ?
             <Creator /> : 
             <Redirect to="/signup" />}
           </Route>
           <Route path="/editcurriculums/:id">
-            {props.currentUser && props.currentUser.id ?
+            {props.currentUser && localStorage.user_id ?
               <CurriculumEdit /> :
               <Redirect to="/signup" />}
           </Route>
           <Route path="/curriculums/:id">
-            {props.currentUser && props.currentUser.id ?
+            {props.currentUser && localStorage.user_id ?
               <CurriculumShow /> :
               <Redirect to="/signup" />}
           </Route>

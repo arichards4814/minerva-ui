@@ -23,6 +23,7 @@ import { fetchCurriculum, setCurrentLesson, updateCurrentCurriculum, postLessons
 
 import SearchButton from '../Components/Forms/SeachButton'
 import EditLessonForm from '../Components/Forms/EditLessonForm'
+import UploaderV2 from '../Components/UploaderV2'
 
 
 const CurriculumEdit = props => {
@@ -265,9 +266,10 @@ const CurriculumEdit = props => {
 
             {formState === 1 &&
             <Row marginTop={30} marginLeft={80}>
-                <MinervaInput type="text" theme="third" width={700} value={props.currentCurriculum.image_url} onChange={handleChangeImageUrl} placeholder="Enter image url..." />
-                <SearchButton theme="third" value="Save" onClick={handleSubmitImageChange} />
                 <img src={props.currentCurriculum.image_url}></img>
+                <UploaderV2 />
+                {/* <MinervaInput type="text" theme="third" width={700} value={props.currentCurriculum.image_url} onChange={handleChangeImageUrl} placeholder="Enter image url..." /> */}
+                {/* <SearchButton theme="third" value="Save" onClick={handleSubmitImageChange} /> */}
             </Row>}
 
             {formState === 0 &&
@@ -276,7 +278,6 @@ const CurriculumEdit = props => {
                 <MinervaInput type="text" value={formCurriculumDetails.description} onChange={handleChangeCurriculumDetails} name="description" theme="minerva" width={700}  placeholder="Enter image url..." />
                 <SearchButton theme="minerva" value="Save" onClick={handleSubmitDescriptionChange}/>
                 </Row>}
-
 
                 {open && <Snackling theme="minerva" icon="plus" close={close} value={snacklingMessage}></Snackling>}    
         </div>

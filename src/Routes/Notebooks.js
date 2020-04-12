@@ -58,7 +58,6 @@ const Notebooks = props => {
     }
 
     const renderAllNotebooks = () => {
-
             if (filter){
                 let filt = props.notebooks.filter(notebook => notebook.title.includes(filter))
                 return filt.map(object => <DropdownChild {...object} width={400} icon="notebook" />)
