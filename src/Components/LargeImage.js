@@ -4,8 +4,8 @@ import F1 from '../Typing/F1'
 
 const useStyles = makeStyles({
     root: {
-        height: 600,
-        width: 800
+        height: 450,
+        width: 670
     },
     hovered: {
         opacity: .8,

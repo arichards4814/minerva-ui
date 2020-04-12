@@ -1,5 +1,5 @@
 
-const baseURL = 'http://localhost:3000'
+export const baseURL = 'http://localhost:3000'
 // parse incoming data
 const parseData = response => response.json()
 // error handler
@@ -225,7 +225,7 @@ export const postImageToCurriculum = (curriculum_id, formdata) => fetch(`${baseU
         'Content-Type': 'multipart/form-data',
     },
     body: formdata
-})
+}).then(parseData)
 
 
 // pin and unpin 

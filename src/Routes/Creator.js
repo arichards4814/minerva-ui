@@ -17,11 +17,12 @@ import AddNew from '../Icons/AddNew'
 import { makeStyles } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import TagsList from '../Components/TagsList'
+import { baseURL } from '../requests'
 
 // redux
 import { connect } from 'react-redux';
 import { fetchCurriculum, setCurrentLesson, fetchUsersCurriculums, postCurriculums } from '../actionCreators'
-import UploaderV3 from '../Components/UploaderV3'
+import UploaderV2 from '../Components/UploaderV2'
 
 const useStyles = makeStyles({
     footer: {
@@ -155,7 +156,7 @@ const Creator = props => {
                 <Layout width={3}>
                 </Layout>
                 <Layout width={6}>
-                    <UploaderV3 />
+                    <UploaderV2 />
 
                     {stage === 0 && <div>
                         <F2 font="secondary">Title</F2>

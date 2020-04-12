@@ -35,8 +35,11 @@ export const reducer = (prevState = initialState, action) => {
                 return { ...prevState, currentUser: { id: action.payload.user.id, username: action.payload.user.username } }
             }
         case 'FETCH_CURRENT_USER':
-            let userInfo = {username: action.payload.user.username, 
-            id: action.payload.user.id}
+            let userInfo = {}
+            if (action.payload.user){
+                userInfo = {username: action.payload.user.username, 
+                id: action.payload.user.id}
+            } 
             return { ...prevState, currentUser: userInfo}
         case 'SET_CURRENT_LESSON':
             return { ...prevState, currentLesson: action.payload.currentLesson }

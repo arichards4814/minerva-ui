@@ -4,7 +4,7 @@ import Uploader from "./Uploader"
 import React, { useEffect } from 'react'
 import ActiveStorageProvider from 'react-activestorage-provider'
 
-const UploaderV3 = () =>  {
+const UploaderV3 = (props) =>  {
     
     return (
         <ActiveStorageProvider
@@ -14,6 +14,8 @@ const UploaderV3 = () =>  {
                 attribute: 'image',
                 method: 'POST',
             }}
+            origin={{host: 'localhost', port: '3000', protocol: "HTTP"}}
+            directUploadsPath='curriculums/67/image'
             onSubmit={user => this.setState({ avatar: user.avatar })}
             render={({ handleUpload, uploads, ready }) => (
                 <div>
