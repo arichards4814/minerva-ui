@@ -109,8 +109,8 @@ const useStyles = makeStyles({
     },
     tinyTrash: {
         position: "absolute",
-        bottom: 0,
-        right: 25,
+        bottom: 10,
+        right: 15,
         fontSize: 10
     },
 });
@@ -155,6 +155,15 @@ const NotesLongcard = props => {
         return text
     }
 
+    const calcTimeStamp = () => {
+        
+        let minutes = Math.floor(props.note.material_time_stamp / 60)
+        let seconds = props.note.material_time_stamp % 60
+        console.log("total", props.note.material_time_stamp)
+        console.log("minutes", minutes, "seconds", seconds)
+        return `Time - ${minutes}:${seconds}`
+    }
+
     console.log("These are the props.. take note", props)
     return (
         <div className={expanded ? classes.expanded + " expanded" : classes.root + " not-expanded"} onClick={handleExpand}>
@@ -176,7 +185,8 @@ const NotesLongcard = props => {
             </div>
             
             <div className={classes.cardFooter}>
-                {props.note.material_time_stamp}
+                {calcTimeStamp()}
+                {/* {props.note.material_time_stamp} */}
                 <div className={classes.tinyTrash} style={{width: 20}}>
                     {expanded && <TinyTrash onClick={() => props.deleteNote(props.note.id)}/>}
                 </div>

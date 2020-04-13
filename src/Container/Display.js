@@ -38,7 +38,7 @@ const Display = props => {
     const classes = useStyles(props)
     return(
         <div className={props.debug ? classes.debug : classes.root}>
-            <CustomImage src={props.image_url} height={props.imgHeight} width={props.imgWidth} />
+            <CustomImage src={props.image_url ? props.image_url : props.curriculum.image_url} height={props.imgHeight} width={props.imgWidth} />
            
             {/* button */}
             <div className={classes.previewInfo}>

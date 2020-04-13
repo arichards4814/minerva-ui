@@ -18,6 +18,9 @@ const useStyles = makeStyles({
         // borderWidth: 2,
         boxShadow: "2px 4px 6px #888888",
         display: "inline-block",
+        overflowX: 'hidden',
+
+        wordBreak: 'ellipsis',
         margin: props => {
             if(props.margin){
                 return props.margin
@@ -35,6 +38,7 @@ const useStyles = makeStyles({
         // borderWidth: 2,
         boxShadow: "10px 10px 6px #888888",
         display: "inline-block",
+        overflowX: 'hidden',
         margin: props => {
             if (props.margin) {
                 return props.margin
@@ -65,7 +69,6 @@ const useStyles = makeStyles({
     cardBody: {
         padding: 10,
         height: "28%",
-        width: "280px",
         backgroundColor: "#FFD000"
     },
     cardFooter: {

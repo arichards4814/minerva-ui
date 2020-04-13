@@ -48,7 +48,7 @@ const PinBar = props => {
     }
 
     const unPin = () => {
-        if (pinned.id){
+        if (pinned && pinned.id){
             props.unpinNotebook(pinned.id, pinned)
         }
     }

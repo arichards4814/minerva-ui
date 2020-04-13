@@ -5,11 +5,17 @@ import F1 from '../Typing/F1'
 const useStyles = makeStyles({
     root: {
         height: 450,
-        width: 670
+        width: 670,
+        display: 'inline-block',
+        margin: 5
     },
     hovered: {
         opacity: .8,
-        cursor: "pointer"
+        cursor: "pointer",
+        height: 450,
+        width: 670,
+        display: 'inline-block',
+        margin: 5
     },
     overlay: {
         position: "relative",

@@ -203,7 +203,10 @@ const Creator = props => {
                     {stage === 3 && <div>
                         <F2 font="secondary">Image</F2>
                         <UploaderV2 setImageInCreator={handleImageDragAndDrop}/>
-                        <button onClick={showDetails}>tester buttonia</button>
+                        {/* <button onClick={showDetails}>tester buttonia</button> */}
+                        <div>
+                            <SearchButton theme="secondary" onClick={showDetails} value="Create Curriculum" width={300}></SearchButton>
+                        </div>
                         {/* <SearchButton theme="secondary" onClick={handleClick3} value="Next"></SearchButton> */}
                     </div>}
 

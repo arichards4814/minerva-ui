@@ -216,3 +216,91 @@ svg *{
 .not-expanded {
   animation: notexpandAnimation ease 1s;
 }
+
+
+@keyframes notebooks_animation { 
+    0% {    
+      transform: translateX(-30px);
+    } 
+     100% {       
+      transform: translateX(0px);
+     } 
+} 
+
+.notebooks_animation{
+  animation: notebooks_animation ease 1s;
+}
+
+
+@keyframes notebooks_line_animation { 
+    0% {    
+      opacity: 0;
+    } 
+     100% {       
+      opacity: 1;
+     } 
+} 
+
+.notebooks_line_animation{
+  animation: notebooks_line_animation ease 1s;
+}
+
+
+@keyframes tree_shake { 
+    0% {    
+      transform: rotate(0deg);
+    } 
+    25% {    
+      transform: rotate(1deg);
+      transform: translateX(0px);
+    } 
+    50% {    
+      transform: rotate(0deg);
+      transform: translateX(5px);
+    } 
+    100% {    
+      transform: rotate(0deg);
+      transform: translateX(0px);
+    } 
+} 
+
+.tree_shake{
+  animation: tree_shake ease .5s;
+  animation-iteration-count: 3;
+}
+
+@keyframes apple_fall { 
+    0% {    
+      transform: translateY(-110px);
+    }
+    40%{
+      transform: translateY(-110px);
+    } 
+    45%{
+      transform: translateY(-120px);
+    }
+    46%{
+      transform: translateY(-120px);
+    }
+    64% {       
+      transform: translateY(0px);
+    } 
+    /* 68% {       
+      transform: translateY(-30px);
+    }  */
+    85% {       
+      transform: translateY(0px);
+    } 
+    97% {       
+      transform: translateY(0px);
+    } 
+    100% {       
+      transform: translateY(0px);
+    } 
+} 
+
+.apple_fall{
+  animation: apple_fall ease 3s;
+}
+
+

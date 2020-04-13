@@ -65,9 +65,11 @@ const Home = props =>{
             <Row marginLeft="10%">
                 <TitleBox theme="secondary"><F4 font="secondary">Guides on Using Minerva:</F4></TitleBox>
             </Row>
-            <Row >
-                <LargeImage src="blog1.png" />
-                <LargeImage src="blog2.png" />
+            <Row>
+                <div>
+                    <LargeImage src="blog1.png" />
+                    <LargeImage src="blog2.png" />
+                </div>
             </Row>
 
         </div>

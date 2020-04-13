@@ -102,7 +102,7 @@ const CurriculumShow = props => {
             </Row>
             <Row marginTop={30} marginLeft={3} >
                 <Layout width={6}>
-                        <Display {...props.currentLesson} imgHeight={400} imgWidth={"95%"} onClick={createNewNotebook}/>
+                        <Display {...props.currentLesson} curriculum={props.currentCurriculum}imgHeight={400} imgWidth={"95%"} onClick={createNewNotebook}/>
                 </Layout>
                 <Layout width={6}>
                     <LongCardScroller info={props.currentCurriculum.lessons} style={"show"} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" />
