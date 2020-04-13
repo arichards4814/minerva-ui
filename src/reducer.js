@@ -120,7 +120,25 @@ export const reducer = (prevState = initialState, action) => {
             currentNotebookCopy.notes.splice(foundIndexNote, 1)
             return { ...prevState, currentNotebook: currentNotebookCopy}
         case 'FETCH_USERS_SUBSCRIPTIONS':
-            return { ...prevState, subscriptions: action.payload.subscriptions }
+
+            //here get rid of all notebooks that we don't need
+            let payloadCopy = [...action.payload.subscriptions]
+            let reducedNotes = []
+            payloadCopy.forEach(curriculum => {
+                curriculum.curriculum.lessons.forEach(lesson => {
+                    lesson.notebooks.forEach(notebook => {
+                        if(notebook.user_id === prevState.currentUser.id){
+                            reducedNotes.push(notebook)
+                        }
+                    })
+                    lesson.notebooks = reducedNotes
+                    reducedNotes = []
+                })
+            })
+
+            console.log(payloadCopy)
+
+            return { ...prevState, subscriptions: payloadCopy }
         case 'POST_SUBSCRIPTION':
             return { ...prevState}
         case 'POST_NOTEBOOKS_W_LESSON_JOINER':
