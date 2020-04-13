@@ -25,7 +25,12 @@ const useStyles = makeStyles({
         transform: props => {
             if(props.pointing === "right"){
                 return "rotate(180deg)"
-            }}
+            } else if (props.pointing === "up"){
+                return "rotate(90deg)"
+            } else if (props.pointing === "down") {
+                return "rotate(270deg)"
+            }
+        }
     },
     st0: {
         fill: props => HandleScheme(props)

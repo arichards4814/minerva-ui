@@ -13,3 +13,6 @@ const Starter = props => {
 
         </div>)
 }
+
+
+export default Starter

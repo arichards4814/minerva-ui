@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import DropzoneComponent from 'react-dropzone-component';
 import 'react-dropzone-component/styles/filepicker.css';
 import 'dropzone/dist/min/dropzone.min';
@@ -72,13 +71,3 @@ export default class ImageUploader extends PureComponent {
         );
     }
 }
-
-// ImageUploader.propTypes = {
-//     image: PropTypes.shape({
-//         name: PropTypes.string,
-//         byte_size: PropTypes.string,
-//         url: PropTypes.string
-//     }),
-//     selectImage: PropTypes.func.isRequired,
-//     unselectImage: PropTypes.func.isRequired
-// };

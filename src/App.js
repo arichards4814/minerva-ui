@@ -10,6 +10,7 @@ import CurriculumEdit from './Routes/CurriculumEdit';
 import NotebookShow from './Routes/NotebookShow';
 import Signup from './Routes/Signup';
 import Login from './Routes/Login';
+import Overlay from './Components/Overlay'
 
 import history from './history.js'
 
@@ -41,6 +42,7 @@ const App = props => {
     <div >
       <Router history={history}>
         <Navling />
+        {props.overlay && <Overlay />}
         <Switch>
           <Route path="/notebooks/:id">
             {props.currentUser && localStorage.user_id ?
@@ -89,7 +91,8 @@ const App = props => {
 const mapStateToProps = (state) => {
   return {
     curriculums: state.curriculums,
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    overlay: state.overlay
   }
 }
 

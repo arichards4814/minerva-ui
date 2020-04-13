@@ -314,6 +314,11 @@ export const logout = () => dispatch => {
 }
 
 
+export const toggleOverlay = () => dispatch => {
+    //
+    dispatch({ type: 'TOGGLE_OVERLAY', payload: {} })
+}
+
 
 
 export const patchCurriculumWImage = (data, id) => dispatch => {

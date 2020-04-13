@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     },
     expander: {
         position: "absolute",
-        right: 100
+        right: 20
     }
 });
 

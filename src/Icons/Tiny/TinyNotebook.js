@@ -13,7 +13,8 @@ const useStyles = makeStyles({
                 return 30
             }
         },
-        cursor: "pointer"
+        cursor: "pointer",
+        display: "inline-block"
     },
     st0: {
         fill: "#ED2F65"

@@ -21,7 +21,8 @@ const initialState = {
     subscriptions: {},
     pinned: {},
 
-    errors: []
+    errors: [],
+    overlay: false
     
 }
 
@@ -174,6 +175,8 @@ export const reducer = (prevState = initialState, action) => {
         case 'LOGOUT':
             localStorage.removeItem("user_id")
             return { ...prevState, currentUser: {} }
+        case 'TOGGLE_OVERLAY':
+            return { ...prevState, overlay: !prevState.overlay }
         default:
             return prevState
     }

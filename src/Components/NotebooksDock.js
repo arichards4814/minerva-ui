@@ -1,13 +1,21 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core'
 import LeftBackUnaltered from '../Icons/leftBackUnaltered'
+import InfoIcon from '../Icons/InfoIcon'
+import HideIcon from '../Icons/HideIcon'
+import TinyNotebook from '../Icons/Tiny/TinyNotebook'
 
+
+// redux
+import { connect } from 'react-redux';
+import { toggleOverlay, hideNavling, showNavling} from '../actionCreators'
 
 
 
 const useStyles = makeStyles({
     root:{
-        height: 70,
+        padding: 20,
+        height: 50,
         // borderStyle: "solid"
     }
 })
@@ -21,10 +29,28 @@ const NotebooksDock = props => {
 
     return(
         <div className={classes.root}>
-            Notebook: {props.notebook.title}
+            <div style={{width: 30, display: 'inline-block'}}><TinyNotebook /></div>
             <LeftBackUnaltered theme="third" /><LeftBackUnaltered pointing="right" theme="third" />
+            <InfoIcon width={30} height={30} onClick={props.toggleOverlay}/>
+            <LeftBackUnaltered pointing={props.navlingHidden ? "down" : "up"} onClick={props.navlingHidden ? props.showNavling : props.hideNavling} theme="secondary" />
+            {/* {!props.navlingHidden && } */}
         </div>
     )
 }
 
-export default NotebooksDock
+
+const mapStateToProps = (state) => {
+    return {
+        navlingHidden: state.navlingHidden
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleOverlay: () => dispatch(toggleOverlay()),
+        hideNavling: () => dispatch(hideNavling()),
+        showNavling: () => dispatch(showNavling()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotebooksDock);
