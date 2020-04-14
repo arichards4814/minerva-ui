@@ -46,6 +46,7 @@ const Material = props => {
                 :
                 <div>
                     <TinyEdit onClick={() => props.setEditing(true)}></TinyEdit>
+                    <br></br>
                     Add Material to this Notebook:
                     <MinervaInput onChange={handleChange} width={400} theme="secondary" placeholder="Add URL Here" />
                     {input && <Button onClick={handleSubmit} margin={10} theme="secondary" color="white">Create</Button>}

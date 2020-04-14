@@ -55,6 +55,7 @@ const LoginPopper = props => {
                 <button className={classes.button} onClick={() => history.push('/signup')}>Signup</button>
             </React.Fragment>
             }
+            {props.currentUser.id && props.currentUser.id === undefined && "There is an issue with your username."}
             {props.currentUser.id && <button className={classes.button} onClick={logout}>Logout</button>}
         </div>)
 }

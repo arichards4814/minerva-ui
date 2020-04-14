@@ -83,7 +83,7 @@ export default function EditLessonForm(props) {
             <Toggler value="Video" selected={typeSelector()} name="lesson_type" index={0} onClick={setSelected1} onChange={props.onChange} /> <Toggler value="Book" selected={typeSelector()} name="lesson_type" index={1} onClick={setSelected1} onChange={props.onChange} /> <Toggler value="Blog" selected={typeSelector()} name="lesson_type" index={2} onClick={setSelected1} onChange={props.onChange} /> <Toggler value="Misc" selected={typeSelector()} name="lesson_type" index={3} onClick={setSelected1} onChange={props.onChange}/> 
             <F4 font="secondary">Media Url:</F4><MinervaInput name="material_url" theme="secondary" width={400} onChange={urlListener} value={material_url}/>
             <F4 font="secondary">Content Preview:</F4>
-            <ContentCard videoURL={material_url} getNewLessonImage={getNewLessonImage}/>
+            <ContentCard videoURL={material_url} getNewLessonImage={getNewLessonImage} type={lesson_type}/>
             <br></br>
             <F4 font="secondary">Price:</F4>
             <Toggler value="free" name="cost" selected={costSelector()} onClick={setSelected2} index={0} /> <Toggler value="$" selected={costSelector()} name="cost" onClick={setSelected2} index={1} /> <Toggler value="$$" selected={costSelector()} name="cost" onClick={setSelected2} index={2} /> <Toggler value="$$$" selected={costSelector()} name="cost" onClick={setSelected2} index={3}/> 

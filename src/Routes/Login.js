@@ -85,7 +85,7 @@ const Login = props => {
                         </form>
 
                         {error && <div className={classes.error}>{error}</div>}
-                        {props.errors && <div className={classes.error}>{props.errors.map((er, i) => <div key={i}>{er}</div>)}</div>}
+                        {props.errors && <div className={classes.error}>{props.errors}</div>}
 
                         <div className={classes.footer}>
                             <div>Not a creator yet?</div>

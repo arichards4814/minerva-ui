@@ -300,9 +300,13 @@ export const postLogin = (data) => dispatch => {
     requests.postLogin(data)
         .then(data => {
             dispatch({ type: 'POST_LOGIN', payload: { user: data } })
+            console.log(data)
+            if (!data.errors){
+                history.push('/')
+            }
         })
 
-    history.push('/')
+    
 }
 
 

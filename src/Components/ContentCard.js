@@ -100,6 +100,8 @@ export default function ContentCard(props){
     const handleAllOtherURLs = (videoURL) => {
         // if not youtube check if theres any others
         // otherwise just add a placeholder... 
+
+        console.log(props.type)
         if (videoURL.includes("medium")){
             props.getNewLessonImage("https://miro.medium.com/max/390/1*emiGsBgJu2KHWyjluhKXQw.png")
             setVideoInfo({
@@ -119,6 +121,18 @@ export default function ContentCard(props){
                 alternative: "https://is3-ssl.mzstatic.com/image/thumb/Purple113/v4/f7/53/cd/f753cd8a-4139-f1b4-ef71-a2661690fa22/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/246x0w.png"
             })
             setLoading(false)
+        } else if (props.type && props.type === 'Blog'){
+            props.getNewLessonImage("/blogPlaceholder.png")
+            setVideoInfo({
+                alternative: "/blogPlaceholder.png"
+            })
+            setLoading(false)
+        } else if (props.type && props.type === 'Book'){
+            props.getNewLessonImage("/bookPlaceholder.png")
+            setVideoInfo({
+                alternative: "/bookPlaceholder.png"
+            })
+            setLoading(false)
         } else {
             props.getNewLessonImage("/blogPlaceholder.png")
             setVideoInfo({
@@ -126,6 +140,8 @@ export default function ContentCard(props){
             })
             setLoading(false)
         }
+            
+        
     } 
 
 

@@ -38,14 +38,14 @@ const Display = props => {
     const classes = useStyles(props)
     return(
         <div className={props.debug ? classes.debug : classes.root}>
-            <CustomImage src={props.image_url ? props.image_url : props.curriculum.image_url} height={props.imgHeight} width={props.imgWidth} />
+            <CustomImage src={props.image_url ? props.image_url : props.curriculum.image_url} height={props.imgHeight} width={props.imgWidth}/>
            
             {/* button */}
             <div className={classes.previewInfo}>
                 <div className={classes.body}>
-                    <F3 font="secondary">Lesson Preview:</F3>
-                    <F3>{props.title}</F3>
-                    <F5>{props.description}</F5>
+                    <F3 font="secondary">{props.title ? 'Lesson Preview:' : 'Curriculum Info:'}</F3>
+                    <F3>{props.title ? props.title : props.curriculum.title}</F3>
+                    <F5>{props.description ? props.description : props.curriculum.description}</F5>
                 </div>
                 <div className={classes.footer} >
                     {/* {props.title && <Button theme={"third"}onClick={props.onClick}>Start Lesson</Button>} */}

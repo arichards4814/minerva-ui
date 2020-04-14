@@ -81,6 +81,10 @@ const Creator = props => {
 
     const addStage = (num) => {
         setStage(stage + num)
+
+        console.log(newCurriculumTitle)
+        console.log(newCurriculumDescription)
+        console.log(tags)
     }
 
     //////////////
@@ -95,6 +99,7 @@ const Creator = props => {
                 image_url: newCurriculumImage
             }
         }
+        console.log(data)
         props.postCurriculums(data, tags)
     }
 

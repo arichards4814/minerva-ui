@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     root:{
         borderRadius: 18,
         borderStyle: "solid",
-        maxWidth: 100,
+        maxWidth: 110,
         padding: 5,
         borderWidth: 4,
         textAlign: "center",

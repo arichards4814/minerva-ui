@@ -107,7 +107,8 @@ const Signup = props => {
                         </form>
 
                         {error && <div className={classes.error}>{error}</div>}
-                        {props.errors && <div className={classes.error}>{props.errors.map((er, i) => <div key={i}>{er}</div>)}</div>}
+
+                        {props.errors && typeof props.errors != "string" &&  <div className={classes.error}>{props.errors.map((er, i) => <div key={i}>{er}</div>)}</div>}
 
                         <div className={classes.footer}> 
                             <div>Already a creator?</div>
@@ -134,7 +135,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        postUsers: (data) => dispatch(postUsers(data))
+        postUsers: (data) => dispatch(postUsers(data)),
     }
 }
 

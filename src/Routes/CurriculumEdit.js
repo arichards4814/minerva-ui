@@ -226,6 +226,16 @@ const CurriculumEdit = props => {
 
         props.patchLesson(editFormLesson, id)
         console.log(id, "oh yes about to get this to work")
+        setEditFormLesson({
+            id: "",
+            title: "",
+            material_url: "",
+            image_url: "",
+            description: "",
+            lesson_type: "Video",
+            cost: "free"
+        })
+
     }
 
     return (
@@ -257,7 +267,7 @@ const CurriculumEdit = props => {
                     <LongCardScroller info={props.currentCurriculum && props.currentCurriculum.lessons} placeholder="There are no lessons in this curriculum" headerTitle="Lessons:" editLessonOnClick={editLessonOnClick} deleteLessonOnClick={deleteLessonOnClick} style={"edit"}/>
                 </Layout>
                 <Layout width={6}>
-                    {!editFormActive ? <AddLessonForm onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage} handleToggles1={handleToggles1} handleToggles2={handleToggles2} /> : 
+                    {!editFormActive ? <AddLessonForm formInfo={formLesson} onChange={handleChangeLessonForm} onSubmit={handleSubmitLessonForm} getNewLessonImage={getNewLessonImage} handleToggles1={handleToggles1} handleToggles2={handleToggles2} /> : 
                         <EditLessonForm lesson={editFormLesson} onChange={handleChangeEditForm} handleToggles1={handleEditToggles1} handleToggles2={handleEditToggles2} onSubmit={patchLesson} />}
                 
                     {/* could do another add lesson form that is a patch request... */}
@@ -266,7 +276,7 @@ const CurriculumEdit = props => {
 
             {formState === 1 &&
             <Row marginTop={30} marginLeft={80}>
-                <img src={props.currentCurriculum.image_url}></img>
+                <img src={props.currentCurriculum.image_url} style={{width: 640, height: 480}}></img>
                 <UploaderV2 />
                 {/* <MinervaInput type="text" theme="third" width={700} value={props.currentCurriculum.image_url} onChange={handleChangeImageUrl} placeholder="Enter image url..." /> */}
                 {/* <SearchButton theme="third" value="Save" onClick={handleSubmitImageChange} /> */}
