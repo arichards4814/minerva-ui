@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import DropzoneComponent from 'react-dropzone-component';
-import 'react-dropzone-component/styles/filepicker.css';
+// import 'react-dropzone-component/styles/filepicker.css';
+import '../filePicker2.css'
 import 'dropzone/dist/min/dropzone.min';
 
 const djsConfig = {

@@ -56,7 +56,7 @@ export default function LeftBackUnaltered(props) {
     // console.log(props)
 
     return (
-        <div className={props.navlingHidden ? classes.root : classes.root} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick}>
+        <div className={props.navlingHidden ? classes.root : classes.root} onMouseOver={handleHover} onMouseOut={handleMouseOut} onClick={props.onClick} onMouseDown={props.onMouseDown}>
             <svg
                 width="100%"
                 height="100%"

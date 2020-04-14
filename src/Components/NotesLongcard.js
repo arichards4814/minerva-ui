@@ -97,7 +97,7 @@ const useStyles = makeStyles({
     },
     cardBody: {
         height: "30%",
-        maxWidth: "85%",
+        width: 250,
         backgroundColor: "white",
         display: "inline-block"
     },
@@ -159,9 +159,12 @@ const NotesLongcard = props => {
         
         let minutes = Math.floor(props.note.material_time_stamp / 60)
         let seconds = props.note.material_time_stamp % 60
-        console.log("total", props.note.material_time_stamp)
-        console.log("minutes", minutes, "seconds", seconds)
-        return `Time - ${minutes}:${seconds}`
+        if (seconds < 10){
+            return `Time - ${minutes}:${seconds}0`
+        } else {
+            return `Time - ${minutes}:${seconds}`
+        }
+        
     }
 
     console.log("These are the props.. take note", props)

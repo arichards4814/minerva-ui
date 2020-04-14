@@ -82,6 +82,8 @@ const NotebookShow = props => {
         console.log("time", video_time)
         console.log("current notepad details", props.currentNotepadDetails)
         console.log("content", props.currentNotepadContent)
+
+        //how can I clear a note here. 
         
         props.setCurrentNotepadDetails({ ...props.currentNotepadDetails, material_time_stamp: video_time })
         

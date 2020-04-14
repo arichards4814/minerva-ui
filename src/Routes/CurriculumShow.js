@@ -28,6 +28,7 @@ const CurriculumShow = props => {
     const location = useLocation().pathname.split("/")[2]
     const history = useHistory()
     const classes = useStyles(props)
+    const [subscribed, setSubscribed] = useState(false)
     
 
     useEffect(() => {
@@ -39,6 +40,9 @@ const CurriculumShow = props => {
         props.fetchUsersSubscriptions(localStorage.user_id)
     }, [])
 
+    useEffect(()=> {
+        setSubscribed(checkIfSubscribed())
+    })
 
     const createNewNotebook = () => {
         console.log("inside create")
@@ -70,6 +74,8 @@ const CurriculumShow = props => {
         }
 
         props.postSubscription(data)
+        console.log(props.subscriptions)
+        setSubscribed(true)
     }
 
     const checkIfSubscribed = () => {
@@ -92,7 +98,7 @@ const CurriculumShow = props => {
                     <F2 font="secondary"> Curriculum</F2>
                     <TitleBox style="rounded" theme="secondary" paddingLeft={3}><F3 font="secondary">{props.currentCurriculum.title}</F3></TitleBox>
                     <div className={classes.buttonPlacement}>
-                        {checkIfSubscribed() ? <Button theme={"minerva"} onClick={subscribe}>Unsubscribe</Button> : <Button theme={"secondary"} onClick={subscribe}>Subscribe</Button>}
+                        {subscribed ? <Button theme={"minerva"} onClick={subscribe}>Unsubscribe</Button> : <Button theme={"secondary"} onClick={subscribe}>Subscribe</Button>}
                     </div>
                     <TagsList tags={props.currentCurriculum.tags}/>
                 </Layout>

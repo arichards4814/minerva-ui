@@ -241,7 +241,7 @@ export const postSubscription = (data) => dispatch => {
     requests.postSubscription(data)
         .then(data => {
             console.log(data)
-            dispatch({ type: 'POST_SUBSCRIPTION', payload: { note: data } })
+            dispatch({ type: 'POST_SUBSCRIPTION', payload: { data: data } })
         })
 }
 

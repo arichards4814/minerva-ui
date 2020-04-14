@@ -140,7 +140,9 @@ export const reducer = (prevState = initialState, action) => {
 
             return { ...prevState, subscriptions: payloadCopy }
         case 'POST_SUBSCRIPTION':
-            return { ...prevState}
+            let subscriptionsCopy = [...prevState.subscriptions]
+            subscriptionsCopy.push(action.payload.data)
+            return { ...prevState, subscriptions: subscriptionsCopy}
         case 'POST_NOTEBOOKS_W_LESSON_JOINER':
             //find the right lesson within subscriptions. Then add to its notebook
             console.log("action.payload", action.payload)

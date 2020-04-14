@@ -11,15 +11,28 @@ import Underline from 'quill/formats/underline';
 import Link from 'quill/formats/link';
 import List, { ListItem } from 'quill/formats/list';
 import Icons from 'quill/ui/icons';
-
+import { makeStyles } from '@material-ui/core'
 
 // redux
 import { connect } from 'react-redux';
 import { setCurrentNotepadContent } from '../actionCreators'
+import { useHistory } from 'react-router-dom';
+
+const useStyles = makeStyles({
+    root:{
+        position: "relative"
+    },
+    button: {
+        position: "absolute",
+        left: 100,
+        top: 12
+    }
+})
 
 
 let quillCopy = ""
 const QuillEditorV2 = props => {
+    const classes = useStyles(props)
 
     useEffect(() => {
 
@@ -50,14 +63,23 @@ const QuillEditorV2 = props => {
                 <path class="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"></path>
                 <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="12" x="3" y="15"></rect>
             </svg>`;
+        icons['clear'] = `<svg viewbox="0 0 18 18">
+                <path class="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"></path>
+                <rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="12" x="3" y="15"></rect>
+            </svg>`;
         // // icons['link'] = 'link';
         // // icons['clean'] = 'clean';
 
         console.log("icons", Icons.bold)
 
 
-        var toolbarOptions = ['bold', 'italic', 'underline'];
         
+        const customClearHandler = () => {
+            console.log('test')
+        }
+        
+        var toolbarOptions = ['bold', 'italic', 'underline'];
+
         let quill = new Quill('#editor', {
             theme: 'snow', //this needs to come after the above, which registers Snow...
             placeholder: "Write something awesome...",
@@ -81,11 +103,11 @@ const QuillEditorV2 = props => {
         
     },[]) //componentDidMount
 
-    // const clearQuillContents = () =>{ 
-    //     if(quillCopy){
-    //         quillCopy.setContents([{ insert: '\n' }]);
-    //     }
-    // }
+    const clearQuillContents = () =>{ 
+        if(quillCopy){
+            quillCopy.setContents([{ insert: '\n' }]);
+        }
+    }
 
     const setCurrentNotepadContentHelper = () => {
         // console.log("currentnotepadcontent", props.currentNotepadContent)
@@ -95,7 +117,8 @@ const QuillEditorV2 = props => {
     // console.log("current notepad contents", props.currentNotepadContent)
 
         return (
-            <div>
+            <div className={classes.root}>
+                <button className={classes.button} onClick={clearQuillContents}>Clear Note</button>
                 <div id="QuillEditor-container" className="quill-editor">
                     {/* <!-- Create the editor container --> */}
                     <div id="toolbar">

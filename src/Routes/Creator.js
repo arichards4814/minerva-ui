@@ -30,6 +30,9 @@ const useStyles = makeStyles({
         bottom: 60,
         left: "45%",
         textAlign: "center"
+    },
+    imagePicker: {
+        marginLeft: 180
     }
 })
 const Creator = props => {
@@ -207,9 +210,11 @@ const Creator = props => {
 
                     {stage === 3 && <div>
                         <F2 font="secondary">Image</F2>
-                        <UploaderV2 setImageInCreator={handleImageDragAndDrop}/>
+                        <div className={classes.imagePicker}>
+                            <UploaderV2 setImageInCreator={handleImageDragAndDrop} />
+                        </div>
                         {/* <button onClick={showDetails}>tester buttonia</button> */}
-                        <div>
+                        <div className={classes.imagePicker}>
                             <SearchButton theme="secondary" onClick={showDetails} value="Create Curriculum" width={300}></SearchButton>
                         </div>
                         {/* <SearchButton theme="secondary" onClick={handleClick3} value="Next"></SearchButton> */}
